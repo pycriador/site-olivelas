@@ -92,16 +92,19 @@ function renderMedia(item) {
   const src = item.imagem || "assets/images/placeholder.webp";
   media.innerHTML = `
     ${item.badge ? `<span class="badge-chip modal-badge">${item.badge}</span>` : ""}
-    <img src="${src}" alt="${item.nome}" width="640" height="640">`;
+    <div class="modal-image-wrapper">
+      <img src="${src}" alt="${item.nome}" width="800" height="800">
+    </div>`;
 }
 
 function renderBody(item) {
   const body = $("#modal-body");
   const variants = getStore().itens.filter((i) => i.id === item.id && i.uid !== item.uid);
   const specs = [
-    ["Peso", item.peso],
+    ["Peso / Tamanho", item.peso],
     ["Recipiente", item.recipiente],
-    ["Quantidade por pacote", `${item.quantidade} un.`],
+    ["Cera", "100% Vegetal (Livre de parafina)"],
+    ["Pavio", "100% Algodão Puro"],
     item.queima ? ["Tempo de queima", item.queima] : null,
     item.medidas ? ["Medidas", item.medidas] : null,
     ["Categoria", item.categoriaNome],
@@ -109,9 +112,11 @@ function renderBody(item) {
 
   body.innerHTML = `
     <div>
-      ${item.familia ? `<p class="modal-family">${item.familia}</p>` : ""}
+      <div class="modal-family-row">
+        ${item.cor ? `<span class="card-color-dot" style="background:${item.cor}"></span>` : ""}
+        ${item.familia ? `<span class="modal-family">${item.familia}</span>` : `<span class="modal-family">${item.categoriaNome}</span>`}
+      </div>
       <h3 class="modal-title" id="modal-title">${item.nome}</h3>
-      <p class="modal-code">Código: ${item.id} · ${item.uid.split("-").pop().toUpperCase()}</p>
     </div>
 
     <p class="modal-price">${formatCurrency(item.preco)}</p>
@@ -139,8 +144,8 @@ function renderBody(item) {
     </dl>
 
     <div class="mini-actions">
-      <button type="button" class="mini-btn" data-action="fav-toggle" data-id="${item.id}"
-        aria-pressed="${isFav(item.id)}">${icons.heart}<span>${isFav(item.id) ? "Favorito" : "Favoritar"}</span></button>
+      <button type="button" class="mini-btn mini-btn-fav${isFav(item.id) ? " is-active is-fav" : ""}" data-action="fav-toggle" data-id="${item.id}"
+        aria-pressed="${isFav(item.id)}">${icons.heart}<span>${isFav(item.id) ? "Favoritado" : "Favoritar"}</span></button>
       <button type="button" class="mini-btn" data-action="share">${icons.share}<span>Compartilhar</span></button>
       <button type="button" class="mini-btn" data-action="copy">${icons.link}<span>Copiar link</span></button>
     </div>
@@ -148,7 +153,7 @@ function renderBody(item) {
     <div class="modal-actions">
       <button type="button" class="btn btn-accent btn-block" data-action="modal-add">${icons.cart} Adicionar ao carrinho</button>
       <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, mensagemProduto(item))}"
-        target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Solicitar via WhatsApp</a>
+        target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Pedir pelo WhatsApp</a>
     </div>`;
 }
 
@@ -159,8 +164,10 @@ function rerenderActions() {
   if (!btn) return;
   const active = isFav(item.id);
   btn.classList.toggle("is-active", active);
+  btn.classList.toggle("is-fav", active);
   btn.setAttribute("aria-pressed", String(active));
-  btn.querySelector("span").textContent = active ? "Favorito" : "Favoritar";
+  const label = btn.querySelector("span");
+  if (label) label.textContent = active ? "Favoritado" : "Favoritar";
 }
 
 function shareCurrent() {

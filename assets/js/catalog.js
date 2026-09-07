@@ -78,6 +78,7 @@ function normalize(data) {
           slug: p.slug || slugify(p.nome),
           familia: p.familiaOlfativa || "",
           cor: p.corExclusiva || "",
+          icone: p.icone || "",
           badge: p.badge || "",
           descricao: p.descricao || "",
           imagem: p.imagem || "",

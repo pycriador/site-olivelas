@@ -148,8 +148,12 @@
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--color-bg-soft);
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-media img {
@@ -160,20 +164,9 @@
 }
 
 .card:hover .card-media img {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
-.card-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 62%, rgba(10, 10, 10, 0.22));
-  opacity: 0;
-  transition: opacity var(--t-med);
-  pointer-events: none;
-}
-
-/* Zona clicável que abre o modal (acessível via teclado) */
 .card-open-zone {
   position: absolute;
   inset: 0;
@@ -190,24 +183,61 @@
   z-index: 2;
 }
 
+.card-family-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: 2px;
+}
+
+.card-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+
 .card-name {
   width: 100%;
   border: 0;
   background: none;
   padding: 0;
   text-align: left;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 1.02rem;
-  line-height: 1.3;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.18rem;
+  line-height: 1.25;
   color: var(--color-text);
   cursor: pointer;
   transition: color var(--t-fast);
   border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
 }
 
-.card:hover .card-media::after {
-  opacity: 1;
+.card:hover .card-name {
+  color: var(--color-accent-text);
+}
+
+.card-aroma-icon {
+  display: inline-flex;
+  color: var(--product-accent, var(--color-accent-text));
+  opacity: 0.85;
+}
+
+.card-aroma-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.card-desc-snippet {
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+  line-height: 1.4;
+  margin-block: 4px;
 }
 
 .card-badge {
@@ -279,13 +309,13 @@
   z-index: 2;
   padding: 4px 12px;
   border-radius: var(--r-pill);
-  background: rgba(20, 20, 20, 0.72);
-  backdrop-filter: blur(4px);
+  background: rgba(20, 20, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
   color: #fff;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .card-body {
@@ -296,14 +326,10 @@
   flex: 1;
 }
 
-.card-body > .card-media-spacer {
-  display: none;
-}
-
 .card-family {
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent-text);
 }
@@ -311,15 +337,10 @@
 .card-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-2);
+  gap: var(--s-3);
   font-size: 0.76rem;
   color: var(--color-text-faint);
-}
-
-.card-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  margin-top: 2px;
 }
 
 .card-price {
@@ -343,7 +364,56 @@
 }
 
 .card-actions {
-  margin-top: var(--s-1);
+  margin-top: var(--s-2);
+}
+
+/* ---------- MODAL IMAGE WRAPPER ---------- */
+.modal-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: var(--s-6);
+  box-sizing: border-box;
+}
+
+.modal-image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.08));
+}
+
+.aroma-icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.modal-family-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-1);
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.modal-title-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* ---------- SKELETON LOADING ---------- */
@@ -433,20 +503,27 @@
 .mini-actions {
   display: flex;
   gap: var(--s-2);
+  width: 100%;
 }
 
 .mini-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--s-2);
   height: 42px;
-  padding: 0 var(--s-4);
+  padding: 0 var(--s-3);
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
   border-radius: var(--r-pill);
   border: 1px solid var(--color-border-strong);
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  color: var(--color-text-soft);
-  background: transparent;
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
   transition: all var(--t-fast);
 }
 
@@ -457,17 +534,26 @@
 }
 
 .mini-btn svg {
-  width: 17px;
-  height: 17px;
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  opacity: 1;
 }
 
-.mini-btn.is-fav {
-  color: #e0554f;
-  border-color: color-mix(in srgb, #e0554f 45%, transparent);
+.mini-btn.is-fav,
+.mini-btn.is-active,
+.mini-btn[aria-pressed="true"] {
+  color: #e53935;
+  border-color: rgba(229, 57, 53, 0.4);
+  background: rgba(229, 57, 53, 0.08);
 }
 
-.mini-btn.is-fav svg {
-  fill: #e0554f;
+.mini-btn.is-fav svg,
+.mini-btn.is-active svg,
+.mini-btn[aria-pressed="true"] svg {
+  fill: #e53935;
+  stroke: #e53935;
 }
 
 /* Scrollbar sutil nas listas do drawer */

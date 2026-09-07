@@ -35,6 +35,7 @@ async function init() {
     applyBrand(meta);
     renderMeta(meta);
     renderHero(meta);
+    renderAromaPalette();
     renderHomeSections();
     renderFooter();
     wireWhatsApp(meta);
@@ -142,10 +143,53 @@ function renderHomeSections() {
     const link = event.target.closest("[data-home-category]");
     if (!link) return;
     event.preventDefault();
-    setFiltro({ categoria: link.dataset.homeCategory, query: "", favoritos: false });
+    const catId = link.dataset.homeCategory;
+    const searchInput = $("#search");
+    if (searchInput) searchInput.value = "";
+    $("#search-clear")?.classList.remove("is-visible");
+    bus.emit("categoria:select", catId);
     $("#produtos")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
   bindHomeProductEvents(featured);
+}
+
+function renderAromaPalette() {
+  const container = $("#aroma-palette");
+  if (!container) return;
+  const { itens } = getStore();
+  // Pegar itens únicos de velas para exibir o sistema de cores da marca
+  const velas = itens.filter((i) => i.categoriaId === "velas-aromaticas" && i.tamanho === "Padrão");
+  const list = velas.length ? velas : itens.filter((i) => i.categoriaId === "velas-aromaticas");
+  const unique = [...new Map(list.map((i) => [i.id, i])).values()];
+
+  container.innerHTML = unique
+    .map((v) => {
+      return `
+      <button type="button" class="aroma-swatch-card" style="--aroma-color:${v.cor || 'var(--brand-accent)'}" data-action="filter-aroma" data-query="${v.nome}" data-uid="${v.uid}">
+        <span class="aroma-swatch-head">
+          <span class="aroma-code">${v.id}</span>
+          <span class="aroma-icon" aria-hidden="true">
+            <img class="aroma-icon-img" src="assets/images/icons/aromas/${v.slug}.webp" alt="${v.nome}" width="24" height="24">
+          </span>
+        </span>
+        <span class="aroma-swatch-circle" style="background:${v.cor}"></span>
+        <strong class="aroma-name">${v.nome}</strong>
+        <span class="aroma-family">${v.familia || 'Fragrância Autoral'}</span>
+      </button>`;
+    })
+    .join("");
+
+  container.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-action='filter-aroma']");
+    if (!btn) return;
+    const { query } = btn.dataset;
+    const searchInput = $("#search");
+    if (searchInput) searchInput.value = query;
+    $("#search-clear")?.classList.add("is-visible");
+    setFiltro({ query, categoria: "todos", favoritos: false });
+    bus.emit("toast", { type: "info", text: `Exibindo produtos do aroma ${query}` });
+    $("#produtos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 function homeSectionTemplate(id, eyebrow, title, items) {
@@ -157,14 +201,28 @@ function homeSectionTemplate(id, eyebrow, title, items) {
 
 function homeProductTemplate(item) {
   const image = item.imagemThumb || item.imagem || PLACEHOLDER;
-  return `<article class="home-product-card" data-uid="${item.uid}">
+  const iconHtml = item.categoriaId === "velas-aromaticas"
+    ? `<img class="aroma-icon-img" src="assets/images/icons/aromas/${item.slug}.webp" alt="" width="20" height="20">`
+    : (icons[item.icone] || "");
+  return `<article class="home-product-card" style="--product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
     <div class="home-product-media">
       ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ""}
       <img src="${image}" alt="${item.nome}" loading="lazy" width="480" height="480">
       <button type="button" class="card-fav" data-action="fav" data-id="${item.id}" aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
       <button type="button" class="home-product-open" data-action="open" data-uid="${item.uid}" aria-label="Ver detalhes de ${item.nome}"></button>
     </div>
-    <div class="home-product-body"><span>${item.familia || item.categoriaNome}</span><button type="button" class="home-product-name" data-action="open" data-uid="${item.uid}">${item.nome}</button><strong>${formatCurrency(item.preco)}</strong><button type="button" class="btn btn-primary btn-sm" data-action="add" data-uid="${item.uid}">${icons.cart} Comprar</button></div>
+    <div class="home-product-body">
+      <div class="card-family-row">
+        ${item.cor ? `<span class="card-color-dot" style="background:${item.cor}"></span>` : ""}
+        <span>${item.familia || item.categoriaNome}</span>
+      </div>
+      <button type="button" class="home-product-name" data-action="open" data-uid="${item.uid}">
+        <span>${item.nome}</span>
+        <span class="card-aroma-icon" aria-hidden="true">${iconHtml}</span>
+      </button>
+      <strong>${formatCurrency(item.preco)}</strong>
+      <button type="button" class="btn btn-primary btn-sm" data-action="add" data-uid="${item.uid}">${icons.cart} Comprar</button>
+    </div>
   </article>`;
 }
 
@@ -300,12 +358,17 @@ function renderGrid() {
 
   const list = getItensFiltrados();
 
-  $("#catalog-title").textContent =
-    store.filtros.categoria === "todos" ? "Todos os produtos" : currentCategoryName();
-
-  $("#result-count").textContent = list.length;
-
-  $("#catalog-eyebrow").textContent = store.filtros.categoria === "todos" ? "Catálogo" : "Categoria";
+  if (store.filtros.query) {
+    $("#catalog-title").textContent = `Fragrância “${store.filtros.query}”`;
+    $("#catalog-eyebrow").textContent = "Código Olfativo";
+  } else if (store.filtros.favoritos) {
+    $("#catalog-title").textContent = "Meus Favoritos";
+    $("#catalog-eyebrow").textContent = "Coleção Pessoal";
+  } else {
+    $("#catalog-title").textContent =
+      store.filtros.categoria === "todos" ? "Todos os produtos" : currentCategoryName();
+    $("#catalog-eyebrow").textContent = store.filtros.categoria === "todos" ? "Catálogo" : "Categoria";
+  }
 
   if (!list.length) {
     page = 1;
@@ -444,9 +507,12 @@ function currentCategoryName() {
 }
 
 function cardTemplate(item, idx) {
-  const thumb = item.imagemThumb || PLACEHOLDER;
+  const thumb = item.imagemThumb || item.imagem || PLACEHOLDER;
+  const iconHtml = item.categoriaId === "velas-aromaticas"
+    ? `<img class="aroma-icon-img" src="assets/images/icons/aromas/${item.slug}.webp" alt="" width="20" height="20">`
+    : (icons[item.icone] || "");
   return `
-  <article class="card" style="--i:${idx % 24}" data-uid="${item.uid}">
+  <article class="card" style="--i:${idx % 24}; --product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
     <div class="card-media">
       ${item.badge ? `<span class="badge-chip card-badge">${item.badge}</span>` : ""}
       <img src="${thumb}" alt="${item.nome}" loading="lazy" decoding="async" width="480" height="480">
@@ -456,15 +522,20 @@ function cardTemplate(item, idx) {
         aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
       <button type="button" class="card-share" data-action="share" data-uid="${item.uid}"
         aria-label="Compartilhar ${item.nome}">${icons.share}</button>
-      <span class="card-tamanho">${item.tamanho}</span>
+      <span class="card-tamanho">${item.tamanho} · ${item.peso}</span>
     </div>
     <div class="card-body">
-      ${item.familia ? `<span class="card-family">${item.familia}</span>` : ""}
-      <button type="button" class="card-name" data-action="open" data-uid="${item.uid}">${item.nome}</button>
+      <div class="card-family-row">
+        ${item.cor ? `<span class="card-color-dot" style="background:${item.cor}"></span>` : ""}
+        ${item.familia ? `<span class="card-family">${item.familia}</span>` : `<span class="card-family">${item.categoriaNome}</span>`}
+      </div>
+      <button type="button" class="card-name" data-action="open" data-uid="${item.uid}">
+        <span class="card-name-text">${item.nome}</span>
+        <span class="card-aroma-icon" aria-hidden="true">${iconHtml}</span>
+      </button>
       <div class="card-meta">
-        <span>Cód. ${item.id}</span>
-        <span>${item.peso}</span>
-        <span>${item.quantidade} por pacote</span>
+        ${item.recipiente ? `<span>${item.recipiente}</span>` : ""}
+        ${item.queima ? `<span>🔥 ${item.queima}</span>` : ""}
       </div>
       <div class="card-price">
         <div>
@@ -474,7 +545,7 @@ function cardTemplate(item, idx) {
       </div>
       <div class="card-actions">
         <button type="button" class="btn btn-primary btn-block btn-sm" data-action="add" data-uid="${item.uid}">
-          ${icons.cart} Comprar
+          ${icons.cart} Adicionar
         </button>
       </div>
     </div>

@@ -8,6 +8,7 @@ let closeDrawer = null;
 
 export function initFilters() {
   bus.on("categoria:select", selectCategoria);
+  bus.on("filtros:change", (f) => syncCategoryUi(f?.categoria || "todos"));
   initSidebar();
   renderCategories();
   initSort();
@@ -48,10 +49,11 @@ function initSidebar() {
 }
 
 function renderCategories() {
-  const { categorias, itens } = getStore();
+  const { categorias, itens, filtros } = getStore();
   const wrap = $("#categorias");
   if (!wrap) return;
 
+  const current = filtros?.categoria || "todos";
   const counts = new Map();
   itens.forEach((i) => counts.set(i.categoriaId, (counts.get(i.categoriaId) || 0) + 1));
 
@@ -59,7 +61,7 @@ function renderCategories() {
 
   wrap.innerHTML = items
     .map((c) => `
-      <button type="button" class="sidebar-item${c.id === "todos" ? " is-active" : ""}"
+      <button type="button" class="sidebar-item${c.id === current ? " is-active" : ""}"
         data-action="categoria" data-value="${c.id}">
         <span class="sidebar-item-name">${c.nome}</span>
         <span class="sidebar-item-count">${c.total}</span>
@@ -73,14 +75,18 @@ function renderCategories() {
   });
 }
 
-function selectCategoria(id) {
-  setFiltro({ categoria: id });
+export function syncCategoryUi(id = "todos") {
   $$("#categorias .sidebar-item").forEach((p) => {
     const active = p.dataset.value === id;
     p.classList.toggle("is-active", active);
     if (active) p.setAttribute("aria-current", "page");
     else p.removeAttribute("aria-current");
   });
+}
+
+function selectCategoria(id) {
+  setFiltro({ categoria: id, query: "", favoritos: false });
+  syncCategoryUi(id);
   if (window.matchMedia("(max-width: 768px)").matches) closeDrawer?.();
 }
 

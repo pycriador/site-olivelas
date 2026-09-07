@@ -36,4 +36,9 @@ export function initSearch() {
     input.value = "";
     clear?.classList.remove("is-visible");
   });
+
+  bus.on("categoria:select", () => {
+    input.value = "";
+    clear?.classList.remove("is-visible");
+  });
 }

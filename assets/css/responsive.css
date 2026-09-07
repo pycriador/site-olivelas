@@ -25,12 +25,14 @@
   }
 
   .modal-media {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1 / 1;
+    max-height: 360px;
     min-height: 0;
   }
 
   .modal-media img {
     position: static;
+    object-fit: contain;
   }
 }
 

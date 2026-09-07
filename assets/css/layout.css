@@ -348,10 +348,20 @@
   color: #dfc9ae;
 }
 
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  color: #dfc9ae;
+  line-height: 1.25;
+  margin-top: -6px;
+}
+
 .hero-sub {
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
-  color: rgba(255, 255, 255, 0.82);
-  max-width: 560px;
+  font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 580px;
+  line-height: 1.6;
 }
 
 .hero-cta-row {
@@ -415,6 +425,253 @@
   color: var(--color-text-faint);
   font-size: 0.7rem;
   line-height: 1.35;
+}
+
+/* ---------- GUIA OLFATIVO / SISTEMA DE CORES ---------- */
+.aroma-guide-section {
+  padding-block: var(--s-10);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-desc-side {
+  max-width: 380px;
+  font-size: 0.88rem;
+  color: var(--color-text-soft);
+  line-height: 1.5;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .section-desc-side {
+    text-align: left;
+  }
+}
+
+.aroma-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--s-3);
+}
+
+.aroma-swatch-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--s-4) var(--s-3);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med), border-color var(--t-med);
+  color: var(--color-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.aroma-swatch-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--aroma-color, var(--color-accent));
+}
+
+.aroma-swatch-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: var(--s-3);
+}
+
+.aroma-code {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-text-soft);
+}
+
+.aroma-icon {
+  display: inline-flex;
+  color: var(--aroma-color, var(--color-accent-text));
+}
+
+.aroma-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.aroma-swatch-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  margin-bottom: var(--s-3);
+  transition: transform var(--t-fast);
+}
+
+.aroma-swatch-card:hover .aroma-swatch-circle {
+  transform: scale(1.12);
+}
+
+.aroma-name {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.aroma-family {
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  line-height: 1.2;
+}
+
+/* ---------- BRAND STORY / EXPERIÊNCIA ---------- */
+.brand-story-section {
+  padding-block: var(--s-11);
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--s-9);
+  align-items: center;
+}
+
+.story-content h2 {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  margin-block: var(--s-2) var(--s-4);
+}
+
+.story-lead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-soft);
+  margin-bottom: var(--s-6);
+}
+
+.story-features {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.story-feature-item {
+  display: flex;
+  gap: var(--s-4);
+  align-items: flex-start;
+}
+
+.story-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-accent) 20%, transparent);
+}
+
+.story-feature-item strong {
+  display: block;
+  font-size: 0.98rem;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.story-feature-item p {
+  font-size: 0.86rem;
+  color: var(--color-text-faint);
+  line-height: 1.45;
+}
+
+.story-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.story-card-composition {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+}
+
+.story-candle-preview {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  background: radial-gradient(circle at center 60%, rgba(183, 156, 107, 0.16) 0%, var(--color-bg-soft) 70%);
+  border: 1px solid var(--color-border);
+  display: grid;
+  place-items: center;
+  padding: var(--s-6);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.story-candle-preview img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.18));
+  transition: transform var(--t-slow) var(--ease-out);
+}
+
+.story-card-composition:hover .story-candle-preview img {
+  transform: scale(1.05);
+}
+
+.story-badge-floating {
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-lg);
+}
+
+.story-flame-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 1rem;
+}
+
+.story-badge-floating strong {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.story-badge-floating small {
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+}
+
+@media (max-width: 900px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+  }
+  .story-badge-floating {
+    bottom: 8px;
+    right: 8px;
+  }
 }
 
 .home-categories,
@@ -551,7 +808,8 @@
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--color-bg-soft);
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .home-product-media img {
@@ -561,7 +819,7 @@
   transition: transform var(--t-med);
 }
 
-.home-product-card:hover .home-product-media img { transform: scale(1.04); }
+.home-product-card:hover .home-product-media img { transform: scale(1.05); }
 
 .home-product-media .badge-chip { position: absolute; top: var(--s-3); left: var(--s-3); z-index: 2; }
 
@@ -1306,22 +1564,26 @@ body.no-scroll {
 
 .modal-media {
   position: relative;
-  background: var(--color-bg-soft);
+  background: #ffffff;
   min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .modal-media .modal-badge {
   position: absolute;
   top: var(--s-4);
   left: var(--s-4);
+  z-index: 2;
 }
 
 .modal-body {

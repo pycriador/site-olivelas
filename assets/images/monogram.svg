@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C5AD7D" />
+      <stop offset="50%" stop-color="#B79C6B" />
+      <stop offset="100%" stop-color="#A48754" />
+    </linearGradient>
+  </defs>
+  <circle cx="250" cy="250" r="230" fill="none" stroke="url(#gold)" stroke-width="6"/>
+  <!-- OV Intertwined monogram -->
+  <text x="210" y="295" font-family="'Playfair Display', Georgia, serif" font-size="160" font-style="italic" font-weight="600" fill="url(#gold)" text-anchor="middle">O</text>
+  <text x="290" y="325" font-family="'Playfair Display', Georgia, serif" font-size="150" font-weight="400" fill="url(#gold)" text-anchor="middle">V</text>
+</svg>
