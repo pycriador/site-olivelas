@@ -7,6 +7,10 @@
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .home-product-rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* ---------- TABLET (até 1024) ---------- */
@@ -34,6 +38,23 @@
 @media (max-width: 920px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-tile:first-child {
+    grid-column: 1 / -1;
+    min-height: 300px;
+  }
+
+  .home-product-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .catalog-head {
@@ -217,6 +238,46 @@
 
   .toasts {
     bottom: var(--s-4);
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+
+  .home-categories,
+  .home-featured {
+    padding-block: var(--s-8);
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+
+  .category-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .category-tile,
+  .category-tile:first-child {
+    min-height: 280px;
+    grid-column: auto;
+  }
+
+  .home-product-rail {
+    display: flex;
+    gap: var(--s-3);
+    overflow-x: auto;
+    padding: 2px 2px var(--s-3);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .home-product-card {
+    flex: 0 0 min(78vw, 290px);
+    scroll-snap-align: start;
   }
 }
 

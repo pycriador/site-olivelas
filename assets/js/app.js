@@ -35,6 +35,7 @@ async function init() {
     applyBrand(meta);
     renderMeta(meta);
     renderHero(meta);
+    renderHomeSections();
     renderFooter();
     wireWhatsApp(meta);
     initFilters();
@@ -107,6 +108,71 @@ function renderHero(meta) {
   }
   if (bg && store.hero?.imagem) bg.src = store.hero.imagem;
   hero?.classList.add("is-loaded");
+}
+
+function renderHomeSections() {
+  const { categorias, itens } = getStore();
+  const categories = $("#home-categories");
+  const featured = $("#home-featured");
+  if (!categories || !featured) return;
+
+  categories.innerHTML = categorias.map((category, index) => {
+    const source = itens.find((item) => item.categoriaId === category.id && (item.imagemThumb || item.imagem)) || itens.find((item) => item.categoriaId === category.id);
+    const image = source?.imagemThumb || source?.imagem || PLACEHOLDER;
+    return `<a class="category-tile category-tile-${index + 1}" style="--tile-tone:${source?.cor || "var(--brand-mist)"}" href="#produtos" data-home-category="${category.id}">
+      <img src="${image}" alt="" loading="lazy" width="720" height="520">
+      <span class="category-tile-shade"></span>
+      <span class="category-tile-content"><strong>${category.nome}</strong><small>${category.descricao}</small><em>Explorar <span aria-hidden="true">&rarr;</span></em></span>
+    </a>`;
+  }).join("");
+
+  const unique = (list) => [...new Map(list.map((item) => [item.id, item])).values()];
+  const complete = (primary, fallback) => unique([...primary, ...fallback]).slice(0, 4);
+  const newItems = complete(itens.filter((item) => ["Novo", "Premium"].includes(item.badge)), itens);
+  const popularItems = complete(itens.filter((item) => item.badge === "Mais vendido"), itens);
+  const ritualItems = complete(itens.filter((item) => ["aromatizadores", "acessorios"].includes(item.categoriaId)), itens.slice().reverse());
+
+  featured.innerHTML = [
+    homeSectionTemplate("novidades", "Chegaram para ficar", "Novidades da casa", newItems),
+    homeSectionTemplate("mais-vendidos", "Escolhidos por vocês", "Os mais queridos", popularItems),
+    homeSectionTemplate("rituais", "Para completar o ambiente", "Pequenos rituais", ritualItems),
+  ].join("");
+
+  categories.addEventListener("click", (event) => {
+    const link = event.target.closest("[data-home-category]");
+    if (!link) return;
+    event.preventDefault();
+    setFiltro({ categoria: link.dataset.homeCategory, query: "", favoritos: false });
+    $("#produtos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  bindHomeProductEvents(featured);
+}
+
+function homeSectionTemplate(id, eyebrow, title, items) {
+  return `<section class="featured-section" id="home-${id}" aria-labelledby="home-${id}-title" data-reveal>
+    <div class="section-heading"><div><p class="overline">${eyebrow}</p><h2 id="home-${id}-title">${title}</h2></div><a class="text-link" href="#produtos">Ver todos <span aria-hidden="true">&rarr;</span></a></div>
+    <div class="home-product-rail">${items.map(homeProductTemplate).join("")}</div>
+  </section>`;
+}
+
+function homeProductTemplate(item) {
+  const image = item.imagemThumb || item.imagem || PLACEHOLDER;
+  return `<article class="home-product-card" data-uid="${item.uid}">
+    <div class="home-product-media">
+      ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ""}
+      <img src="${image}" alt="${item.nome}" loading="lazy" width="480" height="480">
+      <button type="button" class="card-fav" data-action="fav" data-id="${item.id}" aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
+      <button type="button" class="home-product-open" data-action="open" data-uid="${item.uid}" aria-label="Ver detalhes de ${item.nome}"></button>
+    </div>
+    <div class="home-product-body"><span>${item.familia || item.categoriaNome}</span><button type="button" class="home-product-name" data-action="open" data-uid="${item.uid}">${item.nome}</button><strong>${formatCurrency(item.preco)}</strong><button type="button" class="btn btn-primary btn-sm" data-action="add" data-uid="${item.uid}">${icons.cart} Comprar</button></div>
+  </article>`;
+}
+
+function bindHomeProductEvents(container) {
+  container.addEventListener("click", (event) => {
+    const actionEl = event.target.closest("[data-action]");
+    if (actionEl) handleProductAction(actionEl);
+  });
 }
 
 function renderFooter() {
@@ -418,23 +484,7 @@ function cardTemplate(item, idx) {
 function bindGridEvents(grid) {
   grid.addEventListener("click", (e) => {
     const actionEl = e.target.closest("[data-action]");
-    if (actionEl) {
-      const { action, uid, id } = actionEl.dataset;
-      if (action === "open") openModal(uid);
-      if (action === "add") {
-        addItem(uid, 1);
-        openSidebar();
-        bus.emit("toast", { type: "success", text: "Produto adicionado ao carrinho" });
-      }
-      if (action === "fav") {
-        toggleFav(id);
-        actionEl.classList.toggle("is-active", isFav(id));
-        actionEl.setAttribute("aria-pressed", String(isFav(id)));
-        bus.emit("toast", { type: "info", text: isFav(id) ? "Adicionado aos favoritos" : "Removido dos favoritos" });
-      }
-      if (action === "share") shareProduct(uid);
-      return;
-    }
+    if (actionEl) handleProductAction(actionEl);
   });
 
   const reset = $("#empty-reset");
@@ -442,6 +492,23 @@ function bindGridEvents(grid) {
     bus.emit("filtros:reset");
     setFiltro({ query: "", categoria: "todos", precoMin: getStore().limitesPreco.min, precoMax: getStore().limitesPreco.max, sort: "relevancia", favoritos: false });
   });
+}
+
+function handleProductAction(actionEl) {
+  const { action, uid, id } = actionEl.dataset;
+  if (action === "open") openModal(uid);
+  if (action === "add") {
+    addItem(uid, 1);
+    openSidebar();
+    bus.emit("toast", { type: "success", text: "Produto adicionado ao carrinho" });
+  }
+  if (action === "fav") {
+    toggleFav(id);
+    actionEl.classList.toggle("is-active", isFav(id));
+    actionEl.setAttribute("aria-pressed", String(isFav(id)));
+    bus.emit("toast", { type: "info", text: isFav(id) ? "Adicionado aos favoritos" : "Removido dos favoritos" });
+  }
+  if (action === "share") shareProduct(uid);
 }
 
 async function shareProduct(uid) {
