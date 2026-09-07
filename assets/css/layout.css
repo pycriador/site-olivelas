@@ -211,6 +211,11 @@
   transform: scale(0.94);
 }
 
+.icon-btn.is-active {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}
+
 .icon-btn svg {
   width: 22px;
   height: 22px;

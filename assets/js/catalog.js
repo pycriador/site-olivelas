@@ -3,6 +3,7 @@
    O JSON é a única fonte de dados — nada é fixo no HTML. */
 
 import { bus, normText, slugify } from "./utils.js";
+import { getIds } from "./favorites.js";
 
 const DEFAULT_SORT = "relevancia";
 
@@ -19,6 +20,7 @@ const state = {
     precoMin: 0,
     precoMax: Infinity,
     sort: DEFAULT_SORT,
+    favoritos: false,
   },
 };
 
@@ -109,10 +111,15 @@ const SORTS = {
 };
 
 export function getItensFiltrados() {
-  const { query, categoria, precoMin, precoMax, sort } = state.filtros;
+  const { query, categoria, precoMin, precoMax, sort, favoritos } = state.filtros;
   let list = state.itens;
 
   if (categoria !== "todos") list = list.filter((i) => i.categoriaId === categoria);
+
+  if (favoritos) {
+    const favs = getIds();
+    list = list.filter((i) => favs.has(i.id));
+  }
 
   if (precoMin > state.limitesPreco.min) list = list.filter((i) => i.preco >= precoMin);
   if (precoMax < state.limitesPreco.max) list = list.filter((i) => i.preco <= precoMax);

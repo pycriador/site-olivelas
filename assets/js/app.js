@@ -8,7 +8,7 @@ import { initFilters } from "./filters.js";
 import { initSearch } from "./search.js";
 import { initModal, openModal, resolveHash } from "./modal.js";
 import { initCart, addItem, openSidebar, getCount, getTotal } from "./cart.js";
-import { initFavorites, toggleFav, isFav } from "./favorites.js";
+import { initFavorites, toggleFav, isFav, getIds } from "./favorites.js";
 import { waLink, mensagemGeral } from "./whatsapp.js";
 
 const PLACEHOLDER = "assets/images/placeholder.webp";
@@ -19,6 +19,7 @@ async function init() {
   initCartUI();
   initToasts();
   initFavorites();
+  initFavSummary();
   initImageFallback();
 
   try {
@@ -322,7 +323,7 @@ function bindGridEvents(grid) {
   const reset = $("#empty-reset");
   reset?.addEventListener("click", () => {
     bus.emit("filtros:reset");
-    setFiltro({ query: "", categoria: "todos", precoMin: getStore().limitesPreco.min, precoMax: getStore().limitesPreco.max, sort: "relevancia" });
+    setFiltro({ query: "", categoria: "todos", precoMin: getStore().limitesPreco.min, precoMax: getStore().limitesPreco.max, sort: "relevancia", favoritos: false });
   });
 }
 
@@ -361,11 +362,45 @@ function initToasts() {
     toast.setAttribute("role", type === "error" ? "alert" : "status");
     toast.innerHTML = `${icon}<span>${text}</span>`;
     wrap.appendChild(toast);
-    setTimeout(() => {
+    while (wrap.children.length > 3) wrap.firstElementChild?.remove();
+
+    const hide = () => {
       toast.classList.add("is-leaving");
-      toast.addEventListener("animationend", () => toast.remove(), { once: true });
-    }, 2800);
+      window.setTimeout(() => toast.remove(), 350);
+    };
+    const timer = window.setTimeout(hide, 2800);
+    toast.addEventListener("click", () => {
+      clearTimeout(timer);
+      hide();
+    });
   });
+}
+
+/* ================= FAVORITOS: ACESSO RÁPIDO ================= */
+function initFavSummary() {
+  const btn = $("#fav-open");
+  const badge = $("#fav-count");
+  if (!btn) return;
+
+  const update = () => {
+    const n = getIds().size;
+    if (badge) {
+      badge.textContent = String(n);
+      badge.classList.toggle("is-visible", n > 0);
+    }
+    const active = Boolean(getStore().filtros.favoritos);
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
+    btn.setAttribute("aria-label", active ? "Ocultar favoritos" : "Ver favoritos");
+    paintFavorites();
+    if (active) renderGrid();
+  };
+
+  btn.addEventListener("click", () => {
+    setFiltro({ favoritos: !getStore().filtros.favoritos });
+  });
+  bus.on("fav:change", update);
+  update();
 }
 
 /* ================= ANIMAÇÕES / REVEAL ================= */
