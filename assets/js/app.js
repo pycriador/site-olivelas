@@ -14,7 +14,7 @@ import { waLink, mensagemGeral } from "./whatsapp.js";
 const PLACEHOLDER = "assets/images/placeholder.webp";
 
 async function init() {
-  initTheme(null);
+  initTheme();
   bindStaticUi();
   initCartUI();
   initToasts();

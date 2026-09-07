@@ -20,6 +20,7 @@ const GOOGLE_FONTS = (titulo, texto) => {
 };
 
 export function applyBrand(meta = {}) {
+  meta = meta || {};
   const root = document.documentElement;
   Object.entries(BRAND_KEYS).forEach(([key, prop]) => {
     if (meta[key]) root.style.setProperty(prop, meta[key]);
@@ -30,6 +31,7 @@ export function applyBrand(meta = {}) {
 }
 
 export function initTheme(meta = {}) {
+  meta = meta || {};
   applyBrand(meta);
   const saved = localStorage.getItem(STORAGE_KEY);
   const initial = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
