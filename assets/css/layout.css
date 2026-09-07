@@ -1265,6 +1265,11 @@
   color: var(--color-text-soft);
 }
 
+.error-view .error-detail {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 /* ---------- REVEAL ---------- */
 [data-reveal] {
   opacity: 0;

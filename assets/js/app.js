@@ -40,7 +40,7 @@ async function init() {
     if (location.hash) resolveHash(location.hash);
   } catch (err) {
     console.error("[olivelas]", err);
-    showError();
+    showError(err);
   }
 }
 
@@ -403,13 +403,28 @@ function initImageFallback() {
 }
 
 /* ================= ESTADO DE ERRO ================= */
-function showError() {
+function showError(err) {
   $("#loader")?.classList.add("is-hidden");
   const view = $("#app-error");
   const grid = $("#grid");
   if (grid) grid.innerHTML = "";
   if (view) view.hidden = false;
   $("#empty")?.classList.remove("is-visible");
+
+  const detail = $("#error-detail");
+  if (!detail) return;
+  if (location.protocol === "file:") {
+    detail.textContent =
+      "Você abriu o arquivo direto do disco. Use um servidor local para ver o catálogo: `node test/serve.mjs` ou `python -m http.server`.";
+    return;
+  }
+  if (!navigator.onLine) {
+    detail.textContent = "Você está offline agora. A versão salva será usada assim que a conexão voltar.";
+    return;
+  }
+  const msg = err && err.message ? String(err.message) : "";
+  if (msg.startsWith("HTTP")) detail.textContent = `O servidor respondeu: ${msg}.`;
+  else detail.textContent = `Falha de rede ao buscar o catálogo (${(err && err.url) || "assets/data/produtos.json"}).`;
 }
 
 /* ================= PWA ================= */

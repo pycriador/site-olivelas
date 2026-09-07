@@ -5,13 +5,14 @@
    - Assets locais:  stale-while-revalidate
    - Fontes (CDN):   stale-while-revalidate */
 
-const CORE_VERSION = "olivelas-v3";
+const CORE_VERSION = "olivelas-v4";
 const CORE = [
   "./",
   "./index.html",
   "./offline.html",
   "./404.html",
   "./manifest.webmanifest",
+  "./assets/data/produtos.json",
   "./assets/css/variables.css",
   "./assets/css/style.css",
   "./assets/css/layout.css",

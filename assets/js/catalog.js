@@ -23,8 +23,20 @@ const state = {
 };
 
 export async function loadStore(url = "assets/data/produtos.json") {
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`HTTP ${res.status} ao buscar ${url}`);
+  let res;
+  try {
+    res = await fetch(url, { cache: "no-store" });
+  } catch (cause) {
+    const err = new Error("Falha de rede ao buscar " + url, { cause });
+    err.url = url;
+    throw err;
+  }
+  if (!res.ok) {
+    const err = new Error(`HTTP ${res.status} ao buscar ${url}`);
+    err.status = res.status;
+    err.url = url;
+    throw err;
+  }
   const data = await res.json();
   normalize(data);
   bus.emit("store:ready", state);
