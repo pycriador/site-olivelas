@@ -726,6 +726,74 @@ body.no-scroll {
   max-width: 420px;
 }
 
+/* ---------- PAGINAÇÃO ---------- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-8);
+}
+
+.page-btn {
+  min-width: 44px;
+  height: 44px;
+  padding-inline: var(--s-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-sm);
+  background: var(--color-surface);
+  color: var(--color-text-soft);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.page-btn.active {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+[data-theme="dark"] .page-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.page-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.page-ellipsis {
+  color: var(--color-text-faint);
+  padding-inline: var(--s-2);
+}
+
+@media (max-width: 560px) {
+  .page-btn {
+    min-width: 40px;
+    height: 40px;
+  }
+}
+
 /* ---------- SIDEBAR DO CARRINHO ---------- */
 .cart-overlay {
   position: fixed;

@@ -13,6 +13,12 @@ import { waLink, mensagemGeral } from "./whatsapp.js";
 
 const PLACEHOLDER = "assets/images/placeholder.webp";
 
+/* Paginação: itens por página + página corrente + chave dos filtros ativos */
+const PAGE_SIZES_BASE = [8, 16, 24, 32, 48, 64];
+let page = 1;
+let pageSize = 8;
+let lastFilterKey = "";
+
 async function init() {
   initTheme();
   bindStaticUi();
@@ -21,6 +27,7 @@ async function init() {
   initFavorites();
   initFavSummary();
   initImageFallback();
+  initPagination();
 
   try {
     await loadStore();
@@ -221,6 +228,7 @@ function adaptiveImg(src) {
 /* ================= GRADE DE PRODUTOS ================= */
 function renderGrid() {
   const store = getStore();
+  if (!store.meta) return;
   const grid = $("#grid");
   if (!grid) return;
 
@@ -250,10 +258,108 @@ function renderGrid() {
   }
 
   $("#empty")?.classList.remove("is-visible");
-  grid.innerHTML = list.map(cardTemplate).join("");
+  const fkey = JSON.stringify([
+    store.filtros.query,
+    store.filtros.categoria,
+    store.filtros.precoMin,
+    store.filtros.precoMax,
+    store.filtros.sort,
+    store.filtros.favoritos,
+  ]);
+  if (fkey !== lastFilterKey) {
+    lastFilterKey = fkey;
+    page = 1;
+  }
+
+  rebuildPageSize(list.length);
+  const pages = Math.max(1, Math.ceil(list.length / pageSize));
+  if (page > pages) page = pages;
+  const visible = list.slice((page - 1) * pageSize, page * pageSize);
+
+  grid.innerHTML = visible.map(cardTemplate).join("");
   grid.setAttribute("aria-busy", "false");
   paintFavorites();
   bindGridEvents(grid);
+  renderPagination(list.length);
+}
+
+/* ---------- Paginação ---------- */
+function paginationSizes(total) {
+  const opts = PAGE_SIZES_BASE.filter((s) => s < total);
+  if (!opts.length || opts[opts.length - 1] !== total) opts.push(total);
+  return opts;
+}
+
+function rebuildPageSize(total) {
+  const sel = $("#page-size");
+  if (!sel) return;
+  const opts = paginationSizes(total);
+  if (!opts.includes(pageSize)) {
+    pageSize = opts[0] || total;
+    page = 1;
+  }
+  sel.innerHTML = opts.map((s) => `<option value="${s}">${s}</option>`).join("");
+  sel.value = String(pageSize);
+}
+
+function renderPagination(total) {
+  const nav = $("#pagination");
+  if (!nav) return;
+  const pages = Math.max(1, Math.ceil(total / pageSize));
+  nav.innerHTML = "";
+  if (total === 0 || pages <= 1) return;
+
+  const makeBtn = (inner, opts = {}) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `page-btn${opts.active ? " active" : ""}`;
+    if (opts.disabled) b.disabled = true;
+    if (opts.label) b.setAttribute("aria-label", opts.label);
+    b.innerHTML = inner;
+    if (!opts.disabled) {
+      b.addEventListener("click", () => {
+        page = opts.page;
+        renderGrid();
+        $("#produtos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+    return b;
+  };
+
+  nav.appendChild(makeBtn(icons.chevronLeft, { page: page - 1, disabled: page === 1, label: "Página anterior" }));
+  pageSlots(pages).forEach((p) => {
+    if (p === "…") {
+      const s = document.createElement("span");
+      s.className = "page-ellipsis";
+      s.textContent = "…";
+      nav.appendChild(s);
+    } else {
+      nav.appendChild(makeBtn(String(p), { page: p, active: p === page }));
+    }
+  });
+  nav.appendChild(makeBtn(icons.chevronRight, { page: page + 1, disabled: page === pages, label: "Próxima página" }));
+}
+
+function pageSlots(pages) {
+  const want = new Set([1, pages, page, page - 1, page + 1]);
+  const sorted = [...want].filter((p) => p >= 1 && p <= pages).sort((a, b) => a - b);
+  const out = [];
+  let prev = 0;
+  sorted.forEach((p) => {
+    if (p - prev > 1) out.push("…");
+    out.push(p);
+    prev = p;
+  });
+  return out;
+}
+
+function initPagination() {
+  $("#page-size")?.addEventListener("change", (e) => {
+    pageSize = Number(e.target.value);
+    page = 1;
+    renderGrid();
+  });
+  window.addEventListener("resize", debounce(() => renderGrid(), 200));
 }
 
 function currentCategoryName() {

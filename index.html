@@ -156,6 +156,11 @@
 
         <div class="toolbar">
           <label class="field">
+            <span class="field-label">Itens por página</span>
+            <select id="page-size" aria-label="Itens por página"></select>
+          </label>
+
+          <label class="field">
             <span class="field-label">Ordenar</span>
             <select id="sort" aria-label="Ordenar produtos"></select>
           </label>
@@ -187,16 +192,8 @@
       </div>
 
       <div class="card-grid" id="grid" aria-busy="true">
-        <!-- Skeleton enquanto o JSON carrega -->
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-        <div class="sk-card"><div class="sk-media skeleton"></div><div class="sk-lines"><div class="sk-line w-70 skeleton"></div><div class="sk-line w-90 skeleton"></div><div class="sk-line w-40 skeleton"></div></div></div>
-      </div>
+
+      <nav class="pagination" id="pagination" aria-label="Paginação de produtos"></nav>
 
       <div class="empty-state" id="empty" aria-live="polite"></div>
         </div>
