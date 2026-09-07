@@ -1,0 +1,17 @@
+# PNGs originais (redundantes — versões otimizadas em assets/images/products)
+imagens/
+
+# Dependências / build
+node_modules/
+dist/
+build/
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs / editor
+*.log
+.vscode/
+.idea/

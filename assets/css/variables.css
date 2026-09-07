@@ -1,0 +1,167 @@
+/* =========================================================
+   TOKENS DE DESIGN
+   Cores da marca são injetadas em runtime via --brand-* (JS lê o JSON).
+   Tema escuro inverte somente as variáveis "folha" — nunca as --brand-*.
+   ========================================================= */
+
+:root {
+  /* Marca (default = espelho do JSON; sobrescrito via JS) */
+  --brand-ink: #1b1b1b;
+  --brand-accent: #b79c6b;
+  --brand-paper: #f7f4ef;
+  --brand-mist: #d8ccbc;
+
+  /* Tipografia */
+  --font-heading: "Playfair Display", Didot, "Bodoni MT", Georgia, serif;
+  --font-body: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Escala espacial */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 48px;
+  --s-10: 64px;
+  --s-11: 80px;
+  --s-12: 120px;
+
+  /* Layout */
+  --container: 1280px;
+  --container-pad: clamp(16px, 4vw, 40px);
+  --h-header: 76px;
+  --h-header-mob: 116px;
+
+  /* Raio */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Sombras */
+  --shadow-xs: 0 1px 2px rgba(27, 27, 27, 0.05);
+  --shadow-sm: 0 6px 18px -8px rgba(27, 27, 27, 0.12);
+  --shadow-md: 0 16px 36px -16px rgba(27, 27, 27, 0.18);
+  --shadow-lg: 0 32px 64px -24px rgba(27, 27, 27, 0.28);
+
+  /* Transições */
+  --t-fast: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-med: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  --t-slow: 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Camadas */
+  --z-header: 60;
+  --z-nav: 55;
+  --z-drawer: 75;
+  --z-overlay: 70;
+  --z-modal: 85;
+  --z-toast: 95;
+  --z-loader: 100;
+  --z-top: 90;
+}
+
+/* PALETA CLARA (default) */
+:root,
+:root[data-theme="light"] {
+  --color-bg: var(--brand-paper);
+  --color-bg-soft: color-mix(in srgb, var(--brand-paper) 55%, #ffffff);
+  --color-surface: #ffffff;
+  --color-surface-2: color-mix(in srgb, var(--brand-paper) 62%, #ffffff);
+
+  --color-text: var(--brand-ink);
+  --color-text-soft: color-mix(in srgb, var(--brand-ink) 62%, var(--color-surface));
+  --color-text-faint: color-mix(in srgb, var(--brand-ink) 44%, var(--color-surface));
+
+  --color-accent: var(--brand-accent);
+  --color-on-accent: var(--brand-ink);
+  --color-accent-soft: color-mix(in srgb, var(--brand-accent) 18%, var(--color-surface));
+  --color-accent-text: color-mix(in srgb, var(--brand-accent) 62%, var(--brand-ink));
+
+  --color-mist: var(--brand-mist);
+  --color-border: color-mix(in srgb, var(--brand-ink) 11%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--brand-ink) 22%, transparent);
+
+  --color-success: #2f7d4f;
+  --color-danger: #c0392b;
+  --color-warning: #b7791f;
+
+  --shadow-xs: 0 1px 2px rgba(27, 27, 27, 0.05);
+  --shadow-sm: 0 6px 18px -8px rgba(27, 27, 27, 0.12);
+  --shadow-md: 0 16px 36px -16px rgba(27, 27, 27, 0.18);
+  --shadow-lg: 0 32px 64px -24px rgba(27, 27, 27, 0.28);
+
+  --ring-color: color-mix(in srgb, var(--brand-accent) 55%, transparent);
+  --skeleton-base: color-mix(in srgb, var(--brand-ink) 7%, transparent);
+  --skeleton-shine: color-mix(in srgb, #ffffff 60%, var(--color-bg));
+}
+
+/* PALETA ESCURA */
+[data-theme="dark"] {
+  --color-bg: #141311;
+  --color-bg-soft: #1b1916;
+  --color-surface: #201e1a;
+  --color-surface-2: #262319;
+
+  --color-text: #f5f1e6;
+  --color-text-soft: #c9c2b2;
+  --color-text-faint: #8f897c;
+
+  --color-accent: #c9a96c;
+  --color-on-accent: #121110;
+  --color-accent-soft: color-mix(in srgb, #c9a96c 16%, var(--color-surface));
+  --color-accent-text: #d6b87e;
+
+  --color-mist: #33302a;
+  --color-border: color-mix(in srgb, #ffffff 10%, transparent);
+  --color-border-strong: color-mix(in srgb, #ffffff 20%, transparent);
+
+  --color-success: #69c48d;
+  --color-danger: #e07a6d;
+  --color-warning: #e0b862;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 6px 18px -8px rgba(0, 0, 0, 0.55);
+  --shadow-md: 0 16px 36px -16px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 32px 64px -24px rgba(0, 0, 0, 0.75);
+
+  --ring-color: color-mix(in srgb, #c9a96c 60%, transparent);
+  --skeleton-base: color-mix(in srgb, #ffffff 8%, transparent);
+  --skeleton-shine: color-mix(in srgb, #ffffff 5%, var(--color-bg));
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: #141311;
+    --color-bg-soft: #1b1916;
+    --color-surface: #201e1a;
+    --color-surface-2: #262319;
+    --color-text: #f5f1e6;
+    --color-text-soft: #c9c2b2;
+    --color-text-faint: #8f897c;
+    --color-accent: #c9a96c;
+    --color-on-accent: #121110;
+    --color-accent-soft: color-mix(in srgb, #c9a96c 16%, var(--color-surface));
+    --color-accent-text: #d6b87e;
+    --color-mist: #33302a;
+    --color-border: color-mix(in srgb, #ffffff 10%, transparent);
+    --color-border-strong: color-mix(in srgb, #ffffff 20%, transparent);
+    --color-success: #69c48d;
+    --color-danger: #e07a6d;
+    --color-warning: #e0b862;
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 6px 18px -8px rgba(0, 0, 0, 0.55);
+    --shadow-md: 0 16px 36px -16px rgba(0, 0, 0, 0.65);
+    --shadow-lg: 0 32px 64px -24px rgba(0, 0, 0, 0.75);
+    --ring-color: color-mix(in srgb, #c9a96c 60%, transparent);
+    --skeleton-base: color-mix(in srgb, #ffffff 8%, transparent);
+    --skeleton-shine: color-mix(in srgb, #ffffff 5%, #141311);
+    color-scheme: dark;
+  }
+}

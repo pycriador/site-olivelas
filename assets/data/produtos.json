@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "nome": "OLIVELAS",
+    "slogan": "Aromas que transformam ambientes em memórias",
+    "descricao": "Velas artesanais e aromatizadores com curadoria exclusiva. Cada aroma foi pensado para transformar ambientes em memórias.",
+    "whatsapp": "5511963820374",
+    "email": "contato@olivelas.com.br",
+    "endereco": "São Paulo, SP",
+    "horario": "Seg a Sáb · 9h às 18h",
+    "site": "https://olivelas.com.br",
+    "instagram": "https://instagram.com/olivelas",
+    "moeda": "BRL",
+    "locale": "pt-BR",
+    "vigencia": "2026-09-30",
+    "corPrimaria": "#1B1B1B",
+    "corSecundaria": "#B79C6B",
+    "corFundo": "#F7F4EF",
+    "corApoio": "#D8CCBC",
+    "fonteTitulo": "Playfair Display",
+    "fonteTexto": "Montserrat"
+  },
+  "hero": {
+    "titulo": "OLIVELAS",
+    "subtitulo": "Velas artesanais e aromas que transformam ambientes em memórias. Conheça a tabela de produtos e faça seu pedido pelo WhatsApp.",
+    "cta": "Ver Produtos",
+    "imagem": "assets/images/og-cover.webp"
+  },
+  "categorias": [
+    {
+      "id": "velas-aromaticas",
+      "nome": "Velas Aromáticas",
+      "descricao": "Velas de cera vegetal com pavio de algodão e fragrâncias exclusivas.",
+      "produtos": [
+        {
+          "id": "OV01",
+          "nome": "Verbena",
+          "slug": "verbena",
+          "familiaOlfativa": "Frutal Verde",
+          "corExclusiva": "#8EA487",
+          "badge": "Mais vendido",
+          "descricao": "Notas frescas e verdes que remetem a jardins ensolarados, com equilíbrio entre cítricos suaves e folhas de verbena.",
+          "imagem": "assets/images/products/verbena.webp",
+          "imagemThumb": "assets/images/products/verbena-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 42.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 92.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV02",
+          "nome": "Blue Ocean",
+          "slug": "blue-ocean",
+          "familiaOlfativa": "Floral Frutal",
+          "corExclusiva": "#6E8797",
+          "descricao": "Frescor aquático que evoca brisa marinha e amplitude. Florais delicados sobre um fundo de fundo limpo e revigorante.",
+          "imagem": "assets/images/products/blue-ocean.webp",
+          "imagemThumb": "assets/images/products/blue-ocean-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 44.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 95.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV03",
+          "nome": "Morango & Champanhe",
+          "slug": "morango-champanhe",
+          "familiaOlfativa": "Oriental Gourmand",
+          "corExclusiva": "#C49A90",
+          "badge": "Novo",
+          "descricao": "Doçura frutada com um toque sofisticado e festivo. Morango maduro, bolhas de champanhe e um final delicadamente adocicado.",
+          "imagem": "assets/images/products/morango-champanhe.webp",
+          "imagemThumb": "assets/images/products/morango-champanhe-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 42.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 92.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV04",
+          "nome": "Mística",
+          "slug": "mistica",
+          "familiaOlfativa": "Cítrico Floral",
+          "corExclusiva": "#525C67",
+          "descricao": "Equilíbrio entre cítricos vibrantes e flores enigmáticas. Um aroma magnético que convida à introspecção.",
+          "imagem": "assets/images/products/mistica.webp",
+          "imagemThumb": "assets/images/products/mistica-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 44.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 96.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV05",
+          "nome": "Orquídea Negra",
+          "slug": "orquidea-negra",
+          "familiaOlfativa": "Floral Frutal",
+          "corExclusiva": "#5B3645",
+          "badge": "Premium",
+          "descricao": "Floral intenso e envolvente, com fundo amadeirado marcante. Orquídea negra, âmbar e madeiras nobres.",
+          "imagem": "assets/images/products/orquidea-negra.webp",
+          "imagemThumb": "assets/images/products/orquidea-negra-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 46.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 99.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV06",
+          "nome": "Mamãe & Bebê",
+          "slug": "mamae-bebe",
+          "familiaOlfativa": "Floral Amadeirada Musk",
+          "corExclusiva": "#BFC28C",
+          "descricao": "Suave e aconchegante, pensada para momentos delicados em família. Algodão, musk e um toque de maracujá.",
+          "imagem": "assets/images/products/mamae-bebe.webp",
+          "imagemThumb": "assets/images/products/mamae-bebe-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 41.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 89.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV07",
+          "nome": "Cravo & Canela",
+          "slug": "cravo-canela",
+          "familiaOlfativa": "Oriental Especiada",
+          "corExclusiva": "#A96F4E",
+          "descricao": "Especiarias quentes que trazem aconchego a qualquer ambiente. Cravo, canela da Índia e baunilha.",
+          "imagem": "assets/images/products/cravo-canela.webp",
+          "imagemThumb": "assets/images/products/cravo-canela-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 42.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 91.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV08",
+          "nome": "Alfazema",
+          "slug": "alfazema",
+          "familiaOlfativa": "Herbal Floral",
+          "corExclusiva": "#9B8EAF",
+          "badge": "Novo",
+          "descricao": "A alfazema mais pura, colhida para relaxar corpo e mente. Um convite ao descanso.",
+          "imagem": "assets/images/products/alfazema.webp",
+          "imagemThumb": "assets/images/products/alfazema-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 39.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 87.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        },
+        {
+          "id": "OV09",
+          "nome": "Lavanda",
+          "slug": "lavanda",
+          "familiaOlfativa": "Herbal Floral",
+          "corExclusiva": "#A39BC0",
+          "descricao": "Lavanda francesa em florada plena: calmante, elegante e atemporal.",
+          "imagem": "assets/images/products/lavanda.webp",
+          "imagemThumb": "assets/images/products/lavanda-thumb.webp",
+          "tamanhos": [
+            { "tipo": "Mini", "recipiente": "Potinho de vidro", "peso": "40 g", "quantidade": 1, "preco": 39.9, "queima": "25 h", "medidas": "5 × 5 × 4 cm" },
+            { "tipo": "Grande", "recipiente": "Copo de vidro whisky", "peso": "265 g", "quantidade": 1, "preco": 88.9, "queima": "60 h", "medidas": "8 × 8 × 10 cm" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aromatizadores",
+      "nome": "Aromatizadores",
+      "descricao": "Difusores e sachês para perfumar ambientes de forma constante e discreta.",
+      "produtos": [
+        {
+          "id": "ARO1",
+          "nome": "Difusor de Varetas — Alfazema",
+          "slug": "difusor-alfazema",
+          "familiaOlfativa": "Herbal Floral",
+          "corExclusiva": "#9B8EAF",
+          "descricao": "Frasco de vidro âmbar com 100 ml de fragrância e varetas de bambu. Perfuma ambientes de até 20 m² por até 60 dias.",
+          "imagem": "",
+          "imagemThumb": "",
+          "tamanhos": [
+            { "tipo": "Único", "recipiente": "Frasco de vidro 100 ml", "peso": "100 ml", "quantidade": 1, "preco": 89.9, "queima": "60 dias", "medidas": "6 × 6 × 18 cm" }
+          ]
+        },
+        {
+          "id": "ARO2",
+          "nome": "Difusor de Varetas — Lavanda",
+          "slug": "difusor-lavanda",
+          "familiaOlfativa": "Herbal Floral",
+          "corExclusiva": "#A39BC0",
+          "descricao": "Lavanda francesa em versão difusor. Perfuma ambientes de até 20 m² por até 60 dias.",
+          "imagem": "",
+          "imagemThumb": "",
+          "tamanhos": [
+            { "tipo": "Único", "recipiente": "Frasco de vidro 100 ml", "peso": "100 ml", "quantidade": 1, "preco": 89.9, "queima": "60 dias", "medidas": "6 × 6 × 18 cm" }
+          ]
+        },
+        {
+          "id": "ARO3",
+          "nome": "Sachê Aromático Para Guarda-Roupa",
+          "slug": "sache-guarda-roupa",
+          "familiaOlfativa": "Floral Amadeirada",
+          "corExclusiva": "#BFC28C",
+          "descricao": "Sachê de algodão com esferas perfumadas. Disponíveis nos aromas da casa. Cada unidade perfuma gavetas por até 90 dias.",
+          "imagem": "",
+          "imagemThumb": "",
+          "tamanhos": [
+            { "tipo": "Único", "recipiente": "Sachê de algodão", "peso": "30 g", "quantidade": 2, "preco": 24.9, "queima": "90 dias", "medidas": "10 × 14 cm" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acessorios",
+      "nome": "Acessórios",
+      "descricao": "Itens que complementam a experiência de acender e cuidar das suas velas.",
+      "produtos": [
+        {
+          "id": "ACC1",
+          "nome": "Kit de Fósforos Longos",
+          "slug": "kit-fosforos",
+          "familiaOlfativa": "",
+          "corExclusiva": "#D8CCBC",
+          "descricao": "Fósforos de madeira longa em caixa decorativa, práticos para acender velas com segurança.",
+          "imagem": "",
+          "imagemThumb": "",
+          "tamanhos": [
+            { "tipo": "Único", "recipiente": "Caixa decorativa", "peso": "45 g", "quantidade": 1, "preco": 18.9, "queima": "60 palitos", "medidas": "7 × 4 × 12 cm" }
+          ]
+        },
+        {
+          "id": "ACC2",
+          "nome": "Cortador de Pavio",
+          "slug": "cortador-pavio",
+          "familiaOlfativa": "",
+          "corExclusiva": "#B79C6B",
+          "descricao": "Cortador de pavio com coletor, para manter a chama limpa e prolongar a vida útil da vela.",
+          "imagem": "",
+          "imagemThumb": "",
+          "tamanhos": [
+            { "tipo": "Único", "recipiente": "Aço escovado", "peso": "60 g", "quantidade": 1, "preco": 16.9, "queima": "—", "medidas": "15 cm" }
+          ]
+        }
+      ]
+    }
+  ]
+}

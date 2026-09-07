@@ -1,0 +1,186 @@
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+/* ---------- TABLET / NOTEBOOK (até 1200) ---------- */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------- TABLET (até 1024) ---------- */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-8);
+  }
+
+  .modal-card {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-media {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .modal-media img {
+    position: static;
+  }
+}
+
+/* ---------- TABLET PEQUENO (até 920) ---------- */
+@media (max-width: 920px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalog-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar {
+    width: 100%;
+  }
+
+  .price-field {
+    margin-left: auto;
+  }
+}
+
+/* ---------- CELULAR (até 768) ---------- */
+@media (max-width: 768px) {
+  :root {
+    --h-header: 64px;
+    --h-header-mob: 96px;
+  }
+
+  html {
+    scroll-padding-top: 190px;
+  }
+
+  .header-inner {
+    min-height: var(--h-header);
+  }
+
+  .brand-text small {
+    display: none;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Barra de pesquisa frágil -> vira linha própria */
+  .header-search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+    margin: 0 0 var(--s-3);
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .hero-inner {
+    padding-block: 72px;
+    min-height: 430px;
+  }
+
+  .hero-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .categories {
+    top: calc(var(--h-header) + 60px);
+  }
+
+  .catalog {
+    padding-block: var(--s-7) var(--s-9);
+  }
+
+  .toolbar {
+    gap: var(--s-2);
+  }
+
+  .field-label {
+    display: none;
+  }
+
+  .price-values {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .modal-card {
+    max-height: calc(100dvh - 2 * var(--s-3));
+  }
+
+  .modal-body {
+    padding: var(--s-5);
+  }
+}
+
+/* ---------- CELULAR PEQUENO (até 560) ---------- */
+@media (max-width: 560px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+
+  .wa-top {
+    width: 46px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .wa-top .wa-top-label {
+    display: none;
+  }
+
+  .modal-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+  }
+
+  .toasts {
+    bottom: var(--s-4);
+  }
+}
+
+/* ---------- Impressão ---------- */
+@media print {
+  .site-header,
+  .categories,
+  .back-top,
+  .wa-float,
+  .cart-overlay,
+  .cart-drawer,
+  .modal,
+  .toasts {
+    display: none !important;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
