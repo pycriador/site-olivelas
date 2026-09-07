@@ -242,6 +242,7 @@ function renderGrid() {
   $("#catalog-eyebrow").textContent = store.filtros.categoria === "todos" ? "Catálogo" : "Categoria";
 
   if (!list.length) {
+    page = 1;
     $("#page-size-select").innerHTML = "";
     $("#pagination").innerHTML = "";
     grid.innerHTML = "";
@@ -285,10 +286,10 @@ function renderGrid() {
 /* ---------- Paginação (padrão katia-produtos) ---------- */
 function measureColumns() {
   const grid = $("#grid");
-  if (!grid) return 1;
+  if (!grid) return 4;
   const computed = getComputedStyle(grid).gridTemplateColumns;
   const cols = computed ? computed.split(" ").filter((t) => t && t !== "none").length : 0;
-  return cols > 0 ? cols : 1;
+  return cols > 0 ? cols : 4;
 }
 
 function sizesFor(cols, total) {
