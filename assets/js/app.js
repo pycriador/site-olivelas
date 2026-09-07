@@ -13,10 +13,10 @@ import { waLink, mensagemGeral } from "./whatsapp.js";
 
 const PLACEHOLDER = "assets/images/placeholder.webp";
 
-/* Paginação: itens por página + página corrente + chave dos filtros ativos */
-const PAGE_SIZES_BASE = [8, 16, 24, 32, 48, 64];
+/* Paginação: itens por página calculados pelas colunas da grade (padrão katia),
+   página corrente + chave dos filtros ativos */
 let page = 1;
-let pageSize = 8;
+let pageSize = 10;
 let lastFilterKey = "";
 
 async function init() {
@@ -233,18 +233,17 @@ function renderGrid() {
   if (!grid) return;
 
   const list = getItensFiltrados();
-  const total = store.itens.length;
 
   $("#catalog-title").textContent =
     store.filtros.categoria === "todos" ? "Todos os produtos" : currentCategoryName();
 
-  $("#result-count").textContent = `${list.length} de ${total} produto${total === 1 ? "" : "s"}${
-    store.filtros.query ? ` para “${store.filtros.query}”` : ""
-  }`;
+  $("#result-count").textContent = list.length;
 
   $("#catalog-eyebrow").textContent = store.filtros.categoria === "todos" ? "Catálogo" : "Categoria";
 
   if (!list.length) {
+    $("#page-size-select").innerHTML = "";
+    $("#pagination").innerHTML = "";
     grid.innerHTML = "";
     const empty = $("#empty");
     empty.innerHTML = `
@@ -271,7 +270,7 @@ function renderGrid() {
     page = 1;
   }
 
-  rebuildPageSize(list.length);
+  rebuildPageSizeOptions(list.length);
   const pages = Math.max(1, Math.ceil(list.length / pageSize));
   if (page > pages) page = pages;
   const visible = list.slice((page - 1) * pageSize, page * pageSize);
@@ -283,23 +282,34 @@ function renderGrid() {
   renderPagination(list.length);
 }
 
-/* ---------- Paginação ---------- */
-function paginationSizes(total) {
-  const opts = PAGE_SIZES_BASE.filter((s) => s < total);
-  if (!opts.length || opts[opts.length - 1] !== total) opts.push(total);
+/* ---------- Paginação (padrão katia-produtos) ---------- */
+function measureColumns() {
+  const grid = $("#grid");
+  if (!grid) return 1;
+  const computed = getComputedStyle(grid).gridTemplateColumns;
+  const cols = computed ? computed.split(" ").filter((t) => t && t !== "none").length : 0;
+  return cols > 0 ? cols : 1;
+}
+
+function sizesFor(cols, total) {
+  const step = cols * 2;
+  if (!step || step < 1 || total < 1) return [Math.max(1, total)];
+  const opts = [];
+  for (let s = step; s <= total; s += step) opts.push(s);
+  if (opts[opts.length - 1] !== total) opts.push(total);
   return opts;
 }
 
-function rebuildPageSize(total) {
-  const sel = $("#page-size");
-  if (!sel) return;
-  const opts = paginationSizes(total);
-  if (!opts.includes(pageSize)) {
-    pageSize = opts[0] || total;
+function rebuildPageSizeOptions(total) {
+  const select = $("#page-size-select");
+  if (!select) return;
+  const options = sizesFor(measureColumns(), Math.max(1, total));
+  if (!options.includes(pageSize)) {
+    pageSize = options[0] || Math.max(1, total);
     page = 1;
   }
-  sel.innerHTML = opts.map((s) => `<option value="${s}">${s}</option>`).join("");
-  sel.value = String(pageSize);
+  select.innerHTML = options.map((s) => `<option value="${s}">${s}</option>`).join("");
+  select.value = String(pageSize);
 }
 
 function renderPagination(total) {
@@ -354,7 +364,7 @@ function pageSlots(pages) {
 }
 
 function initPagination() {
-  $("#page-size")?.addEventListener("change", (e) => {
+  $("#page-size-select")?.addEventListener("change", (e) => {
     pageSize = Number(e.target.value);
     page = 1;
     renderGrid();

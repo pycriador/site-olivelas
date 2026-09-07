@@ -151,15 +151,9 @@
         <div>
           <p class="overline" id="catalog-eyebrow">Catálogo</p>
           <h2 id="catalog-title">Todos os produtos</h2>
-          <p class="result-count" id="result-count" aria-live="polite"></p>
         </div>
 
         <div class="toolbar">
-          <label class="field">
-            <span class="field-label">Itens por página</span>
-            <select id="page-size" aria-label="Itens por página"></select>
-          </label>
-
           <label class="field">
             <span class="field-label">Ordenar</span>
             <select id="sort" aria-label="Ordenar produtos"></select>
@@ -188,6 +182,14 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="catalog-toolbar">
+        <p class="results-info"><strong class="results-info__count" id="result-count"></strong> disponíveis</p>
+        <div class="page-size">
+          <label for="page-size-select">Itens por página</label>
+          <select id="page-size-select" class="select-control" aria-label="Itens por página"></select>
         </div>
       </div>
 

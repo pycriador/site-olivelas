@@ -515,10 +515,41 @@ body.no-scroll {
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
 }
 
-.result-count {
-  color: var(--color-text-faint);
+.results-info {
+  color: var(--color-text-soft);
   font-size: 0.9rem;
-  margin-top: var(--s-1);
+}
+
+/* Barra do catálogo: contador + itens por página (padrão katia-produtos) */
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-5);
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: 0.85rem;
+  color: var(--color-text-faint);
+}
+
+.select-control {
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: var(--s-2) var(--s-3);
+  cursor: pointer;
+  min-width: 72px;
+  text-align: center;
 }
 
 .toolbar {
