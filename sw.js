@@ -5,7 +5,7 @@
    - Assets locais:  stale-while-revalidate
    - Fontes (CDN):   stale-while-revalidate */
 
-const CORE_VERSION = "olivelas-v10";
+const CORE_VERSION = "olivelas-v11";
 const CORE = [
   "./",
   "./index.html",
@@ -29,6 +29,8 @@ const CORE = [
   "./assets/js/favorites.js",
   "./assets/js/app.js",
   "./assets/images/logo.png",
+  "./assets/images/logo-light.svg",
+  "./assets/images/logo-dark.svg",
   "./assets/images/placeholder.webp",
   "./assets/images/og-cover.webp",
   "./assets/images/icons/icon-192.png",
