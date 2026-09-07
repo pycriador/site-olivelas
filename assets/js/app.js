@@ -415,8 +415,30 @@ function showError() {
 /* ================= PWA ================= */
 function registerSW() {
   if (!("serviceWorker" in navigator)) return;
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch((err) => console.warn("[olivelas] SW:", err));
+  window.addEventListener("load", async () => {
+    try {
+      const reg = await navigator.serviceWorker.register("sw.js");
+      if (!navigator.serviceWorker.controller) return;
+
+      let reloaded = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!reloaded) {
+          reloaded = true;
+          location.reload();
+        }
+      });
+
+      reg.addEventListener("updatefound", () => {
+        const sw = reg.installing;
+        if (sw) {
+          sw.addEventListener("statechange", () => {
+            if (sw.state === "installed") sw.postMessage("SKIP_WAITING");
+          });
+        }
+      });
+    } catch (err) {
+      console.warn("[olivelas] SW:", err);
+    }
   });
 }
 
