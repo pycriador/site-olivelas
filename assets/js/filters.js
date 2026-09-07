@@ -1,18 +1,52 @@
-/* Filtros: menu de categorias (lido do JSON), ordenação e faixa de preço. */
+/* Filtros: sidebar de categorias (lido do JSON), ordenação e faixa de preço. */
 
 import { $, $$, clamp, bus, formatCurrency } from "./utils.js";
 import { getStore, setFiltro } from "./catalog.js";
 
 let popoverOpen = false;
+let closeDrawer = null;
 
 export function initFilters() {
   bus.on("categoria:select", selectCategoria);
+  initSidebar();
   renderCategories();
   initSort();
   initPriceRange();
 }
 
-/* ---------- Menu de categorias ---------- */
+/* ---------- Sidebar de categorias (fixa no desktop / drawer no mobile) ---------- */
+function initSidebar() {
+  const sidebar = $("#sidebar");
+  const overlay = $("#cats-overlay");
+  const toggle = $("#cats-toggle");
+  if (!sidebar || !overlay || !toggle) return;
+
+  const mq = window.matchMedia("(max-width: 768px)");
+  const open = () => {
+    sidebar.classList.add("is-open");
+    overlay.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.classList.add("no-scroll");
+  };
+  const close = () => {
+    sidebar.classList.remove("is-open");
+    overlay.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("no-scroll");
+  };
+  closeDrawer = close;
+
+  toggle.addEventListener("click", () => (sidebar.classList.contains("is-open") ? close() : open()));
+  $("#sidebar-close")?.addEventListener("click", close);
+  overlay.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("is-open")) close();
+  });
+  mq.addEventListener("change", (e) => {
+    if (!e.matches) close();
+  });
+}
+
 function renderCategories() {
   const { categorias, itens } = getStore();
   const wrap = $("#categorias");
@@ -21,37 +55,33 @@ function renderCategories() {
   const counts = new Map();
   itens.forEach((i) => counts.set(i.categoriaId, (counts.get(i.categoriaId) || 0) + 1));
 
-  const pills = [{ id: "todos", nome: "Todos", total: itens.length }, ...categorias.map((c) => ({ ...c, total: counts.get(c.id) || 0 }))];
+  const items = [{ id: "todos", nome: "Todos os produtos", total: itens.length }, ...categorias.map((c) => ({ ...c, total: counts.get(c.id) || 0 }))];
 
-  wrap.innerHTML = pills
-    .map(
-      (c, i) => `
-      <button type="button" class="cat-pill${c.id === "todos" ? " is-active" : ""}"
-        data-action="categoria" data-value="${c.id}" role="tab"
-        aria-selected="${c.id === "todos"}"
-        aria-controls="grid"
-        id="tab-${c.id}"
-        style="--i:${i}">
-        ${c.nome}
-        <span class="cat-count">${c.total}</span>
-      </button>`
-    )
+  wrap.innerHTML = items
+    .map((c) => `
+      <button type="button" class="sidebar-item${c.id === "todos" ? " is-active" : ""}"
+        data-action="categoria" data-value="${c.id}">
+        <span class="sidebar-item-name">${c.nome}</span>
+        <span class="sidebar-item-count">${c.total}</span>
+      </button>`)
     .join("");
 
   wrap.addEventListener("click", (e) => {
-    const pill = e.target.closest("[data-action='categoria']");
-    if (!pill) return;
-    selectCategoria(pill.dataset.value);
+    const item = e.target.closest("[data-action='categoria']");
+    if (!item) return;
+    selectCategoria(item.dataset.value);
   });
 }
 
 function selectCategoria(id) {
   setFiltro({ categoria: id });
-  $$("#categorias .cat-pill").forEach((p) => {
+  $$("#categorias .sidebar-item").forEach((p) => {
     const active = p.dataset.value === id;
     p.classList.toggle("is-active", active);
-    p.setAttribute("aria-selected", String(active));
+    if (active) p.setAttribute("aria-current", "page");
+    else p.removeAttribute("aria-current");
   });
+  if (window.matchMedia("(max-width: 768px)").matches) closeDrawer?.();
 }
 
 /* ---------- Ordenação ---------- */
