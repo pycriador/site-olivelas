@@ -42,6 +42,7 @@ async function init() {
     initFilters();
     initSearch();
     initModal();
+    initGridEvents();
     bus.on("filtros:change", renderGrid);
     renderGrid();
     initReveal();
@@ -414,7 +415,6 @@ function renderGrid() {
   grid.innerHTML = visible.map(cardTemplate).join("");
   grid.setAttribute("aria-busy", "false");
   paintFavorites();
-  bindGridEvents(grid);
   renderPagination(list.length);
 }
 
@@ -558,16 +558,28 @@ function cardTemplate(item, idx) {
   </article>`;
 }
 
-function bindGridEvents(grid) {
-  grid.addEventListener("click", (e) => {
+function initGridEvents() {
+  const grid = $("#grid");
+  const empty = $("#empty");
+
+  grid?.addEventListener("click", (e) => {
     const actionEl = e.target.closest("[data-action]");
     if (actionEl) handleProductAction(actionEl);
   });
 
-  const reset = $("#empty-reset");
-  reset?.addEventListener("click", () => {
-    bus.emit("filtros:reset");
-    setFiltro({ query: "", categoria: "todos", precoMin: getStore().limitesPreco.min, precoMax: getStore().limitesPreco.max, sort: "relevancia", favoritos: false });
+  empty?.addEventListener("click", (e) => {
+    const reset = e.target.closest("#empty-reset");
+    if (reset) {
+      bus.emit("filtros:reset");
+      setFiltro({
+        query: "",
+        categoria: "todos",
+        precoMin: getStore().limitesPreco.min,
+        precoMax: getStore().limitesPreco.max,
+        sort: "relevancia",
+        favoritos: false,
+      });
+    }
   });
 }
 

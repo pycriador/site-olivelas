@@ -9,8 +9,11 @@ import { icons } from "./theme.js";
 
 let lastFocused = null;
 let currentUid = "";
+let modalInitialized = false;
 
 export function initModal() {
+  if (modalInitialized) return;
+  modalInitialized = true;
   const modal = $("#product-modal");
   const closeBtn = $("#modal-close");
 
