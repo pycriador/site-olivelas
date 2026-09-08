@@ -90,5 +90,34 @@ favSet.add(esgotadoItem.id);
 favSet.add(normalItem.id);
 check("Favoritos aceitam produtos regulares, em breve e esgotados", favSet.has("ACC2") && favSet.has("TEST_OUT") && favSet.has("OV01"));
 
+// 7. Pagination Logic Checks
+function paginationSlots(curr, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const set = new Set([1, total, curr, curr - 1, curr + 1]);
+  const sorted = [...set].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
+  const out = [];
+  let prev = 0;
+  sorted.forEach((p) => {
+    if (prev && p - prev > 1) out.push('...');
+    out.push(p);
+    prev = p;
+  });
+  return out;
+}
+
+function sizesFor(cols, total) {
+  const step = cols * 2;
+  if (!step || step < 1 || total < 1) return [Math.max(1, total)];
+  const opts = [];
+  for (let s = step; s <= total; s += step) opts.push(s);
+  if (opts[opts.length - 1] !== total) opts.push(total);
+  return opts;
+}
+
+check("paginationSlots para 3 páginas gera [1, 2, 3]", JSON.stringify(paginationSlots(1, 3)) === "[1,2,3]");
+check("paginationSlots para 10 páginas na página 5 inclui ellipsis", paginationSlots(5, 10).includes("..."));
+check("sizesFor 3 colunas e 17 itens gera múltiplos de 6", sizesFor(3, 17).includes(6) && sizesFor(3, 17).includes(12) && sizesFor(3, 17).includes(17));
+
 console.log(`\nAll ${pass} checks passed for /novo!`);
+
 

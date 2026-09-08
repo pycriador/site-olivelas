@@ -15,6 +15,8 @@ class App {
     this.data = FALLBACK_DATA;
     this.activeCategory = 'todos';
     this.searchQuery = '';
+    this.page = 1;
+    this.pageSize = 6;
     this.selectedVariants = new Map(); // id -> variant index
     this.init();
   }
@@ -307,6 +309,7 @@ class App {
         $$('[data-category]').forEach((p) => p.classList.remove('is-active'));
         pill.classList.add('is-active');
         this.activeCategory = pill.dataset.category;
+        this.page = 1;
         this.renderCatalog();
       }
 
@@ -316,6 +319,7 @@ class App {
         e.preventDefault();
         const filter = featLink.dataset.filter;
         this.activeCategory = filter;
+        this.page = 1;
         $$('[data-category]').forEach((p) => p.classList.remove('is-active'));
         this.renderCatalog();
         $('#colecao')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -330,10 +334,30 @@ class App {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
           this.searchQuery = normalizeStr(e.target.value);
+          this.page = 1;
           this.renderCatalog();
         }, 180);
       });
     }
+
+    // Page size select
+    const pageSizeSelect = $('#page-size-select');
+    if (pageSizeSelect) {
+      pageSizeSelect.addEventListener('change', (e) => {
+        this.pageSize = Number(e.target.value);
+        this.page = 1;
+        this.renderCatalog();
+      });
+    }
+
+    // Window resize (re-measures grid columns and rebuilds pagination)
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.renderCatalog();
+      }, 200);
+    });
 
     // Card variant selection
     document.addEventListener('click', (e) => {
@@ -469,6 +493,12 @@ class App {
 
     const filtered = this.getFilteredCandles();
 
+    // Update results info
+    const countEl = $('#result-count');
+    if (countEl) {
+      countEl.textContent = filtered.length;
+    }
+
     if (filtered.length === 0) {
       grid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 48px 16px; color: var(--text-mute);">
@@ -476,10 +506,20 @@ class App {
           <p>Tente buscar por outro termo ou selecione "Todos os produtos".</p>
         </div>
       `;
+      const nav = $('#pagination');
+      if (nav) nav.innerHTML = '';
       return;
     }
 
-    grid.innerHTML = filtered.map((c) => {
+    this.rebuildPageSizeOptions(filtered.length);
+
+    const pages = Math.max(1, Math.ceil(filtered.length / this.pageSize));
+    if (this.page > pages) this.page = 1;
+
+    const start = (this.page - 1) * this.pageSize;
+    const paginated = filtered.slice(start, start + this.pageSize);
+
+    grid.innerHTML = paginated.map((c) => {
       const defaultIndex = c.tamanhos && c.tamanhos.length > 1 ? 1 : 0;
       const selectedIndex = this.selectedVariants.get(c.id) ?? defaultIndex;
       const isFav = favorites.isFavorite(c.id);
@@ -552,6 +592,95 @@ class App {
         </article>
       `;
     }).join('');
+
+    this.renderPagination(filtered.length);
+  }
+
+  measureColumns() {
+    const grid = $('#grid-scents');
+    if (!grid) return 3;
+    const computed = window.getComputedStyle(grid).gridTemplateColumns;
+    const cols = computed ? computed.split(' ').filter((t) => t && t !== 'none').length : 0;
+    return cols > 0 ? cols : 3;
+  }
+
+  sizesFor(cols, total) {
+    const step = cols * 2;
+    if (!step || step < 1 || total < 1) return [Math.max(1, total)];
+    const opts = [];
+    for (let s = step; s <= total; s += step) opts.push(s);
+    if (opts[opts.length - 1] !== total) opts.push(total);
+    return opts;
+  }
+
+  rebuildPageSizeOptions(total) {
+    const select = $('#page-size-select');
+    if (!select) return;
+    const options = this.sizesFor(this.measureColumns(), Math.max(1, total));
+    if (!options.includes(this.pageSize)) {
+      this.pageSize = options[0] || Math.max(1, total);
+      this.page = 1;
+    }
+    select.innerHTML = options.map((s) => `<option value="${s}">${s}</option>`).join('');
+    select.value = String(this.pageSize);
+  }
+
+  renderPagination(total) {
+    const nav = $('#pagination');
+    if (!nav) return;
+    const pages = Math.max(1, Math.ceil(total / this.pageSize));
+    nav.innerHTML = '';
+    if (total === 0 || pages <= 1) return;
+
+    const makeBtn = (inner, opts = {}) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = `page-btn${opts.active ? ' active' : ''}`;
+      if (opts.disabled) b.disabled = true;
+      if (opts.label) b.setAttribute('aria-label', opts.label);
+      b.innerHTML = inner;
+      if (!opts.disabled) {
+        b.addEventListener('click', () => {
+          this.page = opts.page;
+          this.renderCatalog();
+          $('#colecao')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+      return b;
+    };
+
+    const chevronLeft = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
+    const chevronRight = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+
+    nav.appendChild(makeBtn(chevronLeft, { page: this.page - 1, disabled: this.page <= 1, label: 'Página anterior' }));
+
+    const slots = this.paginationSlots(this.page, pages);
+    slots.forEach((s) => {
+      if (s === '...') {
+        const span = document.createElement('span');
+        span.className = 'page-ellipsis';
+        span.textContent = '…';
+        nav.appendChild(span);
+      } else {
+        nav.appendChild(makeBtn(String(s), { page: s, active: s === this.page, label: `Página ${s}` }));
+      }
+    });
+
+    nav.appendChild(makeBtn(chevronRight, { page: this.page + 1, disabled: this.page >= pages, label: 'Próxima página' }));
+  }
+
+  paginationSlots(curr, total) {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+    const set = new Set([1, total, curr, curr - 1, curr + 1]);
+    const sorted = [...set].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
+    const out = [];
+    let prev = 0;
+    sorted.forEach((p) => {
+      if (prev && p - prev > 1) out.push('...');
+      out.push(p);
+      prev = p;
+    });
+    return out;
   }
 
   renderComplementos() {

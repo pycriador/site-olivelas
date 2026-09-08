@@ -168,10 +168,22 @@
           </div>
         </div>
 
+        <!-- Barra de Informações e Itens por página -->
+        <div class="catalog-toolbar">
+          <p class="results-info"><strong class="results-info__count" id="result-count">0</strong> produtos disponíveis</p>
+          <div class="page-size">
+            <label for="page-size-select">Itens por página</label>
+            <select id="page-size-select" class="select-control" aria-label="Itens por página"></select>
+          </div>
+        </div>
+
         <!-- Grid de Cards de Velas -->
         <div class="grid-scents" id="grid-scents" aria-live="polite">
           <!-- Renderizado dinamicamente via app.js -->
         </div>
+
+        <!-- Paginação de produtos -->
+        <nav class="pagination" id="pagination" aria-label="Paginação de produtos"></nav>
 
         <p class="catalog-note" id="colecao-note">Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.</p>
         <p class="catalog-fine" id="colecao-fineprint">Preços válidos para pedidos combinados diretamente com o ateliê</p>
