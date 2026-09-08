@@ -82,18 +82,28 @@ erDiagram
 - `corPrimaria` / `corSecundaria` / `corFundo` / `corApoio` (*string hex*): Injetadas no CSS como `--brand-ink`, `--brand-accent`, `--brand-paper` e `--brand-mist`.
 - `fonteTitulo` / `fonteTexto` (*string*): Nomes de famílias do Google Fonts.
 
+### Bloco `homeFeatured[]`
+Seções editoriais temáticas renderizadas na página inicial:
+- `id` (*string*): Identificador da seção (`"novidades"`, `"mais-vendidos"`, `"rituais"`).
+- `eyebrow` (*string*): Subtítulo editorial (ex: `"Chegaram para ficar"`, `"Escolhidos por vocês"`, `"Para completar o ambiente"`).
+- `title` (*string*): Título principal (ex: `"Novidades da casa"`, `"Os mais queridos"`, `"Pequenos rituais"`).
+- `description` (*string*): Descrição do conceito da seleção.
+- `tag` (*string*): Tag de correspondência para filtrar os produtos vinculados.
+
 ### Bloco `categorias[].produtos[]`
-- `id` (*string*): Identificador curto do aroma/produto (ex: `"OV01"`, `"ARO1"`, `"ACC1"`).
+- `id` (*string*): Identificador curto do aroma/produto (ex: `"OV01"`, `"ARO1"`, `"ACC1"`, `"KIT01"`).
 - `slug` (*string*): Identificador amigável em kebab-case usado para resolução de ícones e rotas (ex: `"verbena"`, `"blue-ocean"`).
 - `esgotado` (*boolean*, opcional): Flag que define se o produto está sem estoque.
-- `badge` (*string*, opcional): Rótulo destacado (`"Mais vendido"`, `"Novo"`, `"Premium"`, `"Esgotado"`).
+- `emBreve` (*boolean*, opcional): Flag que define lançamentos futuros ("Em breve").
+- `badge` (*string*, opcional): Rótulo destacado (`"Mais vendido"`, `"Novo"`, `"Premium"`, `"Em breve"`, `"Esgotado"`).
+- `tags` (*array de strings*, opcional): Tags temáticas para seções de destaque (ex: `["mais-vendidos"]`, `["novidades"]`, `["rituais"]`).
 - `tamanhos` (*array*): Lista de variantes físicas do produto.
 
 ### Bloco `tamanhos[]` (Variantes)
-- `tipo` (*string*): Nome da variante (ex: `"Mini"`, `"Padrão"`, `"Único"`).
-- `preco` (*number*): Valor numérico em formato decimal (ex: `42.9`).
+- `tipo` (*string*): Nome da variante (ex: `"Mini"`, `"Padrão"`, `"Único"`, `"10 unidades"`).
+- `preco` (*number*): Valor numérico em formato decimal (ex: `42.9`, `369.0`).
 - `imagem` / `imagemThumb` (*string*): Caminhos para as fotos específicas daquela variante (ex: `assets/images/products/verbena-mini.webp`).
-- `esgotado` (*boolean*, opcional): Permite esgotar uma variante específica sem afetar as demais.
+- `esgotado` / `emBreve` (*boolean*, opcional): Permite definir status individualizado por variante.
 
 ---
 
@@ -108,6 +118,7 @@ erDiagram
   "corExclusiva": "#8EA487",
   "icone": "leaf",
   "badge": "Mais vendido",
+  "tags": ["mais-vendidos"],
   "descricao": "Notas frescas e verdes que remetem a jardins ensolarados...",
   "imagem": "assets/images/products/verbena.webp",
   "imagemThumb": "assets/images/products/verbena-thumb.webp",

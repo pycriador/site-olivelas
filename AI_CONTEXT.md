@@ -49,37 +49,33 @@ O **OLIVELAS** é um catálogo digital headless de alto padrão estético para v
 
 ```mermaid
 graph TD
-    JSON[(assets/data/produtos.json)] -->|Fetch assíncrono no boot| CAT[catalog.js: Normalização & Store]
+    JSON[(assets/data/produtos.json)] -->|Fetch assíncrono / Fallback| DATA[data.js: Catálogo, HomeFeatured & Store]
     
-    CAT -->|Define Map indexado por uid| STORE[State em Memória]
+    DATA -->|Lista de produtos normalizados| APP[app.js: Orquestrador de UI, Paginação & Grid]
     
-    BUS[utils.js: Micro EventBus] <--> CAT
-    BUS <--> FILTERS[filters.js: Categorias & Preço]
-    BUS <--> SEARCH[search.js: Busca Debounce 220ms]
-    BUS <--> FAV[favorites.js: Set de uid]
-    BUS <--> CART[cart.js: Carrinho & Trava Esgotado]
-    BUS <--> THEME[theme.js: Tokens & Fontes]
-    BUS <--> MODAL[modal.js: Deep Linking #produto-uid]
-    BUS <--> APP[app.js: Orquestrador de UI & Grid]
+    BUS[utils.js: Micro EventBus & Utils] <--> APP
+    BUS <--> FAV[favorites.js: Set de IDs & Drawer]
+    BUS <--> CART[cart.js: Carrinho, Quantidades & Drawer]
+    BUS <--> MODAL[modal.js: Modal de Detalhes & Variantes]
     
-    FAV -->|Persiste olivelas:favs| LS[(LocalStorage)]
-    CART -->|Persiste olivelas:cart| LS
-    THEME -->|Persiste olivelas:theme| LS
+    FAV -->|Persiste olivelas:novo:favs| LS[(LocalStorage)]
+    CART -->|Persiste olivelas:novo:cart| LS
+    APP -->|Persiste olivelas:novo:theme| LS
     
     CART -->|Checkout| WA[whatsapp.js: Link wa.me]
-    MODAL -->|Avisar Estoque / Compra| WA
+    MODAL -->|Link direto / WhatsApp| WA
 ```
 
 ### 2.1. Matriz de Decisões Arquiteturais e Racional
 | Decisão Arquitetural | Implementação | Motivo / Racional |
 |---|---|---|
 | **Zero-Build (ES Modules nativos)** | `<script type="module" src="assets/js/app.js">` | Elimina complexidade de pipeline de build, vulnerabilidades de `node_modules` e permite deploy estático instantâneo. |
-| **Identificador Primário `uid`** | `${id}-${slugify(t.tipo)}` | Desacopla variantes (Mini vs Padrão) para que favoritos, fotos, URLs de compartilhamento e carrinho operem na variante exata. |
-| **Tokens CSS em Dois Níveis** | `--brand-*` (Marca) vs `--color-*` (Semântica) | Permite que o tema escuro inverta cores da interface sem corromper as cores institucionais vindas do JSON. |
-| **EventBus Desacoplado** | Classe `Emitter` em `utils.js` | Evita dependência circular e acoplamento rígido entre componentes da UI. |
+| **Fallback Resiliente de Dados** | `FALLBACK_DATA` em `data.js` | Garante renderização instantânea mesmo se o fetch do JSON falhar ou demorar na rede. |
+| **Tokens CSS em Dois Níveis** | `--brand-*` (Marca) vs `--color-*` (Semântica) | Permite que o tema escuro inverta cores da interface sem corromper as cores institucionais. |
+| **EventBus Desacoplado** | `bus` em `utils.js` | Evita dependência circular e acoplamento rígido entre componentes da UI. |
 | **Busca com Normalização NFD** | `s.normalize("NFD").replace(/\p{M}/gu, "")` | Torna a busca insensível a maiúsculas, minúsculas, acentos e cedilhas. |
-| **Paginação por Colunas Reais** | `getComputedStyle(grid).gridTemplateColumns` | Garante que o número de cards exibidos por página seja múltiplo exato das colunas visíveis, evitando grades com buracos. |
-| **Antiduplicação de Toasts** | Timestamp + Hash Key com threshold de 750ms | Previne que cliques rápidos ou propagação em cascata gerem notificações repetidas na tela. |
+| **Paginação Editorial Dinâmica** | Pills de tamanho e slots inteligentes | Permite escolher 6, 12, 18 ou todos os itens com paginação fluida e acessível. |
+| **Backup Automático do Legado** | `layout_antigo.zip` | Preserva histórico completo de produção sem poluir a árvore do repositório. |
 
 ---
 
@@ -87,32 +83,34 @@ graph TD
 
 ```
 site-olivelas/
-├── 404.html                     # Página de erro 404 com tema adaptativo
-├── index.html                   # Shell da SPA (Hero, Grade, Sidebars, Modal, Toasts)
+├── 404.html                     # Página de erro 404 com tema adaptativo e design dourado
+├── index.html                   # Shell principal (Hero, Pilares, Coleção, Destaques, Ateliê, Pedidos)
 ├── manifest.webmanifest         # Manifesto PWA com shortcuts e ícones maskable
 ├── offline.html                 # Página offline servida pelo Service Worker
-├── sw.js                        # Service Worker (Network-First + Stale-While-Revalidate)
+├── sw.js                        # Service Worker v12 (Network-First + Stale-While-Revalidate)
+├── layout_antigo.zip            # Arquivo ZIP com backup do layout e ativos brutos legados
 ├── AI_CONTEXT.md                # Este documento (Contexto canônico para IA)
 ├── docs/                        # Wiki modular navegável do projeto
 │   ├── README.md                # Hub central da Wiki
 │   ├── architecture.md          # Arquitetura e ciclo de vida
-│   ├── data-schema.md           # Schema de dados detalhado
+│   ├── data-schema.md           # Schema de dados detalhado (homeFeatured, categorias, tags)
 │   ├── state-and-events.md      # EventBus e estado reativo
-│   ├── catalog-engine.md        # Motor de busca, filtros e paginação
-│   ├── cart-and-favorites.md    # Carrinho, favoritos e estoque
-│   ├── ui-and-design-system.md  # Tokens CSS e componentes
-│   ├── modal-and-routing.md     # Modal e URL Hash
-│   ├── media-pipeline.md        # Processamento de imagens e 3D
+│   ├── catalog-engine.md        # Motor de busca, filtros de categoria e paginação
+│   ├── cart-and-favorites.md    # Carrinho, favoritos e travas de estoque/em breve
+│   ├── ui-and-design-system.md  # Tokens CSS, tipografia editorial e componentes
+│   ├── modal-and-routing.md     # Modal de produto e seletor de variantes
+│   ├── media-pipeline.md        # Processamento de imagens e assets visuais
+│   ├── session-history-and-prompts.md # Histórico detalhado de prompts e evolução
 │   └── pwa-and-offline.md       # PWA e Service Worker
 ├── assets/
 │   ├── css/
 │   │   ├── variables.css        # Design tokens em dois níveis (--brand-* vs --color-*)
 │   │   ├── style.css            # Reset moderno, tipografia e utilitários
 │   │   ├── layout.css           # Header sticky glassmorphism, hero, grid e footer
-│   │   ├── components.css       # Cards, botões, stepper, modal, badges e toasts
+│   │   ├── components.css       # Cards, botões, pills, paginação, modal, badges e toasts
 │   │   └── responsive.css       # Breakpoints para 1024px, 768px e 480px
 │   ├── data/
-│   │   └── produtos.json        # Base de dados central institucional e produtos
+│   │   └── produtos.json        # Base de dados central (velas, kits, aromatizadores, acessórios, homeFeatured)
 │   ├── images/
 │   │   ├── logo.png             # Logotipo padrão
 │   │   ├── logo-light.svg/.png  # Logotipo oficial tema claro (texto preto)
@@ -122,22 +120,17 @@ site-olivelas/
 │   │   ├── placeholder.webp     # Imagem de fallback com monograma
 │   │   ├── icons/               # Favicons e ícones PWA (16, 32, 180, 192, 512px)
 │   │   │   └── aromas/          # Ícones autorais de famílias olfativas
-│   │   └── products/            # Fotos tratadas 1000x1000px e thumbs 500x500px
+│   │   └── products/            # Fotos tratadas de produtos e miniaturas
 │   └── js/
-│       ├── utils.js             # Micro-kernel: EventBus, DOM $, debounce, formatadores
-│       ├── theme.js             # Gerenciador de tema e injeção de Google Fonts
-│       ├── catalog.js           # Fetch, normalização [uid], filtros puros e ordenação
-│       ├── filters.js           # Sidebar de categorias, slider duplo de preço e sort
-│       ├── search.js            # Input de busca reativo com debounce de 220ms
-│       ├── favorites.js         # Persistência de Set<uid> no LocalStorage
-│       ├── cart.js              # Modelo do carrinho, drawer lateral e WhatsApp checkout
-│       ├── modal.js             # Modal acessível, hash routing e seletor de variante
-│       ├── whatsapp.js          # Gerador de links wa.me com textos formatados
-│       └── app.js               # Bootstrap, paginação dinâmica e toasts
-├── imagens/                     # Ativos originais de produção (mockups e etiquetas)
+│       ├── utils.js             # EventBus, helpers DOM, debounce, formatadores
+│       ├── data.js              # Carregador de dados, fallback e resoluções de paths
+│       ├── cart.js              # Modelo de carrinho, drawer lateral e WhatsApp checkout
+│       ├── favorites.js         # Persistência de favoritos e drawer lateral
+│       ├── modal.js             # Modal de detalhes e seletor de tamanhos
+│       ├── whatsapp.js          # Gerador de links wa.me formatados
+│       └── app.js               # Orquestrador da aplicação, busca, paginação e filtros
 └── test/
-    ├── serve.mjs                # Servidor estático local Node.js
-    └── unit.test.mjs            # Suíte com 25 asserções automatizadas
+    └── unit.test.mjs            # Suíte completa com 48 asserções automatizadas
 ```
 
 ---
@@ -218,7 +211,7 @@ site-olivelas/
 
 ### 7.3. Observabilidade e Diagnóstico
 - Modo de depuração local com servidor estático: `node test/serve.mjs`.
-- Suíte automatizada de testes unitários: `node test/unit.test.mjs` (25 testes cobrindo dados, lógica de negócio, travas de carrinho e normalização).
+- Suíte automatizada de testes unitários: `node test/unit.test.mjs` (48 testes cobrindo dados, SEO, regras de negócio, travas de carrinho/em breve, paginação e integridade).
 - Logs no console padronizados com o prefixo `[olivelas]`.
 
 ---

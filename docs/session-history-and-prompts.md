@@ -108,3 +108,34 @@ Este documento registra o histórico completo e cronológico de todas as solicit
   - Criação do arquivo raiz [`AI_CONTEXT.md`](../AI_CONTEXT.md) com a especificação canônica de arquitetura, padrões, convenções, modelos mentais e backlog técnico.
   - Criação deste documento de histórico de sessões e prompts.
 - **Resultado**: Base de conhecimento integral e autossuficiente para humanos e agentes de IA.
+
+---
+
+### Sessão 9: Expansão do Catálogo, Seções em Destaque, Paginação Editorial e Migração para a Raiz
+- **Prompts do Usuário**:
+  1. *"Na parte 'A coleção', eu quero colocar algumas categorias novas, colocar no JSON também, eu quero uma parte de 'Acessórios', 'Kits' e 'Aromatizadores', os acessórios pode ser o 'Cortador de pavio' (colocar como 'em breve'). Os aromatizadores (colocar como 'em breve'). Os kits, você pode colocar kit 10 mini velas, 3 mini velas, 50 mini velas... os produtos 'esgotados' ou 'em breve' não podem ir no carrinho, mas podem entrar nos fav."*
+  2. *"Do site antigo, eu gostei das sessões 'Para completar o ambiente / Pequenos rituais', 'Escolhidos por vocês / Os mais queridos', 'Chegaram para ficar / Novidades da casa'. Esses produtos precisam de uma TAG no JSON para entrar nessa categoria e precisam ser filtrados no 'A coleção'..."*
+  3. *"O sistema de paginação e filtro de numero de elementos por página ficou feio, tudo junto, muito feio, deixar mais profissional e bonito. Estou achando a fonte dos produtos um pouco fraca e apagada, eu quero algo que dê para ler. Tem um texto 'Exibir' perdido no final da paginação, pode deixar o exibir 'X itens' ao lado da barra de pesquisa."*
+  4. *"Ficou tudo perfeito. Agora quero que tudo que está na pasta /novo vire a página padrão. Validar páginas, arquivos e artes não usada nessa versão e colocar em um .zip chamado layout_antigo. Depois de migrar tudo que está em /novo, validar todas as páginas e publicar no Github."*
+- **Ações Realizadas**:
+  - Implementação das categorias **Kits** (`KIT01`, `KIT02`, `KIT03`), **Aromatizadores** (`ARO1`, `ARO2`, `ARO3`) e **Acessórios** (`ACC1`, `ACC2`).
+  - Adição de status `emBreve: true` com badges dinâmicos e regra estrita de bloqueio no carrinho para `"Em breve"` e `"Esgotado"` com permissão livre para Favoritos.
+  - Criação do array `homeFeatured` em `produtos.json` com renderização dinâmica das 3 seções temáticas baseadas em `tag`.
+  - Redesenho completo da barra editorial de paginação (`.catalog-pagination-bar` e `.page-size-pills`), posicionamento do seletor de quantidade ao lado do campo de busca e aprimoramento de contraste tipográfico nas descrições de produtos.
+  - Promoção da versão modular moderna para a raiz (`index.html`, `assets/css/`, `assets/js/`).
+  - Criação do backup [`layout_antigo.zip`](../layout_antigo.zip) (19.2 MB) contendo todo o legado descartado e artes brutas.
+- **Resultado**: Catálogo completo, rico, responsivo, de alta legibilidade e promovido para a raiz com histórico 100% arquivado.
+
+---
+
+### Sessão 10: Remoção de Arquivos Mortos (`/novo`), Reordenação de Seções e Consolidação de Testes
+- **Prompts do Usuário**:
+  1. *"Se não precisar mais, pode apagar o /novo e publicar atualizações no Github."*
+  2. *"A sessão 'A coleção' tem que ser antes de 'Chegaram para ficar', depois da apresentação da Olivelas. Arrumar e publicar código."*
+- **Ações Realizadas**:
+  - Exclusão completa do diretório espelho `/novo` e arquivos duplicados.
+  - Reordenação estrutural das seções em `index.html`: Hero -> Pilares de Qualidade -> **A Coleção (`#colecao`)** -> **Destaques (`#destaques`)** -> O Ateliê (`#sobre`) -> Como Pedir (`#comprar`).
+  - Consolidação e expansão da suíte de testes em [`test/unit.test.mjs`](../test/unit.test.mjs) totalizando **48 asserções automatizadas**.
+  - Sincronização e publicação imediata na branch `main` do GitHub.
+- **Resultado**: Repositório 100% enxuto, fluxo de leitura ideal e testes automatizados robustos.
+

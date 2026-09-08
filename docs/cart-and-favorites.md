@@ -21,18 +21,21 @@ Documentar os mecanismos de persistência no `LocalStorage`, a trava de seguran�
   }
   ```
 
-### Trava de Segurança contra Produtos Esgotados:
-A função `addItem()` valida o status de disponibilidade do item antes de persistir:
+### Trava de Segurança contra Produtos Esgotados e Em Breve:
+A função de adição ao carrinho valida o status de disponibilidade do item antes de persistir, impedindo que itens `esgotado` ou `emBreve` sejam adicionados:
 ```javascript
-export function addItem(uid, qtd = 1) {
-  const item = getItem(uid);
-  if (item && item.esgotado) return false; // Bloqueio estrito
-  if (!items[uid]) items[uid] = 0;
-  items[uid] += qtd;
-  save();
-  return true;
+export function isItemUnavailable(item) {
+  return Boolean(
+    item.esgotado ||
+    item.emBreve ||
+    (item.badge && (
+      item.badge.toLowerCase().includes('breve') ||
+      item.badge.toLowerCase().includes('esgotado')
+    ))
+  );
 }
 ```
+Itens indisponíveis exibem botão desabilitado na interface, enquanto o recurso de **Favoritos** permanece 100% livre para salvar qualquer item ou lançamento futuro na lista de desejos.
 
 ---
 
