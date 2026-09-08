@@ -243,7 +243,8 @@ class App {
     const card = $(`[data-card-id="${id}"]`);
     if (!card) return;
 
-    const candle = this.data.velas.find((c) => c.id === id);
+    const allProducts = this.data.produtos || this.data.velas || [];
+    const candle = allProducts.find((c) => c.id === id);
     if (!candle || !candle.tamanhos || !candle.tamanhos[index]) return;
 
     const v = candle.tamanhos[index];
@@ -269,11 +270,19 @@ class App {
   }
 
   handleCardAddToCart(id) {
-    const candle = this.data.velas.find((c) => c.id === id);
+    const allProducts = this.data.produtos || this.data.velas || [];
+    const candle = allProducts.find((c) => c.id === id);
     if (!candle) return;
 
-    const variantIndex = this.selectedVariants.get(id) ?? 1; // Default to Padrão (index 1)
-    const v = candle.tamanhos[variantIndex] || candle.tamanhos[0];
+    const defaultIndex = candle.tamanhos && candle.tamanhos.length > 1 ? 1 : 0;
+    const variantIndex = this.selectedVariants.get(id) ?? defaultIndex;
+    const v = (candle.tamanhos && candle.tamanhos[variantIndex]) || (candle.tamanhos && candle.tamanhos[0]) || {
+      uid: `${candle.id}-padrao`,
+      tipo: 'Padrão',
+      peso: '',
+      preco: candle.preco || 0,
+      imagem: candle.imagem
+    };
 
     cart.addItem({
       uid: v.uid,
@@ -282,31 +291,31 @@ class App {
       tipo: v.tipo,
       peso: v.peso,
       preco: v.preco,
-      imagem: v.imagem,
+      imagem: v.imagem || candle.imagem,
       quantidade: 1
     });
   }
 
   getFilteredCandles() {
-    let all = this.data.velas || [];
-
-    // Filter only active candles if specified in config
-    const velasAtivas = this.data.colecaoConfig?.velasAtivas;
-    if (Array.isArray(velasAtivas) && velasAtivas.length > 0) {
-      all = all.filter(c => velasAtivas.includes(c.id));
-    }
+    let all = this.data.produtos || this.data.velas || [];
 
     return all.filter((c) => {
       // Category filter
-      if (this.activeCategory !== 'todos') {
-        const fam = normalizeStr(c.familia);
-        if (!fam.includes(normalizeStr(this.activeCategory))) return false;
+      if (this.activeCategory && this.activeCategory !== 'todos') {
+        const catNorm = normalizeStr(c.categoria || '');
+        const activeCatNorm = normalizeStr(this.activeCategory);
+        const famNorm = normalizeStr(c.familia || '');
+        
+        // Match category key (velas, kits, aromatizadores, acessorios) or olfactive family
+        if (catNorm !== activeCatNorm && !famNorm.includes(activeCatNorm)) {
+          return false;
+        }
       }
       // Text search
       if (this.searchQuery) {
         const query = this.searchQuery;
         const nameNorm = normalizeStr(c.nome);
-        const codeNorm = normalizeStr(c.codigo);
+        const codeNorm = normalizeStr(c.codigo || c.id || '');
         const descNorm = normalizeStr(c.descricao || '');
         const noteNorm = normalizeStr(c.nota || '');
         const famNorm = normalizeStr(c.familia || '');
@@ -327,18 +336,27 @@ class App {
     if (filtered.length === 0) {
       grid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 48px 16px; color: var(--text-mute);">
-          <p style="font-family:var(--serif); font-size:1.2rem; color:var(--text-main); margin-bottom:6px;">Nenhum aroma encontrado</p>
-          <p>Tente buscar por outro termo ou selecione "Todos os aromas".</p>
+          <p style="font-family:var(--serif); font-size:1.2rem; color:var(--text-main); margin-bottom:6px;">Nenhum produto encontrado</p>
+          <p>Tente buscar por outro termo ou selecione "Todos os produtos".</p>
         </div>
       `;
       return;
     }
 
     grid.innerHTML = filtered.map((c) => {
-      const selectedIndex = this.selectedVariants.get(c.id) ?? 1; // Default to Padrão
+      const defaultIndex = c.tamanhos && c.tamanhos.length > 1 ? 1 : 0;
+      const selectedIndex = this.selectedVariants.get(c.id) ?? defaultIndex;
       const isFav = favorites.isFavorite(c.id);
-      const activeVariant = c.tamanhos[selectedIndex] || c.tamanhos[0];
-      const waUrl = buildDirectItemUrl(c.nome, `Tamanho ${activeVariant.tipo} ${activeVariant.peso}`);
+      const activeVariant = (c.tamanhos && c.tamanhos[selectedIndex]) || (c.tamanhos && c.tamanhos[0]) || {
+        tipo: 'Padrão',
+        peso: '',
+        preco: c.preco || 0,
+        imagem: c.imagem,
+        queima: ''
+      };
+      const waUrl = buildDirectItemUrl(c.nome, `Tamanho ${activeVariant.tipo} ${activeVariant.peso}`.trim());
+      const isEmBreve = Boolean(c.emBreve || (c.badge && c.badge.toLowerCase().includes('breve')));
+      const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(c.nome)}%20estiver%20dispon%C3%ADvel.`;
 
       return `
         <article class="scent-card" data-card-id="${c.id}" style="--sc: ${c.cor};">
@@ -348,18 +366,18 @@ class App {
           </div>
           <div class="body">
             <div class="thumb-wrap" data-action="open-modal" data-id="${c.id}" title="Clique para ver detalhes">
-              <img src="${activeVariant.imagem || c.imagem}" alt="Vela ${c.nome}" loading="lazy">
+              <img src="${activeVariant.imagem || c.imagem}" alt="${c.nome}" loading="lazy">
             </div>
             <p class="fam">${c.familia}</p>
-            <div class="code"><span>${c.codigo}</span></div>
-            <p class="note">${c.nota}</p>
+            <div class="code"><span>${c.codigo || c.id}</span></div>
+            <p class="note">${c.nota || c.descricao || ''}</p>
             
             <div class="variant-selector">
-              ${c.tamanhos.map((t, idx) => `
+              ${(c.tamanhos || []).map((t, idx) => `
                 <div class="variant-row ${idx === selectedIndex ? 'is-selected' : ''}" data-action="select-card-variant" data-id="${c.id}" data-index="${idx}">
                   <div class="variant-label">
-                    <span>${t.tipo} · ${t.peso}</span>
-                    <small>${t.queima}</small>
+                    <span>${t.tipo}${t.peso ? ` · ${t.peso}` : ''}</span>
+                    <small>${t.queima || ''}</small>
                   </div>
                   <b class="variant-price">${formatCurrency(t.preco)}</b>
                 </div>
@@ -367,15 +385,25 @@ class App {
             </div>
 
             <div class="card-actions">
-              <button type="button" class="btn btn-sm btn--gold" data-action="card-add-cart" data-id="${c.id}" style="flex:1;">
-                + Carrinho
-              </button>
+              ${isEmBreve ? `
+                <a class="btn btn-sm btn--gold" href="${notifyWaUrl}" target="_blank" rel="noopener" style="flex:1; text-align:center;">
+                  Avise-me
+                </a>
+              ` : `
+                <button type="button" class="btn btn-sm btn--gold" data-action="card-add-cart" data-id="${c.id}" style="flex:1;">
+                  + Carrinho
+                </button>
+              `}
               <button type="button" class="btn-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${c.id}" data-name="${c.nome}" aria-label="Favoritar">
                 <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
               </button>
             </div>
 
-            <a class="order-wa" href="${waUrl}" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+            ${isEmBreve ? `
+              <a class="order-wa" href="${notifyWaUrl}" target="_blank" rel="noopener">Consultar previsão</a>
+            ` : `
+              <a class="order-wa" href="${waUrl}" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+            `}
           </div>
         </article>
       `;

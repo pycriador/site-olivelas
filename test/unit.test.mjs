@@ -20,12 +20,12 @@ const store = getStore();
 
 check("meta.nome === OLIVELAS", store.meta.nome === "OLIVELAS");
 check("whatsapp presente", store.meta.whatsapp === "5511963820374");
-check("23 itens normalizados (9 velas*2 + 3 arom + 2 acess)", store.itens.length === 23);
-check("3 categorias", store.categorias.length === 3);
+check("26 itens normalizados (9 velas*2 + 3 kits + 3 arom + 2 acess)", store.itens.length === 26);
+check("4 categorias", store.categorias.length === 4);
 check("itens com uid único", new Set(store.itens.map((i) => i.uid)).size === store.itens.length);
 
 const todas = getItensFiltrados();
-check("sem filtro -> 23", todas.length === 23);
+check("sem filtro -> 26", todas.length === 26);
 check("sem filtro sort relevancia começa com badge", todas[0].badge !== "");
 
 setFiltro({ categoria: "acessorios" });
@@ -78,8 +78,8 @@ check("mini vela e padrão têm uids distintos", miniItem.uid === "OV01-mini" &&
 
 const acessorioItem = store.itens.find((i) => i.categoriaId === "acessorios");
 const aromatizadorItem = store.itens.find((i) => i.categoriaId === "aromatizadores");
-check("acessorios classificados como esgotado", acessorioItem.esgotado === true && acessorioItem.badge === "Esgotado");
-check("aromatizadores classificados como esgotado", aromatizadorItem.esgotado === true && aromatizadorItem.badge === "Esgotado");
+check("acessorios classificados como em breve", acessorioItem.badge === "Em breve");
+check("aromatizadores classificados como em breve", aromatizadorItem.badge === "Em breve");
 check("velas aromaticas continuam disponiveis", miniItem.esgotado === false);
 
 console.log(`\n${pass} checks passed.`);

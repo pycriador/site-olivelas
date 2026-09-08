@@ -47,12 +47,11 @@ export const FALLBACK_DATA = {
     notaCatalogo: "Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.",
     fineprint: "Preços válidos para pedidos combinados diretamente com o ateliê",
     colecoesDisponiveis: [
-      { id: "todas", nome: "Todos os aromas", filtro: "todos" },
-      { id: "frutal", nome: "Frutais", filtro: "Frutal" },
-      { id: "floral", nome: "Florais", filtro: "Floral" },
-      { id: "amadeirada", nome: "Amadeirados", filtro: "Amadeirada" },
-      { id: "oriental", nome: "Orientais", filtro: "Oriental" },
-      { id: "herbal", nome: "Herbais", filtro: "Herbal" }
+      { id: "todos", nome: "Todos os produtos", filtro: "todos" },
+      { id: "velas", nome: "Velas Aromáticas", filtro: "velas" },
+      { id: "kits", nome: "Kits", filtro: "kits" },
+      { id: "aromatizadores", nome: "Aromatizadores", filtro: "aromatizadores" },
+      { id: "acessorios", nome: "Acessórios", filtro: "acessorios" }
     ],
     velasAtivas: ["OV01", "OV02", "OV03", "OV04", "OV05", "OV06", "OV07", "OV08", "OV09"]
   },
@@ -106,6 +105,7 @@ export const FALLBACK_DATA = {
       id: "OV01",
       nome: "Verbena",
       slug: "verbena",
+      categoria: "velas",
       familia: "Frutal Verde",
       cor: "var(--verbena)",
       hexCor: "#8EA487",
@@ -123,6 +123,7 @@ export const FALLBACK_DATA = {
       id: "OV02",
       nome: "Blue Ocean",
       slug: "blue-ocean",
+      categoria: "velas",
       familia: "Floral Frutal",
       cor: "var(--blue-ocean)",
       hexCor: "#6E8797",
@@ -140,6 +141,7 @@ export const FALLBACK_DATA = {
       id: "OV03",
       nome: "Morango & Champanhe",
       slug: "morango-champanhe",
+      categoria: "velas",
       familia: "Oriental Gourmand",
       cor: "var(--morango)",
       hexCor: "#C49A90",
@@ -157,6 +159,7 @@ export const FALLBACK_DATA = {
       id: "OV04",
       nome: "Mística",
       slug: "mistica",
+      categoria: "velas",
       familia: "Amadeirada Especiada",
       cor: "var(--mistica)",
       hexCor: "#525C67",
@@ -174,6 +177,7 @@ export const FALLBACK_DATA = {
       id: "OV05",
       nome: "Orquídea Negra",
       slug: "orquidea-negra",
+      categoria: "velas",
       familia: "Floral Oriental",
       cor: "var(--orquidea)",
       hexCor: "#5B3645",
@@ -191,6 +195,7 @@ export const FALLBACK_DATA = {
       id: "OV06",
       nome: "Mamãe & Bebê",
       slug: "mamae-bebe",
+      categoria: "velas",
       familia: "Floral Amadeirada Musk",
       cor: "var(--mamae)",
       hexCor: "#BFC2BC",
@@ -208,6 +213,7 @@ export const FALLBACK_DATA = {
       id: "OV07",
       nome: "Cravo & Canela",
       slug: "cravo-canela",
+      categoria: "velas",
       familia: "Oriental Especiada",
       cor: "var(--cravo)",
       hexCor: "#A96F4E",
@@ -225,6 +231,7 @@ export const FALLBACK_DATA = {
       id: "OV08",
       nome: "Lavanda Francesa",
       slug: "lavanda",
+      categoria: "velas",
       familia: "Floral Aromática",
       cor: "var(--lavanda)",
       hexCor: "#8A7F9D",
@@ -242,6 +249,7 @@ export const FALLBACK_DATA = {
       id: "OV09",
       nome: "Alfazema Provençal",
       slug: "alfazema",
+      categoria: "velas",
       familia: "Herbal Fresca",
       cor: "var(--alfazema)",
       hexCor: "#8FA2A6",
@@ -253,6 +261,153 @@ export const FALLBACK_DATA = {
       tamanhos: [
         { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/alfazema-mini.webp", uid: "OV09-mini" },
         { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/alfazema.webp", uid: "OV09-padrao" }
+      ]
+    }
+  ],
+  kits: [
+    {
+      id: "KIT01",
+      nome: "Kit 3 Mini Velas",
+      slug: "kit-3-mini-velas",
+      categoria: "kits",
+      familia: "Trio Degustação · 3x 40 g",
+      cor: "var(--lavanda)",
+      hexCor: "#8A7F9D",
+      codigo: "KIT01",
+      badge: "Presenteável",
+      nota: "Seleção com 3 fragrâncias de 40 g em caixa rígida para presente.",
+      descricao: "Seleção com 3 fragrâncias autorais de 40 g em caixa rígida para presente. Ideal para experimentar diferentes rituais olfativos.",
+      imagem: "../assets/images/products/lavanda-mini.webp",
+      tamanhos: [
+        { tipo: "Kit", peso: "3x 40 g", queima: "≈ 60 h total", preco: 119.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "KIT01-kit" }
+      ]
+    },
+    {
+      id: "KIT02",
+      nome: "Kit 10 Mini Velas",
+      slug: "kit-10-mini-velas",
+      categoria: "kits",
+      familia: "Lembrancinhas · 10x 40 g",
+      cor: "var(--verbena)",
+      hexCor: "#8EA487",
+      codigo: "KIT02",
+      badge: "Lembrancinhas",
+      nota: "Conjunto de 10 mini velas artesanais de 40 g para presentear ou eventos.",
+      descricao: "Conjunto de 10 mini velas artesanais de 40 g para presentear convidados especiais, padrinhos ou celebrações íntimas.",
+      imagem: "../assets/images/products/verbena-mini.webp",
+      tamanhos: [
+        { tipo: "Kit", peso: "10x 40 g", queima: "≈ 200 h total", preco: 369.0, imagem: "../assets/images/products/verbena-mini.webp", uid: "KIT02-kit" }
+      ]
+    },
+    {
+      id: "KIT03",
+      nome: "Kit 50 Mini Velas",
+      slug: "kit-50-mini-velas",
+      categoria: "kits",
+      familia: "Eventos & Casamentos · 50x 40 g",
+      cor: "var(--blue-ocean)",
+      hexCor: "#6E8797",
+      codigo: "KIT03",
+      badge: "Eventos",
+      nota: "Lote de 50 mini velas artesanais de 40 g para casamentos e festas.",
+      descricao: "Lote de 50 mini velas artesanais de 40 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
+      imagem: "../assets/images/products/alfazema-mini.webp",
+      tamanhos: [
+        { tipo: "Kit", peso: "50x 40 g", queima: "≈ 1000 h total", preco: 1690.0, imagem: "../assets/images/products/alfazema-mini.webp", uid: "KIT03-kit" }
+      ]
+    }
+  ],
+  aromatizadores: [
+    {
+      id: "ARO1",
+      nome: "Difusor de Varetas Alfazema",
+      slug: "difusor-alfazema",
+      categoria: "aromatizadores",
+      familia: "Herbal Fresco · 100 ml",
+      cor: "var(--alfazema)",
+      hexCor: "#8FA2A6",
+      codigo: "ARO1",
+      badge: "Em breve",
+      emBreve: true,
+      nota: "Frasco âmbar e varetas de bambu para difusão contínua por até 60 dias.",
+      descricao: "Vidro âmbar e varetas de bambu, ~60 dias de difusão contínua com notas de Alfazema.",
+      imagem: "../assets/images/products/difusor-alfazema.webp",
+      tamanhos: [
+        { tipo: "Único", peso: "100 ml", queima: "≈ 60 dias", preco: 89.9, imagem: "../assets/images/products/difusor-alfazema.webp", uid: "ARO1-padrao" }
+      ]
+    },
+    {
+      id: "ARO2",
+      nome: "Difusor de Varetas Lavanda",
+      slug: "difusor-lavanda",
+      categoria: "aromatizadores",
+      familia: "Herbal Floral · 100 ml",
+      cor: "var(--lavanda)",
+      hexCor: "#8A7F9D",
+      codigo: "ARO2",
+      badge: "Em breve",
+      emBreve: true,
+      nota: "Lavanda francesa em versão difusor contínuo por até 60 dias.",
+      descricao: "Vidro âmbar e varetas de bambu, ~60 dias de perfume relaxante de Lavanda.",
+      imagem: "../assets/images/products/difusor-lavanda.webp",
+      tamanhos: [
+        { tipo: "Único", peso: "100 ml", queima: "≈ 60 dias", preco: 89.9, imagem: "../assets/images/products/difusor-lavanda.webp", uid: "ARO2-padrao" }
+      ]
+    },
+    {
+      id: "ARO3",
+      nome: "Sachê para Gavetas & Armários",
+      slug: "sache-guarda-roupa",
+      categoria: "aromatizadores",
+      familia: "Floral Amadeirado",
+      cor: "var(--mamae)",
+      hexCor: "#BFC2BC",
+      codigo: "ARO3",
+      badge: "Em breve",
+      emBreve: true,
+      nota: "Par de sachês de algodão para perfumar roupas e lençóis por até 90 dias.",
+      descricao: "Par de sachês de algodão com essência concentrada para perfumar gavetas, closets e malas.",
+      imagem: "../assets/images/products/sache-guarda-roupa.webp",
+      tamanhos: [
+        { tipo: "Dupla", peso: "30 g cada", queima: "≈ 90 dias", preco: 24.9, imagem: "../assets/images/products/sache-guarda-roupa.webp", uid: "ARO3-padrao" }
+      ]
+    }
+  ],
+  acessorios: [
+    {
+      id: "ACC2",
+      nome: "Cortador de Pavio em Aço Dourado",
+      slug: "cortador-pavio",
+      categoria: "acessorios",
+      familia: "Cuidados da Vela",
+      cor: "var(--gold)",
+      hexCor: "#B79C6B",
+      codigo: "ACC2",
+      badge: "Em breve",
+      emBreve: true,
+      nota: "Cortador em aço inoxidável com acabamento dourado fosco para chama limpa.",
+      descricao: "Cortador em aço com acabamento dourado fosco com coletor para manter a chama no tamanho ideal e a queima perfeita.",
+      imagem: "../assets/images/products/cortador-pavio.webp",
+      tamanhos: [
+        { tipo: "Único", peso: "60 g", queima: "—", preco: 16.9, imagem: "../assets/images/products/cortador-pavio.webp", uid: "ACC2-padrao" }
+      ]
+    },
+    {
+      id: "ACC1",
+      nome: "Kit Fósforos Longos Decorativos",
+      slug: "kit-fosforos",
+      categoria: "acessorios",
+      familia: "Ritual & Decoração",
+      cor: "var(--cravo)",
+      hexCor: "#A96F4E",
+      codigo: "ACC1",
+      badge: "Em breve",
+      emBreve: true,
+      nota: "Fósforos longos com cabeça colorida em elegante frasco com riscador.",
+      descricao: "Fósforos em madeira reflorestada de haste longa em garrafa decorativa de vidro com riscador integrado.",
+      imagem: "../assets/images/products/kit-fosforos.webp",
+      tamanhos: [
+        { tipo: "Único", peso: "45 g", queima: "60 palitos", preco: 18.9, imagem: "../assets/images/products/kit-fosforos.webp", uid: "ACC1-padrao" }
       ]
     }
   ],
@@ -300,6 +455,14 @@ export const FALLBACK_DATA = {
   ]
 };
 
+// Compute flat list of all products
+FALLBACK_DATA.produtos = [
+  ...FALLBACK_DATA.velas,
+  ...FALLBACK_DATA.kits,
+  ...FALLBACK_DATA.aromatizadores,
+  ...FALLBACK_DATA.acessorios
+];
+
 export async function loadCatalog() {
   try {
     const res = await fetch('../assets/data/produtos.json');
@@ -310,6 +473,36 @@ export async function loadCatalog() {
     console.info('Using internal fallback catalog data:', err.message);
     return FALLBACK_DATA;
   }
+}
+
+function normalizeCategoryProducts(catProducts, categoryKey) {
+  if (!Array.isArray(catProducts)) return [];
+  return catProducts.map(p => {
+    const defaultCor = `var(--${p.slug || 'gold'})`;
+    return {
+      id: p.id,
+      nome: p.nome,
+      slug: p.slug,
+      categoria: categoryKey,
+      familia: p.familiaOlfativa || 'Fragrância Autoral',
+      cor: p.corExclusiva || defaultCor,
+      hexCor: p.corExclusiva || '#B79C6B',
+      codigo: p.id,
+      badge: p.badge || '',
+      emBreve: Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve'))),
+      nota: p.descricao ? p.descricao.split('.')[0] + '.' : '',
+      descricao: p.descricao || '',
+      imagem: p.imagem.startsWith('../') ? p.imagem : `../${p.imagem}`,
+      tamanhos: (p.tamanhos || []).map(t => ({
+        tipo: t.tipo,
+        peso: t.peso,
+        queima: t.queima ? (t.queima.includes('≈') || t.queima === '—' ? t.queima : `≈ ${t.queima}`) : '',
+        preco: t.preco,
+        imagem: t.imagem ? (t.imagem.startsWith('../') ? t.imagem : `../${t.imagem}`) : (p.imagem.startsWith('../') ? p.imagem : `../${p.imagem}`),
+        uid: `${p.id}-${(t.tipo || 'padrao').toLowerCase()}`
+      }))
+    };
+  });
 }
 
 function mergeCatalogData(json) {
@@ -331,35 +524,34 @@ function mergeCatalogData(json) {
   }
   if (json.comoPedir) data.comoPedir = { ...data.comoPedir, ...json.comoPedir };
 
-  // If categorias are defined in json, filter or map candles
+  // If categorias are defined in json, map each category
   if (json.categorias && json.categorias.length > 0) {
-    const velasCat = json.categorias.find(c => c.id === 'velas-aromaticas');
+    const velasCat = json.categorias.find(c => c.id === 'velas-aromaticas' || c.id === 'velas');
     if (velasCat && velasCat.produtos) {
-      data.velas = velasCat.produtos.map(p => {
-        const defaultCor = `var(--${p.slug || 'gold'})`;
-        return {
-          id: p.id,
-          nome: p.nome,
-          slug: p.slug,
-          familia: p.familiaOlfativa || 'Fragrância Autoral',
-          cor: p.corExclusiva || defaultCor,
-          hexCor: p.corExclusiva || '#B79C6B',
-          codigo: p.id,
-          badge: p.badge || '',
-          nota: p.descricao ? p.descricao.split('.')[0] + '.' : '',
-          descricao: p.descricao || '',
-          imagem: p.imagem.startsWith('../') ? p.imagem : `../${p.imagem}`,
-          tamanhos: (p.tamanhos || []).map(t => ({
-            tipo: t.tipo,
-            peso: t.peso,
-            queima: t.queima ? `≈ ${t.queima}` : '',
-            preco: t.preco,
-            imagem: t.imagem ? (t.imagem.startsWith('../') ? t.imagem : `../${t.imagem}`) : p.imagem,
-            uid: `${p.id}-${t.tipo.toLowerCase()}`
-          }))
-        };
-      });
+      data.velas = normalizeCategoryProducts(velasCat.produtos, 'velas');
     }
+
+    const kitsCat = json.categorias.find(c => c.id === 'kits');
+    if (kitsCat && kitsCat.produtos) {
+      data.kits = normalizeCategoryProducts(kitsCat.produtos, 'kits');
+    }
+
+    const aroCat = json.categorias.find(c => c.id === 'aromatizadores');
+    if (aroCat && aroCat.produtos) {
+      data.aromatizadores = normalizeCategoryProducts(aroCat.produtos, 'aromatizadores');
+    }
+
+    const accCat = json.categorias.find(c => c.id === 'acessorios');
+    if (accCat && accCat.produtos) {
+      data.acessorios = normalizeCategoryProducts(accCat.produtos, 'acessorios');
+    }
+
+    data.produtos = [
+      ...(data.velas || []),
+      ...(data.kits || []),
+      ...(data.aromatizadores || []),
+      ...(data.acessorios || [])
+    ];
   }
 
   return data;

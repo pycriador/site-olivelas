@@ -13,8 +13,21 @@ console.log("=== Running /novo Suite Tests ===");
 
 // 1. Data checks
 check("FALLBACK_DATA tem 9 velas", FALLBACK_DATA.velas.length === 9);
-check("FALLBACK_DATA tem 5 complementos", FALLBACK_DATA.complementos.length === 5);
+check("FALLBACK_DATA tem 3 kits", FALLBACK_DATA.kits.length === 3);
+check("FALLBACK_DATA tem 3 aromatizadores", FALLBACK_DATA.aromatizadores.length === 3);
+check("FALLBACK_DATA tem 2 acessorios", FALLBACK_DATA.acessorios.length === 2);
+check("FALLBACK_DATA.produtos tem 17 itens", FALLBACK_DATA.produtos.length === 17);
 check("WhatsApp correto", WA_PHONE === "5511963820374");
+
+// 1.1 Category & Em breve checks
+const cortador = FALLBACK_DATA.acessorios.find(a => a.id === "ACC2");
+check("Cortador de pavio tem status Em breve", cortador.emBreve === true || cortador.badge === "Em breve");
+
+const kit10 = FALLBACK_DATA.kits.find(k => k.id === "KIT02");
+check("Kit 10 Mini Velas está disponível com preço", kit10 && kit10.tamanhos[0].preco === 369.0);
+
+const difusor = FALLBACK_DATA.aromatizadores.find(d => d.id === "ARO1");
+check("Difusor de varetas tem status Em breve", difusor.emBreve === true || difusor.badge === "Em breve");
 
 // 2. Formatters
 check("formatCurrency formata 92.9 como R$ 92,90", formatCurrency(92.9).replace(/[\u202f\u00a0]/g, " ") === "R$ 92,90");
