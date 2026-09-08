@@ -10,30 +10,30 @@
   --cream-deep: #EFEAE1;
   --cream-card: #FFFFFF;
   
-  --ink: #1B1B1B;
-  --ink-soft: #4A4643;
-  --ink-mute: #8A837C;
-  --ink-light: #B4ACA5;
+  --ink: #181716;
+  --ink-soft: #2E2B28;
+  --ink-mute: #58524B;
+  --ink-light: #8E867E;
   
-  --gold: #B79C6B;
-  --gold-deep: #9A8155;
+  --gold: #A88C5A;
+  --gold-deep: #8E7444;
   --gold-light: #D8C9A8;
   --gold-wash: #EDE4D3;
-  --gold-tint: rgba(183, 156, 107, 0.12);
+  --gold-tint: rgba(168, 140, 90, 0.14);
   
   /* Cores de Fragrâncias Autorais */
-  --verbena: #8EA487;
-  --blue-ocean: #6E8797;
-  --morango: #C49A90;
-  --mistica: #525C67;
-  --orquidea: #5B3645;
-  --mamae: #BFC2BC;
-  --cravo: #A96F4E;
-  --lavanda: #8A7F9D;
-  --alfazema: #8FA2A6;
+  --verbena: #768F6E;
+  --blue-ocean: #567385;
+  --morango: #B28378;
+  --mistica: #47525E;
+  --orquidea: #552F40;
+  --mamae: #9DA399;
+  --cravo: #985E3D;
+  --lavanda: #786C8D;
+  --alfazema: #778E93;
   
   /* Estados & Feedbacks */
-  --success: #52795d;
+  --success: #3E6B4B;
   --success-bg: #eaf2eb;
   --danger: #9c4a4a;
   --danger-bg: #f8ecec;
@@ -71,7 +71,7 @@
   --bg-surface: var(--cream-warm);
   --bg-card: var(--cream-card);
   --bg-header: rgba(247, 244, 239, 0.94);
-  --border-subtle: var(--gold-light);
+  --border-subtle: #D8CBB6;
   --border-gold: var(--gold);
   --text-main: var(--ink);
   --text-soft: var(--ink-soft);
@@ -79,7 +79,7 @@
 }
 
 /* ==========================================================================
-   Tema Escuro de Luxo (Preserva a Elegância Noturna)
+   Tema Escuro de Luxo (Preserva a Elegância Noturna e Alto Contraste)
    ========================================================================== */
 [data-theme="dark"] {
   --cream: #141312;
@@ -87,22 +87,22 @@
   --cream-deep: #242220;
   --cream-card: #201E1D;
   
-  --ink: #F7F4EF;
-  --ink-soft: #D5CECA;
-  --ink-mute: #9C948E;
-  --ink-light: #5E5853;
+  --ink: #FAF7F2;
+  --ink-soft: #E4DDD8;
+  --ink-mute: #B3AAA2;
+  --ink-light: #736C65;
   
-  --gold: #C5AC7E;
-  --gold-deep: #D8C296;
-  --gold-light: #524738;
-  --gold-wash: #2D271F;
-  --gold-tint: rgba(197, 172, 126, 0.15);
+  --gold: #D2BA8E;
+  --gold-deep: #E2CDA6;
+  --gold-light: #5E5241;
+  --gold-wash: #332B22;
+  --gold-tint: rgba(210, 186, 142, 0.18);
   
   --bg-body: var(--cream);
   --bg-surface: var(--cream-warm);
   --bg-card: var(--cream-card);
   --bg-header: rgba(20, 19, 18, 0.94);
-  --border-subtle: #3A352F;
+  --border-subtle: #453F38;
   --border-gold: var(--gold);
   --text-main: var(--ink);
   --text-soft: var(--ink-soft);
