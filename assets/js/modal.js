@@ -26,10 +26,10 @@ export function initModal() {
     if (action === "modal-close") closeModal();
     if (action === "variant") openModal(actionEl.dataset.uid);
     if (action === "fav-toggle") {
-      const id = actionEl.dataset.id;
-      toggleFav(id);
+      const target = actionEl.dataset.uid || actionEl.dataset.id || currentUid;
+      toggleFav(target);
       rerenderActions();
-      const favNow = isFav(id);
+      const favNow = isFav(target);
       bus.emit("toast", { type: "info", text: favNow ? "Adicionado aos favoritos" : "Removido dos favoritos" });
     }
     if (action === "share") shareCurrent();
@@ -150,8 +150,8 @@ function renderBody(item) {
     </dl>
 
     <div class="mini-actions">
-      <button type="button" class="mini-btn mini-btn-fav${isFav(item.id) ? " is-active is-fav" : ""}" data-action="fav-toggle" data-id="${item.id}"
-        aria-pressed="${isFav(item.id)}">${icons.heart}<span>${isFav(item.id) ? "Favoritado" : "Favoritar"}</span></button>
+      <button type="button" class="mini-btn mini-btn-fav${isFav(item.uid) ? " is-active is-fav" : ""}" data-action="fav-toggle" data-uid="${item.uid}" data-id="${item.uid}"
+        aria-pressed="${isFav(item.uid)}">${icons.heart}<span>${isFav(item.uid) ? "Favoritado" : "Favoritar"}</span></button>
       <button type="button" class="mini-btn" data-action="share">${icons.share}<span>Compartilhar</span></button>
       <button type="button" class="mini-btn" data-action="copy">${icons.link}<span>Copiar link</span></button>
     </div>
@@ -166,9 +166,9 @@ function renderBody(item) {
 function rerenderActions() {
   const item = getItem(currentUid);
   if (!item) return;
-  const btn = $('.modal [data-action="fav-toggle"]');
+  const btn = $('#product-modal [data-action="fav-toggle"]');
   if (!btn) return;
-  const active = isFav(item.id);
+  const active = isFav(item.uid);
   btn.classList.toggle("is-active", active);
   btn.classList.toggle("is-fav", active);
   btn.setAttribute("aria-pressed", String(active));

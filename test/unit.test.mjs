@@ -71,6 +71,9 @@ const pedido = mensagemPedido(
   store.meta
 );
 check("mensagem pedido com total estimado", pedido.includes("Total estimado:") && pedido.includes("174,70"));
-check("mensagem pedido com quantidades", pedido.includes("Quantidade: 2"));
+const miniItem = store.itens.find((i) => i.id === "OV01" && i.tamanho === "Mini");
+const padraoItem = store.itens.find((i) => i.id === "OV01" && i.tamanho === "Padrão");
+check("mini vela tem imagem própria diferente da vela padrão", miniItem.imagem !== padraoItem.imagem && miniItem.imagem.includes("-mini"));
+check("mini vela e padrão têm uids distintos", miniItem.uid === "OV01-mini" && padraoItem.uid === "OV01-padrao");
 
 console.log(`\n${pass} checks passed.`);

@@ -74,7 +74,9 @@
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/verbena-mini.webp",
+              "imagemThumb": "assets/images/products/verbena-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -83,7 +85,9 @@
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/verbena.webp",
+              "imagemThumb": "assets/images/products/verbena-thumb.webp"
             }
           ]
         },
@@ -106,7 +110,9 @@
               "quantidade": 1,
               "preco": 44.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/blue-ocean-mini.webp",
+              "imagemThumb": "assets/images/products/blue-ocean-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -115,7 +121,9 @@
               "quantidade": 1,
               "preco": 95.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/blue-ocean.webp",
+              "imagemThumb": "assets/images/products/blue-ocean-thumb.webp"
             }
           ]
         },
@@ -138,7 +146,9 @@
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/morango-champanhe-mini.webp",
+              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -147,7 +157,9 @@
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/morango-champanhe.webp",
+              "imagemThumb": "assets/images/products/morango-champanhe-thumb.webp"
             }
           ]
         },
@@ -170,7 +182,9 @@
               "quantidade": 1,
               "preco": 44.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/mistica-mini.webp",
+              "imagemThumb": "assets/images/products/mistica-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -179,7 +193,9 @@
               "quantidade": 1,
               "preco": 96.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/mistica.webp",
+              "imagemThumb": "assets/images/products/mistica-thumb.webp"
             }
           ]
         },
@@ -202,7 +218,9 @@
               "quantidade": 1,
               "preco": 46.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/orquidea-negra-mini.webp",
+              "imagemThumb": "assets/images/products/orquidea-negra-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -211,7 +229,9 @@
               "quantidade": 1,
               "preco": 99.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/orquidea-negra.webp",
+              "imagemThumb": "assets/images/products/orquidea-negra-thumb.webp"
             }
           ]
         },
@@ -234,7 +254,9 @@
               "quantidade": 1,
               "preco": 41.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/mamae-bebe-mini.webp",
+              "imagemThumb": "assets/images/products/mamae-bebe-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -243,7 +265,9 @@
               "quantidade": 1,
               "preco": 89.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/mamae-bebe.webp",
+              "imagemThumb": "assets/images/products/mamae-bebe-thumb.webp"
             }
           ]
         },
@@ -266,7 +290,9 @@
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/cravo-canela-mini.webp",
+              "imagemThumb": "assets/images/products/cravo-canela-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -275,7 +301,9 @@
               "quantidade": 1,
               "preco": 91.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/cravo-canela.webp",
+              "imagemThumb": "assets/images/products/cravo-canela-thumb.webp"
             }
           ]
         },
@@ -298,7 +326,9 @@
               "quantidade": 1,
               "preco": 39.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/alfazema-mini.webp",
+              "imagemThumb": "assets/images/products/alfazema-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -307,7 +337,9 @@
               "quantidade": 1,
               "preco": 87.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/alfazema.webp",
+              "imagemThumb": "assets/images/products/alfazema-thumb.webp"
             }
           ]
         },
@@ -330,7 +362,9 @@
               "quantidade": 1,
               "preco": 39.9,
               "queima": "20 h",
-              "medidas": "5 × 5 × 4 cm"
+              "medidas": "5 × 5 × 4 cm",
+              "imagem": "assets/images/products/lavanda-mini.webp",
+              "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp"
             },
             {
               "tipo": "Padrão",
@@ -339,7 +373,9 @@
               "quantidade": 1,
               "preco": 88.9,
               "queima": "50 h",
-              "medidas": "8 × 8 × 9 cm"
+              "medidas": "8 × 8 × 9 cm",
+              "imagem": "assets/images/products/lavanda.webp",
+              "imagemThumb": "assets/images/products/lavanda-thumb.webp"
             }
           ]
         }
@@ -369,7 +405,9 @@
               "quantidade": 1,
               "preco": 89.9,
               "queima": "60 dias",
-              "medidas": "6 × 6 × 18 cm"
+              "medidas": "6 × 6 × 18 cm",
+              "imagem": "assets/images/products/difusor-alfazema.webp",
+              "imagemThumb": "assets/images/products/difusor-alfazema-thumb.webp"
             }
           ]
         },
@@ -392,7 +430,9 @@
               "quantidade": 1,
               "preco": 89.9,
               "queima": "60 dias",
-              "medidas": "6 × 6 × 18 cm"
+              "medidas": "6 × 6 × 18 cm",
+              "imagem": "assets/images/products/difusor-lavanda.webp",
+              "imagemThumb": "assets/images/products/difusor-lavanda-thumb.webp"
             }
           ]
         },
@@ -415,7 +455,9 @@
               "quantidade": 2,
               "preco": 24.9,
               "queima": "90 dias",
-              "medidas": "10 × 14 cm"
+              "medidas": "10 × 14 cm",
+              "imagem": "assets/images/products/sache-guarda-roupa.webp",
+              "imagemThumb": "assets/images/products/sache-guarda-roupa-thumb.webp"
             }
           ]
         }
@@ -445,7 +487,9 @@
               "quantidade": 1,
               "preco": 18.9,
               "queima": "60 palitos",
-              "medidas": "7 × 4 × 12 cm"
+              "medidas": "7 × 4 × 12 cm",
+              "imagem": "assets/images/products/kit-fosforos.webp",
+              "imagemThumb": "assets/images/products/kit-fosforos-thumb.webp"
             }
           ]
         },
@@ -468,7 +512,9 @@
               "quantidade": 1,
               "preco": 16.9,
               "queima": "—",
-              "medidas": "18 cm"
+              "medidas": "18 cm",
+              "imagem": "assets/images/products/cortador-pavio.webp",
+              "imagemThumb": "assets/images/products/cortador-pavio-thumb.webp"
             }
           ]
         }

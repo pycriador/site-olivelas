@@ -209,7 +209,7 @@ function homeProductTemplate(item) {
     <div class="home-product-media">
       ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ""}
       <img src="${image}" alt="${item.nome}" loading="lazy" width="480" height="480">
-      <button type="button" class="card-fav" data-action="fav" data-id="${item.id}" aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
+      <button type="button" class="card-fav" data-action="fav" data-uid="${item.uid}" data-id="${item.uid}" aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
       <button type="button" class="home-product-open" data-action="open" data-uid="${item.uid}" aria-label="Ver detalhes de ${item.nome}"></button>
     </div>
     <div class="home-product-body">
@@ -528,8 +528,8 @@ function cardTemplate(item, idx) {
       <img src="${thumb}" alt="${item.nome}" loading="lazy" decoding="async" width="480" height="480">
       <button type="button" class="card-open-zone" data-action="open" data-uid="${item.uid}"
         aria-label="Ver detalhes de ${item.nome} ${item.tamanho}"></button>
-      <button type="button" class="card-fav" data-action="fav" data-id="${item.id}"
-        aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
+      <button type="button" class="card-fav" data-action="fav" data-uid="${item.uid}" data-id="${item.uid}"
+        aria-label="Favoritar ${item.nome} ${item.tamanho}" aria-pressed="false">${icons.heart}</button>
       <button type="button" class="card-share" data-action="share" data-uid="${item.uid}"
         aria-label="Compartilhar ${item.nome}">${icons.share}</button>
       <span class="card-tamanho">${item.tamanho} · ${item.peso}</span>
@@ -597,8 +597,9 @@ function handleProductAction(actionEl, e) {
     bus.emit("toast", { type: "success", text: "Produto adicionado ao carrinho" });
   }
   if (action === "fav") {
-    toggleFav(id);
-    const favNow = isFav(id);
+    const target = uid || id;
+    toggleFav(target);
+    const favNow = isFav(target);
     bus.emit("toast", { type: "info", text: favNow ? "Adicionado aos favoritos" : "Removido dos favoritos" });
   }
   if (action === "share") shareProduct(uid);
@@ -622,7 +623,8 @@ function productUrl(item) {
 
 function paintFavorites() {
   $$("[data-action='fav']").forEach((el) => {
-    const active = isFav(el.dataset.id);
+    const target = el.dataset.uid || el.dataset.id;
+    const active = isFav(target);
     el.classList.toggle("is-active", active);
     el.setAttribute("aria-pressed", String(active));
     el.setAttribute("aria-label", active ? "Remover dos favoritos" : "Adicionar aos favoritos");

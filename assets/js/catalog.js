@@ -69,6 +69,8 @@ function normalize(data) {
         preco: Number(t.preco) || 0,
         queima: t.queima || "",
         medidas: t.medidas || "",
+        imagem: t.imagem || p.imagem || "",
+        imagemThumb: t.imagemThumb || t.imagem || p.imagemThumb || p.imagem || "",
       }));
       variantes.forEach((v, i) => {
         const item = {
@@ -81,8 +83,8 @@ function normalize(data) {
           icone: p.icone || "",
           badge: p.badge || "",
           descricao: p.descricao || "",
-          imagem: p.imagem || "",
-          imagemThumb: p.imagemThumb || p.imagem || "",
+          imagem: v.imagem || p.imagem || "",
+          imagemThumb: v.imagemThumb || p.imagemThumb || p.imagem || "",
           categoriaId: catId,
           categoriaNome: cat.nome,
           variantes: variantes.map((x) => ({ ...x, ativo: x.uid === v.uid })),
@@ -119,7 +121,7 @@ export function getItensFiltrados() {
 
   if (favoritos) {
     const favs = getIds();
-    list = list.filter((i) => favs.has(i.id));
+    list = list.filter((i) => favs.has(i.uid) || favs.has(i.id));
   }
 
   if (precoMin > state.limitesPreco.min) list = list.filter((i) => i.preco >= precoMin);

@@ -43,8 +43,8 @@ export function getIds() {
 export function paintFavoritesGlobal() {
   // Atualiza botões nos cards da grade e dos destaques da home
   $$("[data-action='fav']").forEach((el) => {
-    const id = el.dataset.id;
-    const active = favs.has(id);
+    const uid = el.dataset.uid || el.dataset.id;
+    const active = favs.has(uid);
     el.classList.toggle("is-active", active);
     el.setAttribute("aria-pressed", String(active));
     el.setAttribute("aria-label", active ? "Remover dos favoritos" : "Adicionar aos favoritos");
@@ -53,8 +53,8 @@ export function paintFavoritesGlobal() {
   // Atualiza botão do modal se estiver aberto
   const modalBtn = $("#product-modal [data-action='fav-toggle']");
   if (modalBtn) {
-    const id = modalBtn.dataset.id;
-    const active = favs.has(id);
+    const uid = modalBtn.dataset.uid || modalBtn.dataset.id;
+    const active = favs.has(uid);
     modalBtn.classList.toggle("is-active", active);
     modalBtn.classList.toggle("is-fav", active);
     modalBtn.setAttribute("aria-pressed", String(active));
