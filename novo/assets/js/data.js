@@ -43,7 +43,7 @@ export const FALLBACK_DATA = {
   colecaoConfig: {
     eyebrow: "A coleção",
     titulo: "Nossos aromas, seus rituais",
-    subtitulo: "Cada fragrância vem em dois tamanhos: Mini de 40 g, para experimentar, e Padrão de 230 g, em copo de vidro com tampa dourada monogramada.",
+    subtitulo: "Cada fragrância vem em dois tamanhos: Mini de 40 g, para experimentar, e Padrão de 230 g, em copo de vidro.",
     notaCatalogo: "Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.",
     fineprint: "Preços válidos para pedidos combinados diretamente com o ateliê",
     colecoesDisponiveis: [
