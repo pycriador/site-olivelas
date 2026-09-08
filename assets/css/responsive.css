@@ -239,7 +239,11 @@
   }
 
   .toasts {
-    bottom: var(--s-4);
+    top: calc(var(--header-height, 64px) + 8px);
+    right: var(--s-3);
+    left: var(--s-3);
+    width: auto;
+    align-items: stretch;
   }
 
   .benefits-grid {

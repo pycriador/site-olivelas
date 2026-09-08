@@ -612,27 +612,56 @@ function paintFavorites() {
   });
 }
 
-/* ================= TOASTS ================= */
+/* ================= TOASTS (Notificações Elegantes) ================= */
 function initToasts() {
   bus.on("toast", ({ type = "info", text }) => {
     const wrap = $("#toasts");
-    if (!wrap) return;
-    const icon = type === "success" ? icons.check : type === "error" ? icons.alert : icons.info;
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.setAttribute("role", type === "error" ? "alert" : "status");
-    toast.innerHTML = `${icon}<span>${text}</span>`;
-    wrap.appendChild(toast);
-    while (wrap.children.length > 3) wrap.firstElementChild?.remove();
+    if (!wrap || !text) return;
 
-    const hide = () => {
+    let icon = icons.info;
+    let toastType = type;
+    const lower = text.toLowerCase();
+
+    if (lower.includes("favorito")) {
+      icon = icons.heart;
+      toastType = "fav";
+    } else if (type === "success" || lower.includes("adicionado ao carrinho")) {
+      icon = icons.check;
+      toastType = "success";
+    } else if (type === "error" || lower.includes("erro") || lower.includes("não foi possível")) {
+      icon = icons.alert;
+      toastType = "error";
+    } else if (lower.includes("aroma") || lower.includes("fragrância")) {
+      icon = icons.flame;
+      toastType = "info";
+    }
+
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${toastType}`;
+    toast.setAttribute("role", type === "error" ? "alert" : "status");
+    toast.innerHTML = `
+      <span class="toast-icon" aria-hidden="true">${icon}</span>
+      <span class="toast-msg">${text}</span>
+      <button type="button" class="toast-close" aria-label="Fechar notificação">${icons.close}</button>
+    `;
+
+    wrap.appendChild(toast);
+    while (wrap.children.length > 4) wrap.firstElementChild?.remove();
+
+    let removed = false;
+    const dismiss = () => {
+      if (removed) return;
+      removed = true;
       toast.classList.add("is-leaving");
-      window.setTimeout(() => toast.remove(), 350);
+      window.setTimeout(() => toast.remove(), 300);
     };
-    const timer = window.setTimeout(hide, 2800);
-    toast.addEventListener("click", () => {
+
+    const timer = window.setTimeout(dismiss, 3500);
+
+    toast.querySelector(".toast-close")?.addEventListener("click", (e) => {
+      e.stopPropagation();
       clearTimeout(timer);
-      hide();
+      dismiss();
     });
   });
 }
