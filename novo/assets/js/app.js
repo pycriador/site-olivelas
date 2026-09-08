@@ -341,15 +341,19 @@ class App {
       });
     }
 
-    // Page size select
-    const pageSizeSelect = $('#page-size-select');
-    if (pageSizeSelect) {
-      pageSizeSelect.addEventListener('change', (e) => {
-        this.pageSize = Number(e.target.value);
-        this.page = 1;
-        this.renderCatalog();
-      });
-    }
+    // Page size pills selection
+    document.addEventListener('click', (e) => {
+      const sizeBtn = e.target.closest('[data-action="select-page-size"]');
+      if (sizeBtn) {
+        e.preventDefault();
+        const size = Number(sizeBtn.dataset.size);
+        if (size && size !== this.pageSize) {
+          this.pageSize = size;
+          this.page = 1;
+          this.renderCatalog();
+        }
+      }
+    });
 
     // Window resize (re-measures grid columns and rebuilds pagination)
     let resizeTimer = null;
@@ -493,12 +497,8 @@ class App {
     if (!grid) return;
 
     const filtered = this.getFilteredCandles();
-
-    // Update results info
-    const countEl = $('#result-count');
-    if (countEl) {
-      countEl.textContent = filtered.length;
-    }
+    const paginationBar = $('#pagination-bar');
+    const infoTextEl = $('#pagination-info-text');
 
     if (filtered.length === 0) {
       grid.innerHTML = `
@@ -507,10 +507,13 @@ class App {
           <p>Tente buscar por outro termo ou selecione "Todos os produtos".</p>
         </div>
       `;
+      if (paginationBar) paginationBar.style.display = 'none';
       const nav = $('#pagination');
       if (nav) nav.innerHTML = '';
       return;
     }
+
+    if (paginationBar) paginationBar.style.display = 'flex';
 
     this.rebuildPageSizeOptions(filtered.length);
 
@@ -519,6 +522,13 @@ class App {
 
     const start = (this.page - 1) * this.pageSize;
     const paginated = filtered.slice(start, start + this.pageSize);
+
+    const startCount = filtered.length > 0 ? start + 1 : 0;
+    const endCount = Math.min(start + this.pageSize, filtered.length);
+
+    if (infoTextEl) {
+      infoTextEl.innerHTML = `Exibindo <strong>${startCount}–${endCount}</strong> de <strong>${filtered.length}</strong> produtos`;
+    }
 
     grid.innerHTML = paginated.map((c) => {
       const defaultIndex = c.tamanhos && c.tamanhos.length > 1 ? 1 : 0;
@@ -617,15 +627,19 @@ class App {
   }
 
   rebuildPageSizeOptions(total) {
-    const select = $('#page-size-select');
-    if (!select) return;
+    const pillsContainer = $('#page-size-pills');
+    if (!pillsContainer) return;
     const options = this.sizesFor(this.measureColumns(), Math.max(1, total));
     if (!options.includes(this.pageSize)) {
       this.pageSize = options[0] || Math.max(1, total);
       this.page = 1;
     }
-    select.innerHTML = options.map((s) => `<option value="${s}">${s}</option>`).join('');
-    select.value = String(this.pageSize);
+    pillsContainer.innerHTML = options.map((s) => {
+      const isAll = s === total && options.length > 1;
+      const label = isAll ? 'Todos' : s;
+      const isActive = s === this.pageSize;
+      return `<button type="button" class="size-pill ${isActive ? 'is-active' : ''}" data-action="select-page-size" data-size="${s}" aria-pressed="${isActive}" aria-label="Exibir ${label} produtos por página">${label}</button>`;
+    }).join('');
   }
 
   renderPagination(total) {

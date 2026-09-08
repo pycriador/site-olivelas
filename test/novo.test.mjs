@@ -133,7 +133,9 @@ check("Schema.org JSON-LD presente", novoHtml.includes('<script type="applicatio
 check("Skip link para acessibilidade presente", novoHtml.includes('class="skip-link"') && novoHtml.includes('href="#colecao"'));
 check("Role main ou tag main presentes com landmarks", novoHtml.includes('<main') && novoHtml.includes('role="banner"') && novoHtml.includes('role="contentinfo"'));
 check("Imagens possuem atributo alt", !novoHtml.includes('<img') || !novoHtml.includes('<img :not([alt])>'));
-check("Busca possui label acessível para leitores de tela", novoHtml.includes('for="catalog-search-input"') && novoHtml.includes('visually-hidden'));
+check("Barra de paginação editorial presente no HTML", novoHtml.includes('id="pagination-bar"') && novoHtml.includes('class="catalog-pagination-bar"'));
+check("Seletor de tamanho por pills presente no HTML", novoHtml.includes('id="page-size-pills"') && novoHtml.includes('class="page-size-pills"'));
+check("Texto de exibição de faixa de produtos presente", novoHtml.includes('id="pagination-info-text"'));
 
 console.log(`\nAll ${pass} checks passed for /novo!`);
 

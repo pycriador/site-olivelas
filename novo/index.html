@@ -241,22 +241,26 @@
           </div>
         </div>
 
-        <!-- Barra de Informações e Itens por página -->
-        <div class="catalog-toolbar">
-          <p class="results-info" aria-live="polite"><strong class="results-info__count" id="result-count">0</strong> produtos disponíveis</p>
-          <div class="page-size">
-            <label for="page-size-select">Itens por página</label>
-            <select id="page-size-select" class="select-control" aria-label="Quantidade de itens por página"></select>
-          </div>
-        </div>
-
         <!-- Grid de Cards de Velas -->
         <div class="grid-scents" id="grid-scents" aria-live="polite">
           <!-- Renderizado dinamicamente via app.js -->
         </div>
 
-        <!-- Paginação de produtos -->
-        <nav class="pagination" id="pagination" aria-label="Navegação da paginação de produtos"></nav>
+        <!-- Barra Editorial de Paginação e Controles -->
+        <div class="catalog-pagination-bar" id="pagination-bar" aria-label="Controles de navegação da coleção">
+          <div class="pagination-info" id="pagination-info" aria-live="polite">
+            <span id="pagination-info-text">Exibindo <strong id="result-count">0</strong> produtos</span>
+          </div>
+
+          <nav class="pagination" id="pagination" aria-label="Navegação da paginação de produtos"></nav>
+
+          <div class="pagination-page-size" id="page-size-container">
+            <span class="page-size-label">Exibir</span>
+            <div class="page-size-pills" id="page-size-pills" role="group" aria-label="Quantidade de produtos por página">
+              <!-- Renderizado dinamicamente via app.js -->
+            </div>
+          </div>
+        </div>
 
         <p class="catalog-note" id="colecao-note">Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.</p>
         <p class="catalog-fine" id="colecao-fineprint">Preços válidos para pedidos combinados diretamente com o ateliê</p>
