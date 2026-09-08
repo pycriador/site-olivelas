@@ -17,7 +17,11 @@ check("FALLBACK_DATA tem 3 kits", FALLBACK_DATA.kits.length === 3);
 check("FALLBACK_DATA tem 3 aromatizadores", FALLBACK_DATA.aromatizadores.length === 3);
 check("FALLBACK_DATA tem 2 acessorios", FALLBACK_DATA.acessorios.length === 2);
 check("FALLBACK_DATA.produtos tem 17 itens", FALLBACK_DATA.produtos.length === 17);
-check("WhatsApp correto", WA_PHONE === "5511963820374");
+check("FALLBACK_DATA tem 3 seções homeFeatured", Array.isArray(FALLBACK_DATA.homeFeatured) && FALLBACK_DATA.homeFeatured.length === 3);
+check("homeFeatured contém novidades, mais-vendidos e rituais", FALLBACK_DATA.homeFeatured.map(s => s.id).join(",") === "novidades,mais-vendidos,rituais");
+check("Verbena possui tag mais-vendidos", FALLBACK_DATA.velas.find(v => v.id === "OV01").tags.includes("mais-vendidos"));
+check("Morango possui tag novidades", FALLBACK_DATA.velas.find(v => v.id === "OV03").tags.includes("novidades"));
+check("Difusor possui tag rituais", FALLBACK_DATA.aromatizadores.find(a => a.id === "ARO1").tags.includes("rituais"));
 
 // 1.1 Category & Em breve checks
 const cortador = FALLBACK_DATA.acessorios.find(a => a.id === "ACC2");

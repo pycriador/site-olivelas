@@ -55,6 +55,26 @@ export const FALLBACK_DATA = {
     ],
     velasAtivas: ["OV01", "OV02", "OV03", "OV04", "OV05", "OV06", "OV07", "OV08", "OV09"]
   },
+  homeFeatured: [
+    {
+      id: "novidades",
+      tag: "novidades",
+      eyebrow: "Chegaram para ficar",
+      titulo: "Novidades da casa"
+    },
+    {
+      id: "mais-vendidos",
+      tag: "mais-vendidos",
+      eyebrow: "Escolhidos por vocês",
+      titulo: "Os mais queridos"
+    },
+    {
+      id: "rituais",
+      tag: "rituais",
+      eyebrow: "Para completar o ambiente",
+      titulo: "Pequenos rituais"
+    }
+  ],
   complementosConfig: {
     eyebrow: "Para completar o ambiente",
     titulo: "Linhas complementares",
@@ -106,6 +126,7 @@ export const FALLBACK_DATA = {
       nome: "Verbena",
       slug: "verbena",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Frutal Verde",
       cor: "var(--verbena)",
       hexCor: "#8EA487",
@@ -124,6 +145,7 @@ export const FALLBACK_DATA = {
       nome: "Blue Ocean",
       slug: "blue-ocean",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Floral Frutal",
       cor: "var(--blue-ocean)",
       hexCor: "#6E8797",
@@ -142,6 +164,7 @@ export const FALLBACK_DATA = {
       nome: "Morango & Champanhe",
       slug: "morango-champanhe",
       categoria: "velas",
+      tags: ["novidades"],
       familia: "Oriental Gourmand",
       cor: "var(--morango)",
       hexCor: "#C49A90",
@@ -160,6 +183,7 @@ export const FALLBACK_DATA = {
       nome: "Mística",
       slug: "mistica",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Amadeirada Especiada",
       cor: "var(--mistica)",
       hexCor: "#525C67",
@@ -178,6 +202,7 @@ export const FALLBACK_DATA = {
       nome: "Orquídea Negra",
       slug: "orquidea-negra",
       categoria: "velas",
+      tags: ["novidades"],
       familia: "Floral Oriental",
       cor: "var(--orquidea)",
       hexCor: "#5B3645",
@@ -196,6 +221,7 @@ export const FALLBACK_DATA = {
       nome: "Mamãe & Bebê",
       slug: "mamae-bebe",
       categoria: "velas",
+      tags: ["novidades"],
       familia: "Floral Amadeirada Musk",
       cor: "var(--mamae)",
       hexCor: "#BFC2BC",
@@ -214,6 +240,7 @@ export const FALLBACK_DATA = {
       nome: "Cravo & Canela",
       slug: "cravo-canela",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Oriental Especiada",
       cor: "var(--cravo)",
       hexCor: "#A96F4E",
@@ -232,6 +259,7 @@ export const FALLBACK_DATA = {
       nome: "Lavanda Francesa",
       slug: "lavanda",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Floral Aromática",
       cor: "var(--lavanda)",
       hexCor: "#8A7F9D",
@@ -250,6 +278,7 @@ export const FALLBACK_DATA = {
       nome: "Alfazema Provençal",
       slug: "alfazema",
       categoria: "velas",
+      tags: ["mais-vendidos"],
       familia: "Herbal Fresca",
       cor: "var(--alfazema)",
       hexCor: "#8FA2A6",
@@ -270,6 +299,7 @@ export const FALLBACK_DATA = {
       nome: "Kit 3 Mini Velas",
       slug: "kit-3-mini-velas",
       categoria: "kits",
+      tags: ["mais-vendidos", "novidades"],
       familia: "Trio Degustação · 3x 40 g",
       cor: "var(--lavanda)",
       hexCor: "#8A7F9D",
@@ -287,6 +317,7 @@ export const FALLBACK_DATA = {
       nome: "Kit 10 Mini Velas",
       slug: "kit-10-mini-velas",
       categoria: "kits",
+      tags: ["novidades"],
       familia: "Lembrancinhas · 10x 40 g",
       cor: "var(--verbena)",
       hexCor: "#8EA487",
@@ -304,6 +335,7 @@ export const FALLBACK_DATA = {
       nome: "Kit 50 Mini Velas",
       slug: "kit-50-mini-velas",
       categoria: "kits",
+      tags: ["novidades"],
       familia: "Eventos & Casamentos · 50x 40 g",
       cor: "var(--blue-ocean)",
       hexCor: "#6E8797",
@@ -323,6 +355,7 @@ export const FALLBACK_DATA = {
       nome: "Difusor de Varetas Alfazema",
       slug: "difusor-alfazema",
       categoria: "aromatizadores",
+      tags: ["rituais"],
       familia: "Herbal Fresco · 100 ml",
       cor: "var(--alfazema)",
       hexCor: "#8FA2A6",
@@ -341,6 +374,7 @@ export const FALLBACK_DATA = {
       nome: "Difusor de Varetas Lavanda",
       slug: "difusor-lavanda",
       categoria: "aromatizadores",
+      tags: ["rituais"],
       familia: "Herbal Floral · 100 ml",
       cor: "var(--lavanda)",
       hexCor: "#8A7F9D",
@@ -359,6 +393,7 @@ export const FALLBACK_DATA = {
       nome: "Sachê para Gavetas & Armários",
       slug: "sache-guarda-roupa",
       categoria: "aromatizadores",
+      tags: ["rituais"],
       familia: "Floral Amadeirado",
       cor: "var(--mamae)",
       hexCor: "#BFC2BC",
@@ -379,6 +414,7 @@ export const FALLBACK_DATA = {
       nome: "Cortador de Pavio em Aço Dourado",
       slug: "cortador-pavio",
       categoria: "acessorios",
+      tags: ["rituais"],
       familia: "Cuidados da Vela",
       cor: "var(--gold)",
       hexCor: "#B79C6B",
@@ -397,6 +433,7 @@ export const FALLBACK_DATA = {
       nome: "Kit Fósforos Longos Decorativos",
       slug: "kit-fosforos",
       categoria: "acessorios",
+      tags: ["rituais"],
       familia: "Ritual & Decoração",
       cor: "var(--cravo)",
       hexCor: "#A96F4E",
@@ -484,6 +521,7 @@ function normalizeCategoryProducts(catProducts, categoryKey) {
       nome: p.nome,
       slug: p.slug,
       categoria: categoryKey,
+      tags: Array.isArray(p.tags) ? p.tags : [],
       familia: p.familiaOlfativa || 'Fragrância Autoral',
       cor: p.corExclusiva || defaultCor,
       hexCor: p.corExclusiva || '#B79C6B',
@@ -511,6 +549,7 @@ function mergeCatalogData(json) {
   if (json.meta) data.meta = { ...data.meta, ...json.meta };
   if (json.heroConfig) data.heroConfig = { ...data.heroConfig, ...json.heroConfig };
   if (json.pilares) data.pilares = json.pilares;
+  if (json.homeFeatured) data.homeFeatured = json.homeFeatured;
   if (json.colecaoConfig) data.colecaoConfig = { ...data.colecaoConfig, ...json.colecaoConfig };
   if (json.complementosConfig) data.complementosConfig = { ...data.complementosConfig, ...json.complementosConfig };
   if (json.atelie) {

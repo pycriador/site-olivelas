@@ -25,6 +25,7 @@ class App {
     
     this.data = await loadCatalog();
     this.renderPageTexts();
+    this.renderHomeFeatured();
     this.renderCatalog();
     this.renderComplementos();
     this.renderAtelieRandomPhoto();
@@ -140,6 +141,106 @@ class App {
     }
   }
 
+  renderHomeFeatured() {
+    const container = $('#home-featured');
+    if (!container) return;
+
+    const sections = this.data.homeFeatured || [];
+    if (sections.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    container.innerHTML = sections.map((sec) => {
+      const items = this.getItemsForFeaturedSection(sec);
+      if (items.length === 0) return '';
+
+      return `
+        <section class="featured-section" id="featured-${sec.id}" aria-labelledby="featured-${sec.id}-title">
+          <div class="featured-head">
+            <div class="featured-head-titles">
+              <span class="eyebrow">${sec.eyebrow}</span>
+              <h3 id="featured-${sec.id}-title">${sec.titulo}</h3>
+            </div>
+            <a class="featured-see-all" href="#colecao" data-action="filter-featured" data-filter="${sec.tag}">
+              Ver todos <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+
+          <div class="home-product-rail">
+            ${items.map((item) => this.renderHomeProductCard(item)).join('')}
+          </div>
+        </section>
+      `;
+    }).join('');
+  }
+
+  getItemsForFeaturedSection(section) {
+    const all = this.data.produtos || [];
+    const tag = normalizeStr(section.tag || section.id);
+
+    let matches = all.filter(p => Array.isArray(p.tags) && p.tags.map(t => normalizeStr(t)).includes(tag));
+
+    if (matches.length === 0) {
+      if (tag === 'novidades') {
+        matches = all.filter(p => ['novo', 'premium', 'lembrancinhas', 'eventos'].includes(normalizeStr(p.badge || '')) || p.slug === 'morango-champanhe' || (p.id && p.id.startsWith('KIT')));
+      } else if (tag === 'mais-vendidos') {
+        matches = all.filter(p => ['mais vendido', 'assinatura', 'relaxante', 'presenteavel'].includes(normalizeStr(p.badge || '')) || p.id === 'OV01' || p.id === 'OV04' || p.id === 'OV08');
+      } else if (tag === 'rituais') {
+        matches = all.filter(p => p.categoria === 'aromatizadores' || p.categoria === 'acessorios');
+      }
+    }
+
+    const unique = [...new Map(matches.map(i => [i.id, i])).values()];
+    return unique.slice(0, 4);
+  }
+
+  renderHomeProductCard(item) {
+    const isFav = favorites.isFavorite(item.id);
+    const defaultIndex = item.tamanhos && item.tamanhos.length > 1 ? 1 : 0;
+    const v = (item.tamanhos && item.tamanhos[defaultIndex]) || (item.tamanhos && item.tamanhos[0]) || {
+      tipo: 'Padrão',
+      peso: '',
+      preco: item.preco || 0,
+      imagem: item.imagem
+    };
+    const isEmBreve = Boolean(item.emBreve || (item.badge && item.badge.toLowerCase().includes('breve')));
+    const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(item.nome)}%20estiver%20dispon%C3%ADvel.`;
+    const priceDisplay = v.preco ? formatCurrency(v.preco) : '';
+
+    return `
+      <article class="home-product-card" style="--product-accent: ${item.cor || 'var(--gold)'};" data-card-id="${item.id}">
+        <div class="home-product-media" data-action="open-modal" data-id="${item.id}" title="Ver detalhes de ${item.nome}">
+          ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ''}
+          <img src="${v.imagem || item.imagem}" alt="${item.nome}" loading="lazy">
+          <button type="button" class="card-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="Favoritar ${item.nome}">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+        </div>
+
+        <div class="home-product-body">
+          <div class="card-family-row">
+            ${item.cor ? `<span class="card-color-dot" style="background:${item.hexCor || item.cor}"></span>` : ''}
+            <span>${item.familia || item.categoria}</span>
+          </div>
+          <button type="button" class="home-product-name" data-action="open-modal" data-id="${item.id}">
+            ${item.nome}
+          </button>
+          <strong class="price">${priceDisplay}</strong>
+          ${isEmBreve ? `
+            <a class="btn btn-sm btn--gold btn-block" href="${notifyWaUrl}" target="_blank" rel="noopener" style="text-align:center;">
+              Avise-me
+            </a>
+          ` : `
+            <button type="button" class="btn btn-sm btn--gold btn-block" data-action="card-add-cart" data-id="${item.id}">
+              + Carrinho
+            </button>
+          `}
+        </div>
+      </article>
+    `;
+  }
+
   renderAtelieRandomPhoto() {
     const at = this.data.atelie || {};
     const imgEl = $('#atelie-random-photo');
@@ -147,7 +248,6 @@ class App {
 
     let images = at.imagensAleatorias;
     if (!images || images.length === 0) {
-      // Fallback: extract from available standard candles
       images = (this.data.velas || []).map(v => v.imagem);
     }
 
@@ -202,6 +302,17 @@ class App {
         pill.classList.add('is-active');
         this.activeCategory = pill.dataset.category;
         this.renderCatalog();
+      }
+
+      // Filter from featured sections "Ver todos"
+      const featLink = e.target.closest('[data-action="filter-featured"]');
+      if (featLink) {
+        e.preventDefault();
+        const filter = featLink.dataset.filter;
+        this.activeCategory = filter;
+        $$('[data-category]').forEach((p) => p.classList.remove('is-active'));
+        this.renderCatalog();
+        $('#colecao')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
@@ -300,14 +411,28 @@ class App {
     let all = this.data.produtos || this.data.velas || [];
 
     return all.filter((c) => {
-      // Category filter
+      // Category / Tag filter
       if (this.activeCategory && this.activeCategory !== 'todos') {
         const catNorm = normalizeStr(c.categoria || '');
         const activeCatNorm = normalizeStr(this.activeCategory);
         const famNorm = normalizeStr(c.familia || '');
+        const tagsNorm = (c.tags || []).map(t => normalizeStr(t));
         
-        // Match category key (velas, kits, aromatizadores, acessorios) or olfactive family
-        if (catNorm !== activeCatNorm && !famNorm.includes(activeCatNorm)) {
+        const matchesCategory = catNorm === activeCatNorm;
+        const matchesFamily = famNorm.includes(activeCatNorm);
+        const matchesTag = tagsNorm.includes(activeCatNorm);
+        
+        // Fallback checks for tag filters if tags aren't explicitly declared
+        let matchesFallback = false;
+        if (activeCatNorm === 'novidades') {
+          matchesFallback = ['novo', 'premium', 'lembrancinhas', 'eventos'].includes(normalizeStr(c.badge || '')) || c.slug === 'morango-champanhe' || (c.id && c.id.startsWith('KIT'));
+        } else if (activeCatNorm === 'mais-vendidos') {
+          matchesFallback = ['mais vendido', 'assinatura', 'relaxante', 'presenteavel'].includes(normalizeStr(c.badge || '')) || c.id === 'OV01' || c.id === 'OV04' || c.id === 'OV08';
+        } else if (activeCatNorm === 'rituais') {
+          matchesFallback = catNorm === 'aromatizadores' || catNorm === 'acessorios';
+        }
+
+        if (!matchesCategory && !matchesFamily && !matchesTag && !matchesFallback) {
           return false;
         }
       }
