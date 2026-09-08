@@ -230,7 +230,7 @@ function homeProductTemplate(item) {
 function bindHomeProductEvents(container) {
   container.addEventListener("click", (event) => {
     const actionEl = event.target.closest("[data-action]");
-    if (actionEl) handleProductAction(actionEl);
+    if (actionEl) handleProductAction(actionEl, event);
   });
 }
 
@@ -472,27 +472,31 @@ function renderPagination(total) {
     return b;
   };
 
-  nav.appendChild(makeBtn(icons.chevronLeft, { page: page - 1, disabled: page === 1, label: "Página anterior" }));
-  pageSlots(pages).forEach((p) => {
-    if (p === "…") {
-      const s = document.createElement("span");
-      s.className = "page-ellipsis";
-      s.textContent = "…";
-      nav.appendChild(s);
+  nav.appendChild(makeBtn(icons.chevronLeft, { page: page - 1, disabled: page <= 1, label: "Página anterior" }));
+
+  const slots = paginationSlots(page, pages);
+  slots.forEach((s) => {
+    if (s === "...") {
+      const span = document.createElement("span");
+      span.className = "page-ellipsis";
+      span.textContent = "…";
+      nav.appendChild(span);
     } else {
-      nav.appendChild(makeBtn(String(p), { page: p, active: p === page }));
+      nav.appendChild(makeBtn(String(s), { page: s, active: s === page, label: `Página ${s}` }));
     }
   });
-  nav.appendChild(makeBtn(icons.chevronRight, { page: page + 1, disabled: page === pages, label: "Próxima página" }));
+
+  nav.appendChild(makeBtn(icons.chevronRight, { page: page + 1, disabled: page >= pages, label: "Próxima página" }));
 }
 
-function pageSlots(pages) {
-  const want = new Set([1, pages, page, page - 1, page + 1]);
-  const sorted = [...want].filter((p) => p >= 1 && p <= pages).sort((a, b) => a - b);
+function paginationSlots(curr, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const set = new Set([1, total, curr, curr - 1, curr + 1]);
+  const sorted = [...set].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
   const out = [];
   let prev = 0;
   sorted.forEach((p) => {
-    if (p - prev > 1) out.push("…");
+    if (prev && p - prev > 1) out.push("...");
     out.push(p);
     prev = p;
   });
@@ -564,7 +568,7 @@ function initGridEvents() {
 
   grid?.addEventListener("click", (e) => {
     const actionEl = e.target.closest("[data-action]");
-    if (actionEl) handleProductAction(actionEl);
+    if (actionEl) handleProductAction(actionEl, e);
   });
 
   empty?.addEventListener("click", (e) => {
@@ -583,7 +587,8 @@ function initGridEvents() {
   });
 }
 
-function handleProductAction(actionEl) {
+function handleProductAction(actionEl, e) {
+  if (e?.stopPropagation) e.stopPropagation();
   const { action, uid, id } = actionEl.dataset;
   if (action === "open") openModal(uid);
   if (action === "add") {
@@ -624,11 +629,22 @@ function paintFavorites() {
   });
 }
 
-/* ================= TOASTS (Notificações Elegantes) ================= */
+/* ================= TOASTS (Notificações Elegantes com Antiduplicação) ================= */
+let lastToastKey = "";
+let lastToastTime = 0;
+
 function initToasts() {
   bus.on("toast", ({ type = "info", text }) => {
     const wrap = $("#toasts");
     if (!wrap || !text) return;
+
+    const now = Date.now();
+    const key = `${type}:${text}`;
+    if (key === lastToastKey && now - lastToastTime < 750) {
+      return; // Previne emissões repetidas acidentais
+    }
+    lastToastKey = key;
+    lastToastTime = now;
 
     let icon = icons.info;
     let toastType = type;
@@ -658,17 +674,17 @@ function initToasts() {
     `;
 
     wrap.appendChild(toast);
-    while (wrap.children.length > 4) wrap.firstElementChild?.remove();
+    while (wrap.children.length > 2) wrap.firstElementChild?.remove();
 
     let removed = false;
     const dismiss = () => {
       if (removed) return;
       removed = true;
       toast.classList.add("is-leaving");
-      window.setTimeout(() => toast.remove(), 300);
+      window.setTimeout(() => toast.remove(), 280);
     };
 
-    const timer = window.setTimeout(dismiss, 3500);
+    const timer = window.setTimeout(dismiss, 3200);
 
     toast.querySelector(".toast-close")?.addEventListener("click", (e) => {
       e.stopPropagation();
