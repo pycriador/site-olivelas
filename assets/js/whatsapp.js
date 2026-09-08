@@ -1,48 +1,50 @@
-/* WhatsApp: monta mensagens e links wa.me a partir do número e dos dados do JSON. */
+/**
+ * OLIVELAS — WhatsApp Message & Gateway Handler (/novo)
+ */
 
-import { formatCurrency } from "./utils.js";
+export const WA_PHONE = '5511963820374';
 
-export const waLink = (numero, texto) => {
-  const n = String(numero || "").replace(/\D/g, "");
-  return `https://wa.me/${n}?text=${encodeURIComponent(texto)}`;
-};
+export function buildDirectItemUrl(itemTitle, variantInfo = '') {
+  let text = `Olá! Quero pedir a vela *${itemTitle}*`;
+  if (variantInfo) {
+    text += ` (${variantInfo})`;
+  }
+  text += ` da Olivelas.`;
+  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`;
+}
 
-export const mensagemGeral = (meta) =>
-  [
-    "Olá!",
-    `Cheguei pelo catálogo da ${meta.nome || "loja"}.`,
-    "Gostaria de mais informações sobre os produtos.",
-  ].join("\n");
+export function buildCartCheckoutUrl(cartItems, totalPriceFormatted) {
+  if (!cartItems || cartItems.length === 0) {
+    return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent('Olá! Vim pelo site da Olivelas.')}`;
+  }
 
-export const mensagemProduto = (item) =>
-  [
-    "Olá!",
-    "Tenho interesse no seguinte produto:",
-    "",
-    `Nome: ${item.nome}`,
-    `Código: ${item.id}`,
-    item.tamanho && item.tamanho !== "Único" ? `Tamanho: ${item.tamanho}` : null,
-    `Peso: ${item.peso}`,
-    `Preço: ${formatCurrency(item.preco)}`,
-    `Quantidade por pacote: ${item.quantidade}`,
-    "",
-    "Gostaria de mais informações.",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const lines = [
+    '🌿 *OLIVELAS — Novo Pedido pelo Catálogo*',
+    '----------------------------------------',
+    ''
+  ];
 
-export const mensagemPedido = (linhas, total, meta) => {
-  const corpo = linhas.map(
-    (l) => `• ${l.nome}${l.tamanho && l.tamanho !== "Único" ? ` (${l.tamanho})` : ""} — Quantidade: ${l.qtd} — ${formatCurrency(l.subtotal)}`
-  );
-  return [
-    "Olá!",
-    `Gostaria de realizar o seguinte pedido${meta?.nome ? ` (${meta.nome})` : ""}:`,
-    "",
-    ...corpo,
-    "",
-    `Total estimado: ${formatCurrency(total)}`,
-    "",
-    "Aguardo confirmação. Obrigado!",
-  ].join("\n");
-};
+  cartItems.forEach((item, index) => {
+    const itemSubtotal = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(item.preco * item.quantidade);
+
+    lines.push(`${index + 1}. *${item.nome}* (${item.tipo}${item.peso ? ' · ' + item.peso : ''})`);
+    lines.push(`   Qtd: ${item.quantidade} × ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.preco)} = *${itemSubtotal}*`);
+    lines.push('');
+  });
+
+  lines.push('----------------------------------------');
+  lines.push(`💰 *Total Estimado:* ${totalPriceFormatted}`);
+  lines.push('');
+  lines.push('Por favor, confirme a disponibilidade e o valor do frete para o meu CEP.');
+
+  const fullText = lines.join('\n');
+  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(fullText)}`;
+}
+
+export function buildGeneralContactUrl() {
+  const text = 'Oi! Vim pelo site da Olivelas e gostaria de tirar uma dúvida.';
+  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`;
+}

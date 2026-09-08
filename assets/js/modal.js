@@ -1,235 +1,285 @@
-/* Modal de produto: detalhes, troca de variante, favoritar, compartilhar e carrinho. */
+/**
+ * OLIVELAS — Product Modal & Variant Selector (/novo)
+ */
 
-import { $, $$, bus, formatCurrency, copyToClipboard, webShare } from "./utils.js";
-import { getItem, getStore } from "./catalog.js";
-import { addItem, openSidebar } from "./cart.js";
-import { isFav, toggleFav } from "./favorites.js";
-import { waLink, mensagemProduto } from "./whatsapp.js";
-import { icons } from "./theme.js";
+import { bus, $, $$, formatCurrency, showToast } from './utils.js';
+import { cart } from './cart.js';
+import { FALLBACK_DATA } from './data.js';
+import { buildDirectItemUrl } from './whatsapp.js';
 
-let lastFocused = null;
-let currentUid = "";
-let modalInitialized = false;
+class ProductModal {
+  constructor() {
+    this.currentProduct = null;
+    this.selectedVariant = null;
+    this.init();
+  }
 
-export function initModal() {
-  if (modalInitialized) return;
-  modalInitialized = true;
-  const modal = $("#product-modal");
-  const closeBtn = $("#modal-close");
+  init() {
+    this.bindEvents();
+    this.checkHash();
+  }
 
-  closeBtn?.addEventListener("click", closeModal);
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-    const actionEl = e.target.closest("[data-action]");
-    if (!actionEl) return;
-    const { action } = actionEl.dataset;
-    if (action === "modal-close") closeModal();
-    if (action === "variant") openModal(actionEl.dataset.uid);
-    if (action === "fav-toggle") {
-      const target = actionEl.dataset.uid || actionEl.dataset.id || currentUid;
-      toggleFav(target);
-      rerenderActions();
-      const favNow = isFav(target);
-      bus.emit("toast", { type: "info", text: favNow ? "Adicionado aos favoritos" : "Removido dos favoritos" });
-    }
-    if (action === "share") shareCurrent();
-    if (action === "copy") copyCurrent();
-    if (action === "modal-add") {
-      const item = getItem(currentUid);
-      if (item?.esgotado) {
-        bus.emit("toast", { type: "info", text: "Este produto está esgotado no momento" });
-        return;
+  bindEvents() {
+    document.addEventListener('click', (e) => {
+      const openModalBtn = e.target.closest('[data-action="open-modal"]');
+      if (openModalBtn) {
+        e.preventDefault();
+        const id = openModalBtn.dataset.id;
+        this.open(id);
       }
-      addItem(currentUid, 1);
-      closeModal();
-      openSidebar();
-      bus.emit("toast", { type: "success", text: "Produto adicionado ao carrinho" });
+
+      const closeModalBtn = e.target.closest('[data-action="close-modal"]');
+      if (closeModalBtn || (e.target.classList && e.target.classList.contains('modal-backdrop'))) {
+        e.preventDefault();
+        this.close();
+      }
+
+      const variantBtn = e.target.closest('[data-action="select-modal-variant"]');
+      if (variantBtn) {
+        e.preventDefault();
+        const index = Number(variantBtn.dataset.index);
+        this.selectVariant(index);
+      }
+
+      const addCartBtn = e.target.closest('[data-action="modal-add-cart"]');
+      if (addCartBtn) {
+        e.preventDefault();
+        this.addToCart();
+      }
+    });
+
+    window.addEventListener('hashchange', () => this.checkHash());
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.close();
+    });
+  }
+
+  checkHash() {
+    const hash = window.location.hash;
+    if (hash.startsWith('#produto-')) {
+      const id = hash.replace('#produto-', '');
+      this.open(id, false);
     }
-  });
-  modal?.addEventListener("keydown", trapFocus);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen()) closeModal();
-  });
-}
-
-export function isOpen() {
-  return $("#product-modal")?.classList.contains("is-open") ?? false;
-}
-
-export function openModal(uid) {
-  const item = getItem(uid);
-  if (!item) return;
-  currentUid = uid;
-  lastFocused = document.activeElement;
-
-  const modal = $("#product-modal");
-  renderMedia(item);
-  renderBody(item);
-
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("is-locked");
-  $("#modal-close")?.focus();
-  updateHash(item);
-}
-
-export function closeModal() {
-  const modal = $("#product-modal");
-  if (!modal?.classList.contains("is-open")) return;
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("is-locked");
-  if (lastFocused) lastFocused.focus();
-  const { pathname, search, hash } = location;
-  if (hash.startsWith("#produto-")) {
-    history.replaceState(null, "", pathname + search);
   }
-}
 
-export function resolveHash(hash) {
-  if (!hash.startsWith("#produto-")) return;
-  const uid = hash.slice("#produto-".length);
-  const item = getItem(uid);
-  if (item) openModal(uid);
-  else {
-    const guess = [...getStore().itens].find((i) => i.slug === uid || i.slug === uid.replace(/-/g, ""));
-    if (guess) openModal(guess.uid);
+  open(id, updateHash = true) {
+    const appProducts = window.__olivelasApp?.data?.produtos;
+    const allCandles = FALLBACK_DATA.velas || [];
+    const allComp = FALLBACK_DATA.complementos || [];
+    const fallbackList = FALLBACK_DATA.produtos || [...allCandles, ...allComp];
+    const productList = appProducts || fallbackList;
+    const product = productList.find((p) => p.id === id);
+
+    if (!product) return;
+
+    this.currentProduct = product;
+    const defaultIndex = product.tamanhos && product.tamanhos.length > 1 ? 1 : 0;
+    this.selectedVariant = product.tamanhos ? (product.tamanhos[defaultIndex] || product.tamanhos[0]) : null;
+
+    if (updateHash) {
+      window.history.replaceState(null, '', `#produto-${id}`);
+    }
+
+    this.render();
+
+    const backdrop = $('#product-modal');
+    if (backdrop) {
+      backdrop.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
   }
-}
 
-function renderMedia(item) {
-  const media = $("#modal-media");
-  const src = item.imagem || "assets/images/placeholder.webp";
-  const badgeHtml = item.esgotado
-    ? `<span class="badge-chip badge-esgotado modal-badge">Esgotado</span>`
-    : (item.badge ? `<span class="badge-chip modal-badge">${item.badge}</span>` : "");
-  media.innerHTML = `
-    ${badgeHtml}
-    <div class="modal-image-wrapper">
-      <img src="${src}" alt="${item.nome}" width="800" height="800">
-    </div>`;
-}
+  close() {
+    const backdrop = $('#product-modal');
+    if (backdrop) {
+      backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (window.location.hash.startsWith('#produto-')) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+  }
 
-function renderBody(item) {
-  const body = $("#modal-body");
-  const variants = getStore().itens.filter((i) => i.id === item.id && i.uid !== item.uid);
-  const specs = [
-    ["Peso / Tamanho", item.peso],
-    ["Recipiente", item.recipiente],
-    ["Cera", "100% Vegetal (Livre de parafina)"],
-    ["Pavio", "100% Algodão Puro"],
-    item.queima ? ["Tempo de queima", item.queima] : null,
-    item.medidas ? ["Medidas", item.medidas] : null,
-    ["Categoria", item.categoriaNome],
-  ].filter(Boolean);
+  selectVariant(index) {
+    if (!this.currentProduct || !this.currentProduct.tamanhos) return;
+    this.selectedVariant = this.currentProduct.tamanhos[index];
+    this.render();
+  }
 
-  body.innerHTML = `
-    <div>
-      <div class="modal-family-row">
-        ${item.cor ? `<span class="card-color-dot" style="background:${item.cor}"></span>` : ""}
-        ${item.familia ? `<span class="modal-family">${item.familia}</span>` : `<span class="modal-family">${item.categoriaNome}</span>`}
-      </div>
-      <h3 class="modal-title" id="modal-title">${item.nome}</h3>
-    </div>
+  addToCart() {
+    if (!this.currentProduct) return;
 
-    <p class="modal-price">${formatCurrency(item.preco)}</p>
+    const isUnavailable = Boolean(
+      this.currentProduct.esgotado ||
+      this.currentProduct.emBreve ||
+      (this.currentProduct.badge && (
+        this.currentProduct.badge.toLowerCase().includes('breve') ||
+        this.currentProduct.badge.toLowerCase().includes('esgotado')
+      ))
+    );
 
-    ${item.descricao ? `<p class="modal-desc">${item.descricao}</p>` : ""}
+    if (isUnavailable) {
+      showToast(`"${this.currentProduct.nome}" não está disponível para compra no momento.`);
+      return;
+    }
 
-    ${variants.length ? `
-      <div>
-        <p class="variant-label">Escolha o tamanho</p>
-        <div class="variant-list" role="radiogroup" aria-label="Tamanho">
-          ${[item, ...variants].sort((a, b) => a.preco - b.preco).map((v) => `
-            <button class="variant-opt${v.uid === currentUid ? " is-active" : ""}" role="radio"
-              aria-checked="${v.uid === currentUid}" data-action="variant" data-uid="${v.uid}">
-              <span class="variant-opt-main">
-                <span class="variant-opt-title">${v.tamanho}${v.esgotado ? " (Esgotado)" : ""}</span>
-                <span class="variant-opt-sub">${v.peso} · ${formatCurrency(v.preco)}</span>
-              </span>
-              <span class="variant-opt-price">${formatCurrency(v.preco)}</span>
-            </button>`).join("")}
+    if (this.selectedVariant) {
+      cart.addItem({
+        uid: this.selectedVariant.uid,
+        id: this.currentProduct.id,
+        nome: this.currentProduct.nome,
+        tipo: this.selectedVariant.tipo,
+        peso: this.selectedVariant.peso,
+        preco: this.selectedVariant.preco,
+        imagem: this.selectedVariant.imagem || this.currentProduct.imagem,
+        quantidade: 1
+      });
+    } else {
+      cart.addItem({
+        uid: this.currentProduct.uid || `${this.currentProduct.id}-padrao`,
+        id: this.currentProduct.id,
+        nome: this.currentProduct.nome,
+        tipo: 'Padrão',
+        peso: '',
+        preco: this.currentProduct.preco,
+        imagem: this.currentProduct.imagem,
+        quantidade: 1
+      });
+    }
+  }
+
+  render() {
+    const card = $('#product-modal-content');
+    if (!card || !this.currentProduct) return;
+
+    const p = this.currentProduct;
+    const isCandle = !!(p.tamanhos && p.tamanhos.length > 0);
+    const v = this.selectedVariant || p;
+    const img = v.imagem || p.imagem;
+    const priceFormatted = formatCurrency(v.preco);
+    const isEsgotado = Boolean(p.esgotado || (p.badge && p.badge.toLowerCase().includes('esgotado')));
+    const isEmBreve = Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve')));
+    const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(p.nome)}%20estiver%20dispon%C3%ADvel.`;
+    const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(p.nome)}.`;
+
+    const waUrl = isEmBreve
+      ? notifyWaUrl
+      : (isEsgotado
+        ? esgotadoWaUrl
+        : (isCandle
+          ? buildDirectItemUrl(p.nome, `Tamanho ${v.tipo} ${v.peso || ''}`.trim())
+          : buildDirectItemUrl(p.nome)));
+
+    let variantsHtml = '';
+    if (isCandle && p.tamanhos.length > 1) {
+      variantsHtml = `
+        <div>
+          <span style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-mute); display:block; margin-bottom:6px;">Escolha o Tamanho</span>
+          <div class="modal-variants-pill-group">
+            ${p.tamanhos.map((t, idx) => `
+              <button type="button" class="modal-variant-btn ${this.selectedVariant && this.selectedVariant.tipo === t.tipo ? 'is-active' : ''}" data-action="select-modal-variant" data-index="${idx}">
+                <span>${t.tipo}${t.peso ? ` · ${t.peso}` : ''}</span>
+                <strong>${formatCurrency(t.preco)}</strong>
+              </button>
+            `).join('')}
+          </div>
         </div>
-      </div>` : ""}
+      `;
+    }
 
-    <dl class="spec-grid" aria-label="Especificações">
-      ${specs.map(([k, v]) => `<div class="spec-item"><dt>${k}</dt><dd>${v}</dd></div>`).join("")}
-    </dl>
+    let specsHtml = '';
+    if (isCandle && p.categoria === 'velas') {
+      specsHtml = `
+        <div class="modal-specs-list">
+          <div class="modal-spec-item">
+            <span>Tempo de Queima</span>
+            <strong>${v.queima || '≈ 50 h'}</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Cera & Pavio</span>
+            <strong>100% Vegetal · Algodão</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Código</span>
+            <strong>${p.codigo || p.id}</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Acabamento</span>
+            <strong>${v.tipo === 'Padrão' ? 'Tampa Dourada OV' : 'Vidro Âmbar Mini'}</strong>
+          </div>
+        </div>
+      `;
+    } else if (p.categoria === 'kits') {
+      specsHtml = `
+        <div class="modal-specs-list">
+          <div class="modal-spec-item">
+            <span>Tempo de Queima</span>
+            <strong>${v.queima || 'Artesanal'}</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Conteúdo</span>
+            <strong>${v.peso || 'Mini Velas'}</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Código</span>
+            <strong>${p.codigo || p.id}</strong>
+          </div>
+          <div class="modal-spec-item">
+            <span>Apresentação</span>
+            <strong>Embalagem Especial</strong>
+          </div>
+        </div>
+      `;
+    }
 
-    <div class="mini-actions">
-      <button type="button" class="mini-btn mini-btn-fav${isFav(item.uid) ? " is-active is-fav" : ""}" data-action="fav-toggle" data-uid="${item.uid}" data-id="${item.uid}"
-        aria-pressed="${isFav(item.uid)}">${icons.heart}<span>${isFav(item.uid) ? "Favoritado" : "Favoritar"}</span></button>
-      <button type="button" class="mini-btn" data-action="share">${icons.share}<span>Compartilhar</span></button>
-      <button type="button" class="mini-btn" data-action="copy">${icons.link}<span>Copiar link</span></button>
-    </div>
+    const modalImgAlt = `Fragrância ${p.nome} — ${p.familia || 'Coleção Olivelas'}`;
 
-    <div class="modal-actions">
-      ${item.esgotado
-        ? `<button type="button" class="btn btn-disabled btn-block" disabled aria-disabled="true">Produto esgotado</button>
-           <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, `Olá! Gostaria de saber quando o produto ${item.nome}${item.tamanho && item.tamanho !== 'Único' ? ' (' + item.tamanho + ')' : ''} voltará ao estoque.`)}"
-             target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Avisar quando chegar</a>`
-        : `<button type="button" class="btn btn-accent btn-block" data-action="modal-add">${icons.cart} Adicionar ao carrinho</button>
-           <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, mensagemProduto(item))}"
-             target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Pedir pelo WhatsApp</a>`
-      }
-    </div>`;
-}
+    card.innerHTML = `
+      <button type="button" class="modal-close-btn" data-action="close-modal" aria-label="Fechar janela de detalhes do produto">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-gallery">
+        <img src="${img}" alt="${modalImgAlt}" loading="lazy" width="480" height="480">
+      </div>
+      <div class="modal-info">
+        <div>
+          <span class="eyebrow">${p.familia || 'Linhas Complementares'}</span>
+          <h2 class="display" id="modal-product-title" style="margin-top:4px;">${p.nome}</h2>
+        </div>
+        <p class="desc">${p.descricao || p.nota || ''}</p>
+        
+        ${specsHtml}
+        ${variantsHtml}
 
-function rerenderActions() {
-  const item = getItem(currentUid);
-  if (!item) return;
-  const btn = $('#product-modal [data-action="fav-toggle"]');
-  if (!btn) return;
-  const active = isFav(item.uid);
-  btn.classList.toggle("is-active", active);
-  btn.classList.toggle("is-fav", active);
-  btn.setAttribute("aria-pressed", String(active));
-  const label = btn.querySelector("span");
-  if (label) label.textContent = active ? "Favoritado" : "Favoritar";
-}
-
-function shareCurrent() {
-  const item = getItem(currentUid);
-  if (!item) return;
-  const url = shareUrl(item);
-  webShare({ title: `${item.nome} — OLIVELAS`, text: item.descricao || item.nome, url }).then((ok) => {
-    if (!ok) copyCurrent(url);
-  });
-}
-
-async function copyCurrent(url = shareUrl(getItem(currentUid))) {
-  const ok = await copyToClipboard(url);
-  bus.emit("toast", {
-    type: ok ? "success" : "error",
-    text: ok ? "Link copiado" : "Não foi possível copiar",
-  });
-}
-
-function shareUrl(item) {
-  const { meta } = getStore();
-  const base = (meta.site || location.origin + location.pathname).replace(/\/$/, "");
-  return `${base}/#produto-${item.uid}`;
-}
-
-function updateHash(item) {
-  const { pathname, search } = location;
-  history.replaceState(null, "", `${pathname}${search}#produto-${item.uid}`);
-}
-
-function trapFocus(e) {
-  if (e.key !== "Tab") return;
-  const modal = $("#product-modal");
-  if (!modal?.classList.contains("is-open")) return;
-  const focusables = $$('[data-action], a[href], button:not([disabled]), input, select', modal).filter((el) => el.offsetParent !== null);
-  if (!focusables.length) return;
-  const first = focusables[0];
-  const last = focusables[focusables.length - 1];
-  if (e.shiftKey && document.activeElement === first) {
-    e.preventDefault();
-    last.focus();
-  } else if (!e.shiftKey && document.activeElement === last) {
-    e.preventDefault();
-    first.focus();
+        <div style="margin-top:8px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between;">
+            <span style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-mute);">Preço</span>
+            <strong style="font-family:var(--serif); font-size:1.6rem; color:var(--text-main);" aria-label="Preço: ${priceFormatted}">${priceFormatted}</strong>
+          </div>
+          
+          <div style="display:flex; gap:10px; margin-top:4px;">
+            ${isEmBreve ? `
+              <a href="${notifyWaUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--gold" style="flex:1; text-align:center;" aria-label="Receber aviso no WhatsApp quando ${p.nome} estiver disponível">
+                Avise-me no WhatsApp
+              </a>
+            ` : (isEsgotado ? `
+              <a href="${esgotadoWaUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--gold" style="flex:1; text-align:center;" aria-label="Consultar previsão de reposição de ${p.nome} no WhatsApp">
+                Consultar Reposição
+              </a>
+            ` : `
+              <button type="button" class="btn btn--gold" data-action="modal-add-cart" style="flex:1;" aria-label="Adicionar ${p.nome} (${v.tipo || 'Padrão'}) ao carrinho">
+                Adicionar ao Carrinho
+              </button>
+            `)}
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="padding-inline:16px;" aria-label="${isEmBreve ? 'Consultar ' + p.nome + ' no WhatsApp' : (isEsgotado ? 'Consultar reposição de ' + p.nome + ' no WhatsApp' : 'Fazer pedido de ' + p.nome + ' no WhatsApp')}">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.02A9.82 9.82 0 0 0 12.04 2Zm5.83 14.12c-.25.7-1.45 1.33-2 1.38-.51.05-1.16.07-1.87-.12-.43-.11-.99-.32-1.7-.63-3.01-1.3-4.97-4.32-5.12-4.52-.15-.2-1.22-1.62-1.22-3.1 0-1.47.77-2.19 1.05-2.49.27-.3.6-.37.8-.37h.57c.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.03.53-.1.2-.15.32-.29.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03.1.09.19.14.29.19.1.05.23.06.32-.04.1-.11.42-.49.53-.66.11-.17.23-.14.39-.08.15.05.98.46 1.15.55.17.08.28.12.32.2.05.06.05.37-.11.78Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
   }
 }
+
+export const productModal = new ProductModal();

@@ -19,13 +19,13 @@
     {
       "name": "Ver catálogo",
       "short_name": "Catálogo",
-      "url": "./#produtos",
+      "url": "./#colecao",
       "icons": [{ "src": "assets/images/icons/icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Falar no WhatsApp",
-      "short_name": "WhatsApp",
-      "url": "./#produtos"
+      "name": "Fazer pedido",
+      "short_name": "Pedidos",
+      "url": "./#comprar"
     }
   ]
 }

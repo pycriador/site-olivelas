@@ -1,87 +1,110 @@
-/* Utilidades puras + micro event bus para desacoplar módulos. */
+/**
+ * OLIVELAS — Micro Utilities & EventBus (/novo)
+ */
 
-export const $ = (sel, ctx = document) => ctx.querySelector(sel);
-export const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-
-export const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
-
-export const debounce = (fn, ms = 200) => {
-  let t;
-  return (...args) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn(...args), ms);
-  };
-};
-
-export const normText = (s = "") =>
-  s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
-
-export const formatCurrency = (value, moeda = "BRL", locale = "pt-BR") =>
-  new Intl.NumberFormat(locale, { style: "currency", currency: moeda }).format(value);
-
-export const formatDate = (iso, locale = "pt-BR") =>
-  new Intl.DateTimeFormat(locale, { day: "2-digit", month: "long", year: "numeric" }).format(new Date(iso));
-
-export const slugify = (s = "") =>
-  normText(s).trim().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
-
-export const prefersReducedMotion = () =>
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-/* ---------- Event Bus ---------- */
-class Emitter {
+export class Emitter {
   constructor() {
-    this._map = new Map();
+    this.events = new Map();
   }
-  on(event, fn) {
-    if (!this._map.has(event)) this._map.set(event, new Set());
-    this._map.get(event).add(fn);
-    return () => this.off(event, fn);
+  on(event, cb) {
+    if (!this.events.has(event)) this.events.set(event, new Set());
+    this.events.get(event).add(cb);
+    return () => this.off(event, cb);
   }
-  off(event, fn) {
-    this._map.get(event)?.delete(fn);
+  off(event, cb) {
+    if (this.events.has(event)) {
+      this.events.get(event).delete(cb);
+    }
   }
-  emit(event, payload) {
-    this._map.get(event)?.forEach((fn) => fn(payload));
+  emit(event, data) {
+    if (this.events.has(event)) {
+      this.events.get(event).forEach((cb) => {
+        try {
+          cb(data);
+        } catch (err) {
+          console.error(`Error in event listener for "${event}":`, err);
+        }
+      });
+    }
   }
 }
 
 export const bus = new Emitter();
 
-/* ---------- Clipboard / Share ---------- */
-export const copyToClipboard = async (text) => {
+export const $ = (sel, ctx = document) => ctx.querySelector(sel);
+export const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+export function formatCurrency(val) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2,
+  }).format(val || 0);
+}
+
+export function slugify(str) {
+  return String(str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+export function normalizeStr(str) {
+  return String(str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+export function getStorage(key, defaultValue) {
   try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.setAttribute("readonly", "");
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    let ok = false;
-    try {
-      ok = document.execCommand("copy");
-    } finally {
-      ta.remove();
-    }
-    return ok;
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : defaultValue;
+  } catch (e) {
+    return defaultValue;
   }
-};
+}
 
-export const webShare = (data) =>
-  navigator.share ? navigator.share(data).then(() => true, () => false) : Promise.resolve(false);
+export function setStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    console.warn('LocalStorage error:', e);
+  }
+}
 
-/* ---------- Scroll ---------- */
-export const scrollToId = (id) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-};
+// Toasts Feedback
+let toastTimer = null;
+export function showToast(message, type = 'info') {
+  let container = $('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    container.setAttribute('aria-live', 'polite');
+    document.body.appendChild(container);
+  }
 
-export const scrollTop = () =>
-  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `
+    <span class="toast-icon">✦</span>
+    <span class="toast-text">${message}</span>
+  `;
 
-/* ---------- Data URI helpers ---------- */
-export const withCacheBust = (url, version = "1") => `${url}?v=${version}`;
+  container.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    toast.classList.add('is-show');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('is-show');
+    toast.classList.add('is-hide');
+    setTimeout(() => toast.remove(), 350);
+  }, 3200);
+}

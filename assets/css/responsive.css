@@ -1,313 +1,214 @@
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
+/* ==========================================================================
+   OLIVELAS — Responsive Media Queries (/novo)
+   Visual Reference: olivelassite.html
+   ========================================================================== */
 
-/* ---------- TABLET / NOTEBOOK (até 1200) ---------- */
-@media (max-width: 1200px) {
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .home-product-rail {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* ---------- TABLET (até 1024) ---------- */
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s-8);
-  }
-
-  .modal-card {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-media {
-    aspect-ratio: 1 / 1;
-    max-height: 360px;
-    min-height: 0;
-  }
-
-  .modal-media img {
-    position: static;
-    object-fit: contain;
-  }
-}
-
-/* ---------- TABLET PEQUENO (até 920) ---------- */
-@media (max-width: 920px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+/* Tablet (max-width: 900px) */
+@media (max-width: 900px) {
+  :root {
+    --pad: 24px;
+    --header-h: 60px;
   }
 
   .benefits-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .category-showcase {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .category-tile:first-child {
-    grid-column: 1 / -1;
-    min-height: 300px;
+    gap: 20px;
   }
 
   .home-product-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
-  .catalog-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .toolbar {
-    width: 100%;
-  }
-
-  .price-field {
-    margin-left: auto;
-  }
-}
-
-/* ---------- CELULAR (até 768) ---------- */
-@media (max-width: 768px) {
-  :root {
-    --h-header: 64px;
-    --h-header-mob: 96px;
-  }
-
-  html {
-    scroll-padding-top: 190px;
-  }
-
-  .header-inner {
-    min-height: var(--h-header);
-  }
-
-  .brand-text small {
-    display: none;
-  }
-
-  .brand-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Barra de pesquisa frágil -> vira linha própria */
-  .header-search {
-    order: 3;
-    flex-basis: 100%;
-    max-width: none;
-    margin: 0 0 var(--s-3);
-  }
-
-  .header-inner {
-    flex-wrap: wrap;
-  }
-
-  .hero-inner {
-    padding-block: 72px;
-    min-height: 430px;
-  }
-
-  .hero-cta-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .catalog-layout {
+  .about-grid {
     grid-template-columns: 1fr;
-    gap: var(--s-6);
+    gap: 40px;
   }
 
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: min(300px, 85vw);
-    z-index: var(--z-drawer);
-    border-radius: 0 var(--r-md) var(--r-md) 0;
-    border: none;
-    border-right: 1px solid var(--color-border);
-    box-shadow: var(--shadow-lg);
-    overflow-y: auto;
-    transform: translateX(-105%);
-    transition: transform var(--t-med);
-    padding-top: calc(var(--s-5) + env(safe-area-inset-top));
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .sidebar.is-open {
-    transform: translateX(0);
-  }
-
-  .sidebar-close {
-    display: inline-flex;
-  }
-
-  .sidebar-overlay {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-overlay);
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--t-med), visibility var(--t-med);
-  }
-
-  .sidebar-overlay.is-open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .tools {
-    display: block;
-    position: sticky;
-    top: calc(var(--h-header) + 60px);
-    z-index: var(--z-nav);
-    background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding-block: var(--s-3);
-  }
-
-  .catalog {
-    padding-block: var(--s-7) var(--s-9);
-  }
-
-  .toolbar {
-    gap: var(--s-2);
-  }
-
-  .field-label {
-    display: none;
-  }
-
-  .price-values {
-    font-size: 0.85rem;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-
-  .modal-card {
-    max-height: calc(100dvh - 2 * var(--s-3));
-  }
-
-  .modal-body {
-    padding: var(--s-5);
-  }
-}
-
-/* ---------- CELULAR PEQUENO (até 560) ---------- */
-@media (max-width: 560px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-    max-width: 420px;
+  .about-photo {
+    order: -1;
+    max-width: 500px;
     margin-inline: auto;
   }
 
-  .wa-top {
-    width: 46px;
-    padding: 0;
-    justify-content: center;
+  .about-copy {
+    align-items: center;
+    text-align: center;
   }
 
-  .wa-top .wa-top-label {
+  .about-copy p.lead {
+    text-align: center;
+  }
+
+  .tagline {
+    align-items: center;
+  }
+
+  .tagline p {
+    text-align: center;
+  }
+}
+
+/* Mobile Horizontal & Small Tablet (max-width: 720px) */
+@media (max-width: 720px) {
+  .topbar nav {
     display: none;
   }
 
-  .modal-actions .btn {
-    flex: 1 1 auto;
+  .topbar .brand-name {
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
   }
 
-  .spec-grid {
-    grid-template-columns: 1fr 1fr;
+  .topbar .brand-slogan {
+    font-size: 7.5px;
+    letter-spacing: 0.28em;
   }
 
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: var(--s-7);
+  .topbar .brand-monogram {
+    width: 32px;
+    height: 32px;
   }
 
-  .toasts {
-    top: calc(var(--header-height, 64px) + 8px);
-    right: var(--s-3);
-    left: var(--s-3);
-    width: auto;
+  .topbar .wa-pill span {
+    display: none;
+  }
+
+  .topbar .wa-pill {
+    padding: 7px 10px;
+  }
+
+  .catalog-filter-bar {
+    flex-direction: column;
     align-items: stretch;
+    gap: 16px;
+  }
+
+  .catalog-controls-group {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .catalog-search-wrap {
+    flex: 1 1 200px;
+    width: auto;
+  }
+
+  .catalog-page-size {
+    flex-shrink: 0;
+  }
+
+  .category-nav-pills {
+    overflow-x: auto;
+    padding-bottom: 4px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-card {
+    grid-template-columns: 1fr;
+    max-height: 85vh;
+  }
+
+  .modal-gallery {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 20px;
+  }
+
+  .modal-info {
+    padding: 24px 20px;
+  }
+}
+
+/* Mobile Vertical (max-width: 600px) */
+@media (max-width: 600px) {
+  :root {
+    --pad: 16px;
+  }
+
+  .hero {
+    padding-block: 40px 32px;
+  }
+
+  .hero .cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero .cta .btn {
+    width: 100%;
   }
 
   .benefits-grid {
     grid-template-columns: 1fr;
-    gap: var(--s-4);
+    gap: 16px;
   }
 
-  .home-categories,
-  .home-featured {
-    padding-block: var(--s-8);
-  }
-
-  .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: var(--s-3);
-  }
-
-  .category-showcase {
+  .grid-scents {
     grid-template-columns: 1fr;
-  }
-
-  .category-tile,
-  .category-tile:first-child {
-    min-height: 280px;
-    grid-column: auto;
   }
 
   .home-product-rail {
-    display: flex;
-    gap: var(--s-3);
-    overflow-x: auto;
-    padding: 2px 2px var(--s-3);
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-  }
-
-  .home-product-card {
-    flex: 0 0 min(78vw, 290px);
-    scroll-snap-align: start;
-  }
-}
-
-/* ---------- Impressão ---------- */
-@media print {
-  .site-header,
-  .sidebar,
-  .sidebar-overlay,
-  .tools,
-  .back-top,
-  .wa-float,
-  .cart-overlay,
-  .cart-drawer,
-  .modal,
-  .toasts {
-    display: none !important;
-  }
-
-  .catalog-layout {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 16px;
   }
 
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .featured-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .lines.compl .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .lines.compl .row .row-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+
+  .buy .lines .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .buy .cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .buy .cta .btn {
+    width: 100%;
+  }
+
+  .footer .links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .float-actions {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .wa-float-btn {
+    width: 48px;
+    height: 48px;
   }
 }
