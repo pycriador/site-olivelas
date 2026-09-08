@@ -23,8 +23,11 @@ export function initModal() {
     if (action === "modal-close") closeModal();
     if (action === "variant") openModal(actionEl.dataset.uid);
     if (action === "fav-toggle") {
-      toggleFav(actionEl.dataset.id);
+      const id = actionEl.dataset.id;
+      toggleFav(id);
       rerenderActions();
+      const favNow = isFav(id);
+      bus.emit("toast", { type: "info", text: favNow ? "Adicionado aos favoritos" : "Removido dos favoritos" });
     }
     if (action === "share") shareCurrent();
     if (action === "copy") copyCurrent();

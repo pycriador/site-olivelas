@@ -376,11 +376,17 @@ function renderGrid() {
     $("#pagination").innerHTML = "";
     grid.innerHTML = "";
     const empty = $("#empty");
+    const isFavView = Boolean(store.filtros.favoritos);
+    const msg = isFavView
+      ? "Você ainda não favoritou nenhum produto. Toque no coração de qualquer produto para salvá-lo aqui."
+      : store.filtros.query
+      ? `Nada encontrado para “${store.filtros.query}”.`
+      : "Ajuste os filtros ou limpe sua busca para ver mais produtos.";
     empty.innerHTML = `
-      ${icons.search}
-      <h3>Nenhum produto encontrado</h3>
-      <p>${store.filtros.query ? `Nada encontrado para “${store.filtros.query}”.` : "Ajuste os filtros ou limpe sua busca para ver mais produtos."}</p>
-      <button type="button" class="btn btn-ghost" id="empty-reset">Limpar filtros</button>`;
+      ${isFavView ? icons.heart : icons.search}
+      <h3>${isFavView ? "Sua lista de favoritos está vazia" : "Nenhum produto encontrado"}</h3>
+      <p>${msg}</p>
+      <button type="button" class="btn btn-ghost" id="empty-reset">${isFavView ? "Explorar todos os produtos" : "Limpar filtros"}</button>`;
     empty.classList.add("is-visible");
     grid.setAttribute("aria-busy", "false");
     return;
@@ -575,9 +581,8 @@ function handleProductAction(actionEl) {
   }
   if (action === "fav") {
     toggleFav(id);
-    actionEl.classList.toggle("is-active", isFav(id));
-    actionEl.setAttribute("aria-pressed", String(isFav(id)));
-    bus.emit("toast", { type: "info", text: isFav(id) ? "Adicionado aos favoritos" : "Removido dos favoritos" });
+    const favNow = isFav(id);
+    bus.emit("toast", { type: "info", text: favNow ? "Adicionado aos favoritos" : "Removido dos favoritos" });
   }
   if (action === "share") shareProduct(uid);
 }
@@ -603,6 +608,7 @@ function paintFavorites() {
     const active = isFav(el.dataset.id);
     el.classList.toggle("is-active", active);
     el.setAttribute("aria-pressed", String(active));
+    el.setAttribute("aria-label", active ? "Remover dos favoritos" : "Adicionar aos favoritos");
   });
 }
 
@@ -643,18 +649,33 @@ function initFavSummary() {
       badge.textContent = String(n);
       badge.classList.toggle("is-visible", n > 0);
     }
-    const active = Boolean(getStore().filtros.favoritos);
-    btn.classList.toggle("is-active", active);
-    btn.setAttribute("aria-pressed", String(active));
-    btn.setAttribute("aria-label", active ? "Ocultar favoritos" : "Ver favoritos");
+    const isFiltered = Boolean(getStore().filtros.favoritos);
+    btn.classList.toggle("is-active", isFiltered);
+    btn.setAttribute("aria-pressed", String(isFiltered));
+    btn.setAttribute("aria-label", isFiltered ? "Exibindo favoritos" : "Ver favoritos");
     paintFavorites();
-    if (active) renderGrid();
   };
 
   btn.addEventListener("click", () => {
-    setFiltro({ favoritos: !getStore().filtros.favoritos });
+    const willBeActive = !getStore().filtros.favoritos;
+    const searchInput = $("#search");
+    if (searchInput) searchInput.value = "";
+    $("#search-clear")?.classList.remove("is-visible");
+
+    setFiltro({
+      favoritos: willBeActive,
+      categoria: "todos",
+      query: "",
+    });
+
+    if (willBeActive) {
+      bus.emit("toast", { type: "info", text: "Exibindo seus produtos favoritos" });
+    }
+    $("#produtos")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
+
   bus.on("fav:change", update);
+  bus.on("filtros:change", update);
   update();
 }
 
