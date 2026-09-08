@@ -199,23 +199,23 @@ class CartManager {
     if (footerContainer) footerContainer.style.display = 'flex';
 
     itemsContainer.innerHTML = list.map((item) => `
-      <div class="cart-item" data-uid="${item.uid}">
+      <div class="cart-item" data-uid="${item.uid}" aria-label="${item.nome} (${item.tipo})">
         <div class="cart-item-img">
-          <img src="${item.imagem}" alt="${item.nome}" loading="lazy">
+          <img src="${item.imagem}" alt="Vela ${item.nome} (${item.tipo})" loading="lazy" width="60" height="60">
         </div>
         <div class="cart-item-info">
           <h4>${item.nome}</h4>
           <p class="cart-item-variant">${item.tipo} ${item.peso ? '· ' + item.peso : ''}</p>
-          <span class="cart-item-price">${formatCurrency(item.preco)}</span>
+          <span class="cart-item-price" aria-label="Preço: ${formatCurrency(item.preco)}">${formatCurrency(item.preco)}</span>
         </div>
         <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-          <button class="cart-item-remove" data-action="cart-remove" data-uid="${item.uid}" aria-label="Remover item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <button class="cart-item-remove" data-action="cart-remove" data-uid="${item.uid}" aria-label="Remover ${item.nome} (${item.tipo}) do carrinho">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
-          <div class="cart-stepper">
-            <button type="button" data-action="cart-dec" data-uid="${item.uid}" aria-label="Diminuir">-</button>
-            <span>${item.quantidade}</span>
-            <button type="button" data-action="cart-inc" data-uid="${item.uid}" aria-label="Aumentar">+</button>
+          <div class="cart-stepper" role="group" aria-label="Quantidade de ${item.nome}">
+            <button type="button" data-action="cart-dec" data-uid="${item.uid}" aria-label="Diminuir quantidade de ${item.nome}">-</button>
+            <span aria-live="polite" aria-atomic="true">${item.quantidade}</span>
+            <button type="button" data-action="cart-inc" data-uid="${item.uid}" aria-label="Aumentar quantidade de ${item.nome}">+</button>
           </div>
         </div>
       </div>
@@ -223,6 +223,7 @@ class CartManager {
 
     if (totalEl) {
       totalEl.textContent = formatCurrency(this.getTotalPrice());
+      totalEl.setAttribute('aria-label', `Total: ${formatCurrency(this.getTotalPrice())}`);
     }
   }
 

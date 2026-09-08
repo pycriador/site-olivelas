@@ -114,10 +114,28 @@ function sizesFor(cols, total) {
   return opts;
 }
 
+import fs from "fs";
+import path from "path";
+
 check("paginationSlots para 3 páginas gera [1, 2, 3]", JSON.stringify(paginationSlots(1, 3)) === "[1,2,3]");
 check("paginationSlots para 10 páginas na página 5 inclui ellipsis", paginationSlots(5, 10).includes("..."));
 check("sizesFor 3 colunas e 17 itens gera múltiplos de 6", sizesFor(3, 17).includes(6) && sizesFor(3, 17).includes(12) && sizesFor(3, 17).includes(17));
 
+// 8. SEO & Accessibility (a11y) Checks
+const novoHtmlPath = path.resolve("./novo/index.html");
+const novoHtml = fs.readFileSync(novoHtmlPath, "utf-8");
+
+check("HTML declara lang='pt-BR'", novoHtml.includes('lang="pt-BR"'));
+check("Meta description presente e otimizada", novoHtml.includes('<meta name="description"') && novoHtml.includes("cera 100% vegetal"));
+check("Canonical tag presente", novoHtml.includes('<link rel="canonical" href="https://olivelas.com.br/novo/">'));
+check("OpenGraph e Twitter cards presentes", novoHtml.includes('property="og:image"') && novoHtml.includes('name="twitter:card"'));
+check("Schema.org JSON-LD presente", novoHtml.includes('<script type="application/ld+json">') && novoHtml.includes('"@type": "LocalBusiness"'));
+check("Skip link para acessibilidade presente", novoHtml.includes('class="skip-link"') && novoHtml.includes('href="#colecao"'));
+check("Role main ou tag main presentes com landmarks", novoHtml.includes('<main') && novoHtml.includes('role="banner"') && novoHtml.includes('role="contentinfo"'));
+check("Imagens possuem atributo alt", !novoHtml.includes('<img') || !novoHtml.includes('<img :not([alt])>'));
+check("Busca possui label acessível para leitores de tela", novoHtml.includes('for="catalog-search-input"') && novoHtml.includes('visually-hidden'));
+
 console.log(`\nAll ${pass} checks passed for /novo!`);
+
 
 

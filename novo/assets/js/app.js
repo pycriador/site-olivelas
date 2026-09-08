@@ -211,36 +211,37 @@ class App {
     const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(item.nome)}%20estiver%20dispon%C3%ADvel.`;
     const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(item.nome)}.`;
     const priceDisplay = v.preco ? formatCurrency(v.preco) : '';
+    const imgAlt = `Vela artesanal ${item.nome} — ${item.familia || item.categoria}`;
 
     return `
-      <article class="home-product-card" style="--product-accent: ${item.cor || 'var(--gold)'};" data-card-id="${item.id}">
+      <article class="home-product-card" style="--product-accent: ${item.cor || 'var(--gold)'};" data-card-id="${item.id}" aria-label="${item.nome}">
         <div class="home-product-media" data-action="open-modal" data-id="${item.id}" title="Ver detalhes de ${item.nome}">
           ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ''}
-          <img src="${v.imagem || item.imagem}" alt="${item.nome}" loading="lazy">
-          <button type="button" class="card-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="Favoritar ${item.nome}">
-            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <img src="${v.imagem || item.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300">
+          <button type="button" class="card-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="${isFav ? 'Remover ' + item.nome + ' dos favoritos' : 'Adicionar ' + item.nome + ' aos favoritos'}" aria-pressed="${isFav}">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </button>
         </div>
 
         <div class="home-product-body">
           <div class="card-family-row">
-            ${item.cor ? `<span class="card-color-dot" style="background:${item.hexCor || item.cor}"></span>` : ''}
+            ${item.cor ? `<span class="card-color-dot" style="background:${item.hexCor || item.cor}" aria-hidden="true"></span>` : ''}
             <span>${item.familia || item.categoria}</span>
           </div>
-          <button type="button" class="home-product-name" data-action="open-modal" data-id="${item.id}">
+          <button type="button" class="home-product-name" data-action="open-modal" data-id="${item.id}" aria-label="Ver detalhes de ${item.nome}">
             ${item.nome}
           </button>
-          <strong class="price">${priceDisplay}</strong>
+          <strong class="price" aria-label="Preço: ${priceDisplay}">${priceDisplay}</strong>
           ${isEmBreve ? `
-            <a class="btn btn-sm btn--gold btn-block" href="${notifyWaUrl}" target="_blank" rel="noopener" style="text-align:center;">
+            <a class="btn btn-sm btn--gold btn-block" href="${notifyWaUrl}" target="_blank" rel="noopener noreferrer" style="text-align:center;" aria-label="Receber aviso no WhatsApp quando ${item.nome} estiver disponível">
               Avise-me
             </a>
           ` : (isEsgotado ? `
-            <a class="btn btn-sm btn--gold btn-block" href="${esgotadoWaUrl}" target="_blank" rel="noopener" style="text-align:center;">
+            <a class="btn btn-sm btn--gold btn-block" href="${esgotadoWaUrl}" target="_blank" rel="noopener noreferrer" style="text-align:center;" aria-label="Consultar reposição de ${item.nome} no WhatsApp">
               Consultar Reposição
             </a>
           ` : `
-            <button type="button" class="btn btn-sm btn--gold btn-block" data-action="card-add-cart" data-id="${item.id}">
+            <button type="button" class="btn btn-sm btn--gold btn-block" data-action="card-add-cart" data-id="${item.id}" aria-label="Adicionar ${item.nome} ao carrinho">
               + Carrinho
             </button>
           `)}
@@ -536,23 +537,25 @@ class App {
       const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(c.nome)}%20estiver%20dispon%C3%ADvel.`;
       const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(c.nome)}.`;
 
+      const imgAlt = `Vela ${c.nome} — ${c.familia || 'Coleção Olivelas'}`;
+
       return `
-        <article class="scent-card" data-card-id="${c.id}" style="--sc: ${c.cor};">
+        <article class="scent-card" data-card-id="${c.id}" style="--sc: ${c.cor};" aria-label="${c.nome}">
           <div class="band">
             <span class="candle-name">${c.nome}</span>
             ${c.badge ? `<span class="card-badge">${c.badge}</span>` : ''}
           </div>
           <div class="body">
-            <div class="thumb-wrap" data-action="open-modal" data-id="${c.id}" title="Clique para ver detalhes">
-              <img src="${activeVariant.imagem || c.imagem}" alt="${c.nome}" loading="lazy">
+            <div class="thumb-wrap" data-action="open-modal" data-id="${c.id}" title="Clique para ver detalhes de ${c.nome}" role="button" tabindex="0" aria-label="Ver detalhes de ${c.nome}">
+              <img src="${activeVariant.imagem || c.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300">
             </div>
             <p class="fam">${c.familia}</p>
             <div class="code"><span>${c.codigo || c.id}</span></div>
             <p class="note">${c.nota || c.descricao || ''}</p>
             
-            <div class="variant-selector">
+            <div class="variant-selector" role="group" aria-label="Tamanhos disponíveis para ${c.nome}">
               ${(c.tamanhos || []).map((t, idx) => `
-                <div class="variant-row ${idx === selectedIndex ? 'is-selected' : ''}" data-action="select-card-variant" data-id="${c.id}" data-index="${idx}">
+                <div class="variant-row ${idx === selectedIndex ? 'is-selected' : ''}" data-action="select-card-variant" data-id="${c.id}" data-index="${idx}" role="button" tabindex="0" aria-pressed="${idx === selectedIndex}" aria-label="Tamanho ${t.tipo}${t.peso ? ' ' + t.peso : ''}, ${formatCurrency(t.preco)}">
                   <div class="variant-label">
                     <span>${t.tipo}${t.peso ? ` · ${t.peso}` : ''}</span>
                     <small>${t.queima || ''}</small>
@@ -564,29 +567,29 @@ class App {
 
             <div class="card-actions">
               ${isEmBreve ? `
-                <a class="btn btn-sm btn--gold" href="${notifyWaUrl}" target="_blank" rel="noopener" style="flex:1; text-align:center;">
+                <a class="btn btn-sm btn--gold" href="${notifyWaUrl}" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center;" aria-label="Receber aviso no WhatsApp quando ${c.nome} estiver disponível">
                   Avise-me
                 </a>
               ` : (isEsgotado ? `
-                <a class="btn btn-sm btn--gold" href="${esgotadoWaUrl}" target="_blank" rel="noopener" style="flex:1; text-align:center;">
+                <a class="btn btn-sm btn--gold" href="${esgotadoWaUrl}" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center;" aria-label="Consultar previsão de reposição de ${c.nome} no WhatsApp">
                   Consultar Reposição
                 </a>
               ` : `
-                <button type="button" class="btn btn-sm btn--gold" data-action="card-add-cart" data-id="${c.id}" style="flex:1;">
+                <button type="button" class="btn btn-sm btn--gold" data-action="card-add-cart" data-id="${c.id}" style="flex:1;" aria-label="Adicionar ${c.nome} (${activeVariant.tipo}) ao carrinho">
                   + Carrinho
                 </button>
               `)}
-              <button type="button" class="btn-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${c.id}" data-name="${c.nome}" aria-label="Favoritar">
-                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              <button type="button" class="btn-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${c.id}" data-name="${c.nome}" aria-label="${isFav ? 'Remover ' + c.nome + ' dos favoritos' : 'Adicionar ' + c.nome + ' aos favoritos'}" aria-pressed="${isFav}">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
               </button>
             </div>
 
             ${isEmBreve ? `
-              <a class="order-wa" href="${notifyWaUrl}" target="_blank" rel="noopener">Consultar previsão</a>
+              <a class="order-wa" href="${notifyWaUrl}" target="_blank" rel="noopener noreferrer" aria-label="Consultar previsão de lançamento de ${c.nome} no WhatsApp">Consultar previsão</a>
             ` : (isEsgotado ? `
-              <a class="order-wa" href="${esgotadoWaUrl}" target="_blank" rel="noopener">Consultar reposição</a>
+              <a class="order-wa" href="${esgotadoWaUrl}" target="_blank" rel="noopener noreferrer" aria-label="Consultar reposição de ${c.nome} no WhatsApp">Consultar reposição</a>
             ` : `
-              <a class="order-wa" href="${waUrl}" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+              <a class="order-wa" href="${waUrl}" target="_blank" rel="noopener noreferrer" aria-label="Fazer pedido de ${c.nome} no WhatsApp">Pedir no WhatsApp</a>
             `)}
           </div>
         </article>
@@ -638,6 +641,7 @@ class App {
       b.className = `page-btn${opts.active ? ' active' : ''}`;
       if (opts.disabled) b.disabled = true;
       if (opts.label) b.setAttribute('aria-label', opts.label);
+      if (opts.active) b.setAttribute('aria-current', 'page');
       b.innerHTML = inner;
       if (!opts.disabled) {
         b.addEventListener('click', () => {
@@ -649,8 +653,8 @@ class App {
       return b;
     };
 
-    const chevronLeft = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
-    const chevronRight = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+    const chevronLeft = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>`;
+    const chevronRight = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>`;
 
     nav.appendChild(makeBtn(chevronLeft, { page: this.page - 1, disabled: this.page <= 1, label: 'Página anterior' }));
 
@@ -660,9 +664,10 @@ class App {
         const span = document.createElement('span');
         span.className = 'page-ellipsis';
         span.textContent = '…';
+        span.setAttribute('aria-hidden', 'true');
         nav.appendChild(span);
       } else {
-        nav.appendChild(makeBtn(String(s), { page: s, active: s === this.page, label: `Página ${s}` }));
+        nav.appendChild(makeBtn(String(s), { page: s, active: s === this.page, label: `Ir para página ${s}` }));
       }
     });
 

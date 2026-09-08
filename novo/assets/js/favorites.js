@@ -147,30 +147,30 @@ class FavoritesManager {
 
       let actionHtml = '';
       if (isEmBreve) {
-        actionHtml = `<a href="${notifyWaUrl}" target="_blank" rel="noopener" class="btn btn-sm btn--gold" style="padding: 6px 10px; font-size: 9.5px; text-decoration:none;">Avise-me</a>`;
+        actionHtml = `<a href="${notifyWaUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn--gold" style="padding: 6px 10px; font-size: 9.5px; text-decoration:none;" aria-label="Receber aviso no WhatsApp sobre ${item.nome}">Avise-me</a>`;
       } else if (isEsgotado) {
-        actionHtml = `<span class="btn btn-sm btn--ghost btn-disabled" style="padding: 6px 10px; font-size: 9.5px; opacity:0.6;">Esgotado</span>`;
+        actionHtml = `<span class="btn btn-sm btn--ghost btn-disabled" style="padding: 6px 10px; font-size: 9.5px; opacity:0.6;" aria-disabled="true">Esgotado</span>`;
       } else {
         actionHtml = `
-          <button type="button" class="btn btn-sm btn--gold" data-action="fav-add-cart" data-id="${item.id}" style="padding: 6px 12px; font-size: 9.5px;">
+          <button type="button" class="btn btn-sm btn--gold" data-action="fav-add-cart" data-id="${item.id}" style="padding: 6px 12px; font-size: 9.5px;" aria-label="Adicionar ${item.nome} ao carrinho">
             + Carrinho
           </button>
         `;
       }
 
       return `
-        <div class="cart-item" data-id="${item.id}">
+        <div class="cart-item" data-id="${item.id}" aria-label="${item.nome}">
           <div class="cart-item-img">
-            <img src="${defaultVar.imagem || item.imagem}" alt="${item.nome}" loading="lazy">
+            <img src="${defaultVar.imagem || item.imagem}" alt="${item.nome}" loading="lazy" width="60" height="60">
           </div>
           <div class="cart-item-info">
             <h4>${item.nome}</h4>
             <p class="cart-item-variant">${item.familia || 'Coleção Olivelas'}</p>
-            <span class="cart-item-price">${priceFormatted}</span>
+            <span class="cart-item-price" aria-label="Preço: ${priceFormatted}">${priceFormatted}</span>
           </div>
           <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-            <button class="cart-item-remove" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="Remover">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <button class="cart-item-remove" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="Remover ${item.nome} dos favoritos">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
             ${actionHtml}
           </div>
