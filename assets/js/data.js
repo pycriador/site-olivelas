@@ -503,9 +503,7 @@ FALLBACK_DATA.produtos = [
 export function resolveImagePath(p) {
   if (!p) return p;
   if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:')) return p;
-  const clean = p.replace(/^(\.\.\/)+/, '').replace(/^(\.\/)+/, '');
-  const isSubfolder = typeof window !== 'undefined' && window.location.pathname.includes('/novo');
-  return isSubfolder ? `../${clean}` : clean;
+  return p.replace(/^(\.\.\/)+/, '').replace(/^(\.\/)+/, '');
 }
 
 export async function loadCatalog() {
