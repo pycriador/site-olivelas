@@ -82,10 +82,25 @@
   .catalog-filter-bar {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
+  }
+
+  .catalog-controls-group {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .catalog-search-wrap {
-    width: 100%;
+    flex: 1 1 200px;
+    width: auto;
+  }
+
+  .catalog-page-size {
+    flex-shrink: 0;
   }
 
   .category-nav-pills {

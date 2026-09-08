@@ -234,10 +234,19 @@
             <button type="button" class="cat-pill" data-category="acessorios" role="tab" aria-selected="false" aria-controls="grid-scents">Acessórios</button>
           </div>
 
-          <div class="catalog-search-wrap">
-            <label for="catalog-search-input" class="visually-hidden">Buscar produtos por nome, aroma ou código</label>
-            <input type="search" id="catalog-search-input" class="catalog-search-input" placeholder="Buscar por nome, aroma ou código..." aria-label="Buscar produtos">
-            <svg class="catalog-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <div class="catalog-controls-group">
+            <div class="catalog-search-wrap">
+              <label for="catalog-search-input" class="visually-hidden">Buscar produtos por nome, aroma ou código</label>
+              <input type="search" id="catalog-search-input" class="catalog-search-input" placeholder="Buscar por nome, aroma ou código..." aria-label="Buscar produtos">
+              <svg class="catalog-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+
+            <div class="catalog-page-size" id="page-size-container">
+              <span class="page-size-label">Exibir:</span>
+              <div class="page-size-pills" id="page-size-pills" role="group" aria-label="Quantidade de produtos por página">
+                <!-- Renderizado dinamicamente via app.js -->
+              </div>
+            </div>
           </div>
         </div>
 
@@ -246,20 +255,13 @@
           <!-- Renderizado dinamicamente via app.js -->
         </div>
 
-        <!-- Barra Editorial de Paginação e Controles -->
+        <!-- Barra Editorial de Paginação -->
         <div class="catalog-pagination-bar" id="pagination-bar" aria-label="Controles de navegação da coleção">
           <div class="pagination-info" id="pagination-info" aria-live="polite">
             <span id="pagination-info-text">Exibindo <strong id="result-count">0</strong> produtos</span>
           </div>
 
           <nav class="pagination" id="pagination" aria-label="Navegação da paginação de produtos"></nav>
-
-          <div class="pagination-page-size" id="page-size-container">
-            <span class="page-size-label">Exibir</span>
-            <div class="page-size-pills" id="page-size-pills" role="group" aria-label="Quantidade de produtos por página">
-              <!-- Renderizado dinamicamente via app.js -->
-            </div>
-          </div>
         </div>
 
         <p class="catalog-note" id="colecao-note">Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.</p>
