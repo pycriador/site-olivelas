@@ -1,0 +1,750 @@
+/* ==========================================================================
+   OLIVELAS — Layout & Structural Sections (/novo)
+   Visual Reference: olivelassite.html
+   ========================================================================== */
+
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.center {
+  text-align: center;
+}
+
+/* ==========================================================================
+   Topbar & Header
+   ========================================================================== */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-header);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color var(--t-med), border-color var(--t-med);
+}
+
+.topbar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  gap: 24px;
+}
+
+.topbar .brand {
+  text-decoration: none;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.topbar nav a {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-soft);
+  position: relative;
+  padding-block: 6px;
+  transition: color var(--t-fast);
+}
+
+.topbar nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width var(--t-fast);
+}
+
+.topbar nav a:hover {
+  color: var(--text-main);
+}
+
+.topbar nav a:hover::after {
+  width: 100%;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar .wa-pill {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-main);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-full);
+  padding: 7px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--t-fast);
+}
+
+.topbar .wa-pill:hover {
+  background: var(--gold);
+  color: #FFFFFF;
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(183, 156, 107, 0.25);
+}
+
+.topbar .wa-pill svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  transition: transform var(--t-fast);
+}
+
+.topbar .wa-pill:hover svg {
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Hero Section — Luxury Editorial Presentation
+   ========================================================================== */
+
+.hero {
+  padding-block: clamp(64px, 9vw, 124px) clamp(50px, 7vw, 92px);
+  background: radial-gradient(ellipse 80% 65% at 50% 30%, var(--cream-warm), var(--cream) 85%);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .hero {
+  background: radial-gradient(ellipse 80% 65% at 50% 30%, #23201d, #181614 85%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, var(--maxw));
+  height: 100%;
+  background: radial-gradient(circle at 50% 20%, rgba(183, 156, 107, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  text-align: center;
+  max-width: 860px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1.display {
+  font-family: var(--serif);
+  font-size: clamp(2.35rem, 5.2vw, 3.9rem);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+  max-width: 20ch;
+  margin: 0;
+  text-wrap: balance;
+  animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero p.lead {
+  font-family: var(--sans);
+  font-size: clamp(1.02rem, 1.6vw, 1.16rem);
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-soft);
+  max-width: 52ch;
+  margin: 0;
+  text-wrap: balance;
+  animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.hero .cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 8px;
+  animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+.hero .cta .btn {
+  padding: 16px 36px;
+  font-size: 11.5px;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  border-radius: var(--radius-sm);
+  transition: all var(--t-med);
+}
+
+.hero .cta .btn--gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(183, 156, 107, 0.28);
+}
+
+.hero .cta .btn--gold:hover {
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(183, 156, 107, 0.38);
+}
+
+.hero .cta .btn--ghost {
+  border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-main);
+}
+
+.hero .cta .btn--ghost:hover {
+  background: var(--gold-wash);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .hero .cta .btn--ghost {
+  background: rgba(30, 28, 26, 0.5);
+}
+
+.hero .prelaunch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-top: 10px;
+  padding: 8px 22px;
+  border: 1px solid rgba(183, 156, 107, 0.3);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+[data-theme="dark"] .hero .prelaunch {
+  background: rgba(32, 30, 27, 0.6);
+  border-color: rgba(183, 156, 107, 0.25);
+  color: var(--gold-light);
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Pilares & Benefícios da Marca
+   ========================================================================== */
+
+.benefits-strip {
+  padding-block: 36px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.benefit-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-deep);
+  flex-shrink: 0;
+  background: var(--bg-card);
+}
+
+.benefit-item strong {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.benefit-item span {
+  display: block;
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Section Block Shell
+   ========================================================================== */
+
+section.block {
+  padding-block: clamp(64px, 9vw, 118px);
+}
+
+.block-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+/* ==========================================================================
+   Catálogo & Grid de Fragrâncias
+   ========================================================================== */
+
+.catalog-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 24px;
+  margin-bottom: 44px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.category-nav-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  align-items: center;
+}
+
+.cat-pill {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  padding: 8px 2px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  position: relative;
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+
+.cat-pill:hover {
+  color: var(--text-main);
+  border-bottom-color: var(--gold-light);
+}
+
+.cat-pill.is-active {
+  color: var(--gold-deep);
+  font-weight: 600;
+  border-bottom-color: var(--gold);
+}
+
+.catalog-search-wrap {
+  position: relative;
+  min-width: 250px;
+}
+
+.catalog-search-input {
+  width: 100%;
+  padding: 8px 34px 8px 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  outline: none;
+  transition: all var(--t-fast);
+}
+
+.catalog-search-input:focus {
+  border-color: var(--gold);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--gold-tint);
+}
+
+.catalog-search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold-deep);
+  pointer-events: none;
+}
+
+.grid-scents {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 28px;
+  justify-content: center;
+}
+
+.catalog-note {
+  text-align: center;
+  margin: 44px auto 0;
+  max-width: 54ch;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+.catalog-fine {
+  text-align: center;
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+/* ==========================================================================
+   Linhas Complementares
+   ========================================================================== */
+
+.complementos {
+  margin-top: clamp(52px, 8vw, 96px);
+}
+
+.lines {
+  max-width: 680px;
+  margin-inline: auto;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.lines .row {
+  padding: 22px 4px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 1.1fr 2fr auto;
+  gap: 16px;
+  align-items: center;
+  transition: background-color var(--t-fast);
+}
+
+.lines .row:hover {
+  background-color: var(--gold-tint);
+}
+
+.lines .row h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.12rem;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.lines .row p {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.lines .row .row-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lines .row .pr {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   O Ateliê (About Section)
+   ========================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+
+.about-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.about-copy .eyebrow {
+  color: var(--gold-deep);
+}
+
+.about-copy p.lead {
+  text-align: left;
+}
+
+.tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.tagline p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  max-width: 32ch;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Como Pedir (Buy / Orders Section)
+   ========================================================================== */
+
+.buy .lines .row {
+  grid-template-columns: 1fr 1.6fr;
+}
+
+.buy .cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.buy .fineprint {
+  text-align: center;
+  margin-top: 18px;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+/* ==========================================================================
+   Luxury Dark Footer
+   ========================================================================== */
+
+.footer {
+  background: #181716;
+  color: #F7F4EF;
+  padding-block: clamp(56px, 8vw, 92px);
+  border-top: 1px solid rgba(183, 156, 107, 0.3);
+}
+
+.footer .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.footer .word {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  line-height: 1;
+  color: #F7F4EF;
+}
+
+.footer .rule::before,
+.footer .rule::after,
+.footer .rule i {
+  background: var(--gold);
+}
+
+.footer .sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+  color: #F7F4EF;
+}
+
+.footer .memory {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11.5px;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 6px 0 0;
+}
+
+.footer .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  justify-content: center;
+}
+
+.footer .links a,
+.footer .links span {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #EFEAE1;
+  text-decoration: none;
+  transition: color var(--t-fast);
+}
+
+.footer .links a:hover {
+  color: var(--gold);
+}
+
+.footer .seal {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--gold);
+}
+
+.footer .copy {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8A837C;
+}
+
+/* ==========================================================================
+   Ações Flutuantes
+   ========================================================================== */
+
+.float-actions {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 95;
+}
+
+.wa-float-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+.wa-float-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.wa-float-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.back-top-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-subtle);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity var(--t-med), transform var(--t-med);
+}
+
+.back-top-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-top-btn:hover {
+  background: var(--gold-wash);
+  color: var(--ink);
+}

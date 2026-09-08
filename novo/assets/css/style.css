@@ -1,0 +1,493 @@
+/* ==========================================================================
+   OLIVELAS — Typography, Resets & Base Styles (/novo)
+   Visual Reference: olivelassite.html
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--t-med), color var(--t-med);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Logo & Brand Utilities
+   ========================================================================== */
+
+.logo-light {
+  display: block;
+}
+
+.logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] .logo-light {
+  display: none !important;
+}
+
+[data-theme="dark"] .logo-dark {
+  display: block !important;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: opacity var(--t-fast);
+}
+
+.brand:hover {
+  opacity: 0.9;
+}
+
+.brand-monogram {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform var(--t-fast);
+}
+
+.brand:hover .brand-monogram {
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .brand-monogram {
+  filter: brightness(1.15) contrast(1.05);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.12;
+  gap: 1px;
+}
+
+.brand-name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.brand-slogan {
+  font-family: var(--sans);
+  font-size: 8.5px;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 500;
+}
+
+img, svg, picture, video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--t-fast), opacity var(--t-fast);
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--gold-wash);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 9999;
+  transform: translateY(-150%);
+  transition: transform var(--t-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Shared Typography & Editorial Elements
+   ========================================================================== */
+
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.30em;
+  text-indent: 0.30em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0;
+  display: block;
+}
+
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  margin: 0;
+  color: var(--text-main);
+}
+
+h1.display {
+  font-size: clamp(2.2rem, 5.2vw, 3.8rem);
+}
+
+h2.display {
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+}
+
+h3.display {
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+
+p.lead {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-soft);
+  max-width: 54ch;
+  margin: 0;
+}
+
+.spec {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin: 0;
+}
+
+/* Régua com ponto central dourado */
+.rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 200px;
+}
+
+.rule::before,
+.rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+}
+
+.rule i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex: none;
+  display: block;
+}
+
+/* Lockup Olivelas com animação de chama */
+.lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.lockup .flame-icon {
+  width: 38px;
+  height: auto;
+}
+
+.flame {
+  animation: flick 4.8s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes flick {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(0.98);
+  }
+}
+
+.lockup .word {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  line-height: 1;
+  color: var(--text-main);
+}
+
+.lockup .sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+/* Moldura dupla fina refinada */
+.framed {
+  position: relative;
+  padding: 12px;
+  border: 1.5px solid var(--gold);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--t-med), box-shadow var(--t-med);
+}
+
+.framed::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--gold-light);
+  pointer-events: none;
+}
+
+.framed img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Selo Monograma Circular */
+.seal {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background: var(--bg-surface);
+  transition: transform var(--t-med);
+}
+
+.seal:hover {
+  transform: rotate(15deg) scale(1.05);
+}
+
+.seal svg, .seal img {
+  width: 32px;
+  height: auto;
+}
+
+/* ==========================================================================
+   Botões & Controles
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--text-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--t-med), color var(--t-med), border-color var(--t-med), transform var(--t-fast);
+}
+
+.btn:hover {
+  background: var(--gold-wash);
+  color: var(--ink);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #FFFFFF;
+}
+
+.btn--gold:hover {
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
+  color: #FFFFFF;
+}
+
+.btn--ghost {
+  border-color: var(--gold-light);
+  color: var(--text-main);
+}
+
+.btn--ghost:hover {
+  border-color: var(--gold);
+  background: var(--gold-tint);
+}
+
+.btn--wa {
+  background: #25D366;
+  border-color: #25D366;
+  color: #FFFFFF;
+}
+
+.btn--wa:hover {
+  background: #1EBE5D;
+  border-color: #1EBE5D;
+  color: #FFFFFF;
+}
+
+.btn-sm {
+  padding: 10px 18px;
+  font-size: 10.5px;
+  letter-spacing: 0.20em;
+}
+
+.btn-block {
+  width: 100%;
+  display: flex;
+}
+
+.btn-disabled, .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: var(--border-subtle);
+}
+
+/* Botões de Ícone (Header e Ações) */
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold-light);
+  color: var(--text-main);
+  background: var(--bg-surface);
+  position: relative;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.icon-btn:hover {
+  background: var(--gold-wash);
+  border-color: var(--gold);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.badge-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--gold-deep);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .flame {
+    animation: none;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,183 @@
+/* ==========================================================================
+   OLIVELAS — Responsive Media Queries (/novo)
+   Visual Reference: olivelassite.html
+   ========================================================================== */
+
+/* Tablet (max-width: 900px) */
+@media (max-width: 900px) {
+  :root {
+    --pad: 24px;
+    --header-h: 60px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-photo {
+    order: -1;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  .about-copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-copy p.lead {
+    text-align: center;
+  }
+
+  .tagline {
+    align-items: center;
+  }
+
+  .tagline p {
+    text-align: center;
+  }
+}
+
+/* Mobile Horizontal & Small Tablet (max-width: 720px) */
+@media (max-width: 720px) {
+  .topbar nav {
+    display: none;
+  }
+
+  .topbar .brand-name {
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
+  }
+
+  .topbar .brand-slogan {
+    font-size: 7.5px;
+    letter-spacing: 0.28em;
+  }
+
+  .topbar .brand-monogram {
+    width: 32px;
+    height: 32px;
+  }
+
+  .topbar .wa-pill span {
+    display: none;
+  }
+
+  .topbar .wa-pill {
+    padding: 7px 10px;
+  }
+
+  .catalog-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catalog-search-wrap {
+    width: 100%;
+  }
+
+  .category-nav-pills {
+    overflow-x: auto;
+    padding-bottom: 4px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-card {
+    grid-template-columns: 1fr;
+    max-height: 85vh;
+  }
+
+  .modal-gallery {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 20px;
+  }
+
+  .modal-info {
+    padding: 24px 20px;
+  }
+}
+
+/* Mobile Vertical (max-width: 600px) */
+@media (max-width: 600px) {
+  :root {
+    --pad: 16px;
+  }
+
+  .hero {
+    padding-block: 40px 32px;
+  }
+
+  .hero .cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero .cta .btn {
+    width: 100%;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .grid-scents {
+    grid-template-columns: 1fr;
+  }
+
+  .lines.compl .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .lines.compl .row .row-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+
+  .buy .lines .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .buy .cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .buy .cta .btn {
+    width: 100%;
+  }
+
+  .footer .links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .float-actions {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .wa-float-btn {
+    width: 48px;
+    height: 48px;
+  }
+}

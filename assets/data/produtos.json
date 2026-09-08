@@ -27,6 +27,74 @@
     "cta": "Explorar Coleção",
     "imagem": "assets/images/og-cover.webp"
   },
+  "heroConfig": {
+    "chamadaPrincipal": "Aromas que transformam ambientes em memórias",
+    "descricao": "Feitas à mão, em pequenos lotes, em São Paulo. Fragrâncias autorais — cada uma com a sua cor e o seu símbolo exclusivo.",
+    "botaoColecao": "Ver a coleção",
+    "botaoPedido": "Fazer um pedido",
+    "prelaunch": "Cera 100% vegetal · Pavio de algodão · Queima limpa e duradoura"
+  },
+  "colecaoConfig": {
+    "eyebrow": "A coleção",
+    "titulo": "Nossos aromas, seus rituais",
+    "subtitulo": "Cada fragrância vem em dois tamanhos: Mini de 40 g, para experimentar, e Padrão de 230 g, em copo de vidro com tampa dourada monogramada.",
+    "notaCatalogo": "Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.",
+    "fineprint": "Preços válidos para pedidos combinados diretamente com o ateliê",
+    "colecoesDisponiveis": [
+      { "id": "todas", "nome": "Todos os aromas", "filtro": "todos" },
+      { "id": "frutal", "nome": "Frutais", "filtro": "Frutal" },
+      { "id": "floral", "nome": "Florais", "filtro": "Floral" },
+      { "id": "amadeirada", "nome": "Amadeirados", "filtro": "Amadeirada" },
+      { "id": "oriental", "nome": "Orientais", "filtro": "Oriental" },
+      { "id": "herbal", "nome": "Herbais", "filtro": "Herbal" }
+    ],
+    "velasAtivas": ["OV01", "OV02", "OV03", "OV04", "OV05", "OV06", "OV07", "OV08", "OV09"]
+  },
+  "complementosConfig": {
+    "eyebrow": "Para completar o ambiente",
+    "titulo": "Linhas complementares",
+    "subtitulo": "Aromatizadores, sachês e acessórios para o cuidado das suas velas."
+  },
+  "atelie": {
+    "eyebrow": "O ateliê",
+    "titulo": "Feita à mão, em pequenos lotes",
+    "descricao": "A Olivelas nasce em São Paulo, com produção artesanal cuidadosa. Cada vela é derramada à mão, em pequenos lotes, com cera 100% vegetal, pavio de algodão puro e essências de alta performance que preenchem o ambiente com sutileza e requinte.",
+    "especificacoes": "230 g · copo de vidro com tampa dourada · cera vegetal · pavio de algodão",
+    "tagline": "A Olivelas transforma ambientes em momentos especiais através de aromas que acolhem e inspiram.",
+    "imagensAleatorias": [
+      "assets/images/products/verbena.webp",
+      "assets/images/products/blue-ocean.webp",
+      "assets/images/products/morango-champanhe.webp",
+      "assets/images/products/mistica.webp",
+      "assets/images/products/orquidea-negra.webp",
+      "assets/images/products/mamae-bebe.webp",
+      "assets/images/products/cravo-canela.webp",
+      "assets/images/products/lavanda.webp",
+      "assets/images/products/alfazema.webp"
+    ]
+  },
+  "comoPedir": {
+    "eyebrow": "Como pedir",
+    "titulo": "Pedidos direto com o ateliê",
+    "subtitulo": "Monte seu pedido pelo catálogo ou fale diretamente conosco pelo WhatsApp e Instagram — inclusive para lembrancinhas e eventos especiais.",
+    "linhas": [
+      {
+        "titulo": "Velas da coleção",
+        "descricao": "Nossos aromas autorais em versões Mini (40 g) ou Padrão (230 g com tampa dourada)."
+      },
+      {
+        "titulo": "Lembrancinhas de eventos",
+        "descricao": "Batizados, casamentos, maternidade e eventos corporativos com rótulos personalizados sob encomenda."
+      },
+      {
+        "titulo": "Kits e presentes",
+        "descricao": "Combinações de velas, difusores e acessórios com embalagem estruturada para presentear."
+      }
+    ],
+    "botaoWhatsApp": "Falar no WhatsApp",
+    "botaoInstagram": "Instagram @rosa_olivelas",
+    "fineprint": "WhatsApp (11) 96382-0374 · Atendimento de Seg a Sáb das 9h às 18h"
+  },
   "pilares": [
     {
       "icone": "feather",
