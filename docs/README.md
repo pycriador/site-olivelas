@@ -21,7 +21,8 @@ docs/
 ├── ui-and-design-system.md # Design Tokens, Temas Claro/Escuro e Componentes
 ├── modal-and-routing.md    # Modal de Produto, Deep Linking (Hash) e Acessibilidade
 ├── media-pipeline.md       # Pipeline de Mídia, Montagem 3D e Otimização de Imagens
-└── pwa-and-offline.md      # Service Worker, Estratégias de Cache e Resiliência
+├── session-history-and-prompts.md # Histórico de Sessões, Prompts e Resultados
+└── pwa-and-offline.md
 ```
 
 ---
@@ -39,6 +40,7 @@ docs/
 | [7. Modal & Deep Linking](modal-and-routing.md) | URL Hash `#produto-<uid>`, Focus Trap e troca de variantes | `modal.js`, `app.js` |
 | [8. Pipeline de Mídia](media-pipeline.md) | Montagem cilíndrica 3D das etiquetas e assets visuais | `assets/images/`, `produtos.json` |
 | [9. PWA & Modo Offline](pwa-and-offline.md) | Service Worker (Network-First / SWR) e manifesto web | `sw.js`, `manifest.webmanifest` |
+| [10. Histórico de Prompts](session-history-and-prompts.md) | Histórico de sessões, prompts do usuário e evolução | Todos os módulos |
 
 ---
 
