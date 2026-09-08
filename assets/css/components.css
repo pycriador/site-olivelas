@@ -93,6 +93,18 @@
   font-size: 0.88rem;
 }
 
+.btn-disabled,
+.btn:disabled,
+button:disabled.btn {
+  background: var(--color-surface-sunken) !important;
+  color: var(--color-text-muted) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  opacity: 0.72;
+}
+
 /* ---------- BADGE ---------- */
 .badge-chip {
   display: inline-flex;
@@ -105,6 +117,28 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.badge-chip.badge-esgotado {
+  background: #71717a !important;
+  color: #ffffff !important;
+  letter-spacing: 0.08em;
+}
+
+[data-theme="dark"] .badge-chip.badge-esgotado {
+  background: #52525b !important;
+  color: #f4f4f5 !important;
+}
+
+.card.is-esgotado .card-media img,
+.home-product-card.is-esgotado .home-product-media img {
+  filter: grayscale(0.2) opacity(0.85);
+  transition: filter var(--t-med);
+}
+
+.card.is-esgotado:hover .card-media img,
+.home-product-card.is-esgotado:hover .home-product-media img {
+  filter: grayscale(0.08) opacity(0.95);
 }
 
 /* ---------- CARD DE PRODUTO ---------- */

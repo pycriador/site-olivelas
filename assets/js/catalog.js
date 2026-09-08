@@ -60,18 +60,23 @@ function normalize(data) {
     const catId = cat.id || slugify(cat.nome);
     (cat.produtos || []).forEach((p) => {
       const tamanhos = Array.isArray(p.tamanhos) && p.tamanhos.length ? p.tamanhos : [{}];
-      const variantes = tamanhos.map((t, i) => ({
-        uid: `${p.id || slugify(p.nome)}-${t.tipo ? slugify(t.tipo) : i + 1}`,
-        tamanho: t.tipo || "Único",
-        recipiente: t.recipiente || "",
-        peso: t.peso || "—",
-        quantidade: Number(t.quantidade) || 1,
-        preco: Number(t.preco) || 0,
-        queima: t.queima || "",
-        medidas: t.medidas || "",
-        imagem: t.imagem || p.imagem || "",
-        imagemThumb: t.imagemThumb || t.imagem || p.imagemThumb || p.imagem || "",
-      }));
+      const pEsgotado = Boolean(p.esgotado || p.status === "esgotado" || p.badge === "Esgotado");
+      const variantes = tamanhos.map((t, i) => {
+        const isEsgotado = t.esgotado !== undefined ? Boolean(t.esgotado) : pEsgotado;
+        return {
+          uid: `${p.id || slugify(p.nome)}-${t.tipo ? slugify(t.tipo) : i + 1}`,
+          tamanho: t.tipo || "Único",
+          recipiente: t.recipiente || "",
+          peso: t.peso || "—",
+          quantidade: Number(t.quantidade) || 1,
+          preco: Number(t.preco) || 0,
+          queima: t.queima || "",
+          medidas: t.medidas || "",
+          imagem: t.imagem || p.imagem || "",
+          imagemThumb: t.imagemThumb || t.imagem || p.imagemThumb || p.imagem || "",
+          esgotado: isEsgotado,
+        };
+      });
       variantes.forEach((v, i) => {
         const item = {
           ...v,
@@ -81,7 +86,7 @@ function normalize(data) {
           familia: p.familiaOlfativa || "",
           cor: p.corExclusiva || "",
           icone: p.icone || "",
-          badge: p.badge || "",
+          badge: v.esgotado ? (p.badge || "Esgotado") : (p.badge || ""),
           descricao: p.descricao || "",
           imagem: v.imagem || p.imagem || "",
           imagemThumb: v.imagemThumb || p.imagemThumb || p.imagem || "",
@@ -106,11 +111,14 @@ function normalize(data) {
 /* ---------- Seleção (função pura) ---------- */
 const SORTS = {
   "preco-asc": (a, b) => a.preco - b.preco,
-  "preco-desc": (a, b) => b.preco - a.preco,
+  "preco-desc": (b, a) => b.preco - a.preco,
   az: (a, b) => a.nome.localeCompare(b.nome, "pt-BR"),
-  za: (a, b) => b.nome.localeCompare(a.nome, "pt-BR"),
-  relevancia: (a, b) =>
-    Number(b.badge !== "") - Number(a.badge !== "") || a.nome.localeCompare(b.nome, "pt-BR"),
+  za: (b, a) => b.nome.localeCompare(a.nome, "pt-BR"),
+  relevancia: (a, b) => {
+    const aPromo = a.badge && a.badge !== "Esgotado" && !a.esgotado ? 1 : 0;
+    const bPromo = b.badge && b.badge !== "Esgotado" && !b.esgotado ? 1 : 0;
+    return (bPromo - aPromo) || a.nome.localeCompare(b.nome, "pt-BR");
+  },
 };
 
 export function getItensFiltrados() {

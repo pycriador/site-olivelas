@@ -393,7 +393,7 @@
           "familiaOlfativa": "Herbal Floral",
           "corExclusiva": "#9B8EAF",
           "icone": "lavender",
-          "badge": "",
+          "badge": "Esgotado",
           "descricao": "Frasco de vidro âmbar com 100 ml de fragrância e varetas de bambu. Perfuma ambientes de até 20 m² por até 60 dias.",
           "imagem": "assets/images/products/difusor-alfazema.webp",
           "imagemThumb": "assets/images/products/difusor-alfazema-thumb.webp",
@@ -407,9 +407,11 @@
               "queima": "60 dias",
               "medidas": "6 × 6 × 18 cm",
               "imagem": "assets/images/products/difusor-alfazema.webp",
-              "imagemThumb": "assets/images/products/difusor-alfazema-thumb.webp"
+              "imagemThumb": "assets/images/products/difusor-alfazema-thumb.webp",
+              "esgotado": true
             }
-          ]
+          ],
+          "esgotado": true
         },
         {
           "id": "ARO2",
@@ -418,7 +420,7 @@
           "familiaOlfativa": "Herbal Floral",
           "corExclusiva": "#A39BC0",
           "icone": "lavender",
-          "badge": "",
+          "badge": "Esgotado",
           "descricao": "Lavanda francesa em versão difusor contínuo. Perfuma delicadamente o espaço por até 60 dias.",
           "imagem": "assets/images/products/difusor-lavanda.webp",
           "imagemThumb": "assets/images/products/difusor-lavanda-thumb.webp",
@@ -432,9 +434,11 @@
               "queima": "60 dias",
               "medidas": "6 × 6 × 18 cm",
               "imagem": "assets/images/products/difusor-lavanda.webp",
-              "imagemThumb": "assets/images/products/difusor-lavanda-thumb.webp"
+              "imagemThumb": "assets/images/products/difusor-lavanda-thumb.webp",
+              "esgotado": true
             }
-          ]
+          ],
+          "esgotado": true
         },
         {
           "id": "ARO3",
@@ -443,7 +447,7 @@
           "familiaOlfativa": "Floral Amadeirada",
           "corExclusiva": "#BFC28C",
           "icone": "leaf",
-          "badge": "",
+          "badge": "Esgotado",
           "descricao": "Sachê em tecido de algodão com esferas perfumadas. Ideal para gavetas, closets e malas. Duração de até 90 dias.",
           "imagem": "assets/images/products/sache-guarda-roupa.webp",
           "imagemThumb": "assets/images/products/sache-guarda-roupa-thumb.webp",
@@ -457,9 +461,11 @@
               "queima": "90 dias",
               "medidas": "10 × 14 cm",
               "imagem": "assets/images/products/sache-guarda-roupa.webp",
-              "imagemThumb": "assets/images/products/sache-guarda-roupa-thumb.webp"
+              "imagemThumb": "assets/images/products/sache-guarda-roupa-thumb.webp",
+              "esgotado": true
             }
-          ]
+          ],
+          "esgotado": true
         }
       ]
     },
@@ -475,7 +481,7 @@
           "familiaOlfativa": "",
           "corExclusiva": "#D8CCBC",
           "icone": "spice",
-          "badge": "",
+          "badge": "Esgotado",
           "descricao": "Fósforos em madeira reflorestada de haste longa em garrafa decorativa de vidro com riscador integrado.",
           "imagem": "assets/images/products/kit-fosforos.webp",
           "imagemThumb": "assets/images/products/kit-fosforos-thumb.webp",
@@ -489,9 +495,11 @@
               "queima": "60 palitos",
               "medidas": "7 × 4 × 12 cm",
               "imagem": "assets/images/products/kit-fosforos.webp",
-              "imagemThumb": "assets/images/products/kit-fosforos-thumb.webp"
+              "imagemThumb": "assets/images/products/kit-fosforos-thumb.webp",
+              "esgotado": true
             }
-          ]
+          ],
+          "esgotado": true
         },
         {
           "id": "ACC2",
@@ -500,7 +508,7 @@
           "familiaOlfativa": "",
           "corExclusiva": "#B79C6B",
           "icone": "sparkle",
-          "badge": "",
+          "badge": "Esgotado",
           "descricao": "Em aço inoxidável dourado fosco com coletor. Mantém a chama no tamanho ideal e previne fumaça escura.",
           "imagem": "assets/images/products/cortador-pavio.webp",
           "imagemThumb": "assets/images/products/cortador-pavio-thumb.webp",
@@ -514,9 +522,11 @@
               "queima": "—",
               "medidas": "18 cm",
               "imagem": "assets/images/products/cortador-pavio.webp",
-              "imagemThumb": "assets/images/products/cortador-pavio-thumb.webp"
+              "imagemThumb": "assets/images/products/cortador-pavio-thumb.webp",
+              "esgotado": true
             }
-          ]
+          ],
+          "esgotado": true
         }
       ]
     }

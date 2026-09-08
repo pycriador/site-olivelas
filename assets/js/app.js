@@ -205,9 +205,17 @@ function homeProductTemplate(item) {
   const iconHtml = item.categoriaId === "velas-aromaticas"
     ? `<img class="aroma-icon-img" src="assets/images/icons/aromas/${item.slug}.webp" alt="" width="20" height="20">`
     : (icons[item.icone] || "");
-  return `<article class="home-product-card" style="--product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
+  const isEsgotado = Boolean(item.esgotado);
+  const badgeHtml = isEsgotado
+    ? `<span class="badge-chip badge-esgotado">Esgotado</span>`
+    : (item.badge ? `<span class="badge-chip">${item.badge}</span>` : "");
+  const actionBtn = isEsgotado
+    ? `<button type="button" class="btn btn-disabled btn-sm" disabled aria-disabled="true">Esgotado</button>`
+    : `<button type="button" class="btn btn-primary btn-sm" data-action="add" data-uid="${item.uid}">${icons.cart} Comprar</button>`;
+
+  return `<article class="home-product-card${isEsgotado ? " is-esgotado" : ""}" style="--product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
     <div class="home-product-media">
-      ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ""}
+      ${badgeHtml}
       <img src="${image}" alt="${item.nome}" loading="lazy" width="480" height="480">
       <button type="button" class="card-fav" data-action="fav" data-uid="${item.uid}" data-id="${item.uid}" aria-label="Favoritar ${item.nome}" aria-pressed="false">${icons.heart}</button>
       <button type="button" class="home-product-open" data-action="open" data-uid="${item.uid}" aria-label="Ver detalhes de ${item.nome}"></button>
@@ -222,7 +230,7 @@ function homeProductTemplate(item) {
         <span class="card-aroma-icon" aria-hidden="true">${iconHtml}</span>
       </button>
       <strong>${formatCurrency(item.preco)}</strong>
-      <button type="button" class="btn btn-primary btn-sm" data-action="add" data-uid="${item.uid}">${icons.cart} Comprar</button>
+      ${actionBtn}
     </div>
   </article>`;
 }
@@ -521,10 +529,20 @@ function cardTemplate(item, idx) {
   const iconHtml = item.categoriaId === "velas-aromaticas"
     ? `<img class="aroma-icon-img" src="assets/images/icons/aromas/${item.slug}.webp" alt="" width="20" height="20">`
     : (icons[item.icone] || "");
+  const isEsgotado = Boolean(item.esgotado);
+  const badgeHtml = isEsgotado
+    ? `<span class="badge-chip badge-esgotado card-badge">Esgotado</span>`
+    : (item.badge ? `<span class="badge-chip card-badge">${item.badge}</span>` : "");
+  const actionBtn = isEsgotado
+    ? `<button type="button" class="btn btn-disabled btn-block btn-sm" disabled aria-disabled="true">Esgotado</button>`
+    : `<button type="button" class="btn btn-primary btn-block btn-sm" data-action="add" data-uid="${item.uid}">
+        ${icons.cart} Adicionar
+      </button>`;
+
   return `
-  <article class="card" style="--i:${idx % 24}; --product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
+  <article class="card${isEsgotado ? " is-esgotado" : ""}" style="--i:${idx % 24}; --product-accent:${item.cor || 'var(--brand-accent)'}" data-uid="${item.uid}">
     <div class="card-media">
-      ${item.badge ? `<span class="badge-chip card-badge">${item.badge}</span>` : ""}
+      ${badgeHtml}
       <img src="${thumb}" alt="${item.nome}" loading="lazy" decoding="async" width="480" height="480">
       <button type="button" class="card-open-zone" data-action="open" data-uid="${item.uid}"
         aria-label="Ver detalhes de ${item.nome} ${item.tamanho}"></button>
@@ -554,9 +572,7 @@ function cardTemplate(item, idx) {
         </div>
       </div>
       <div class="card-actions">
-        <button type="button" class="btn btn-primary btn-block btn-sm" data-action="add" data-uid="${item.uid}">
-          ${icons.cart} Adicionar
-        </button>
+        ${actionBtn}
       </div>
     </div>
   </article>`;
@@ -592,6 +608,11 @@ function handleProductAction(actionEl, e) {
   const { action, uid, id } = actionEl.dataset;
   if (action === "open") openModal(uid);
   if (action === "add") {
+    const item = getItem(uid);
+    if (item?.esgotado) {
+      bus.emit("toast", { type: "info", text: "Este produto está esgotado no momento" });
+      return;
+    }
     addItem(uid, 1);
     openSidebar();
     bus.emit("toast", { type: "success", text: "Produto adicionado ao carrinho" });

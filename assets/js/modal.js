@@ -35,6 +35,11 @@ export function initModal() {
     if (action === "share") shareCurrent();
     if (action === "copy") copyCurrent();
     if (action === "modal-add") {
+      const item = getItem(currentUid);
+      if (item?.esgotado) {
+        bus.emit("toast", { type: "info", text: "Este produto está esgotado no momento" });
+        return;
+      }
       addItem(currentUid, 1);
       closeModal();
       openSidebar();
@@ -96,8 +101,11 @@ export function resolveHash(hash) {
 function renderMedia(item) {
   const media = $("#modal-media");
   const src = item.imagem || "assets/images/placeholder.webp";
+  const badgeHtml = item.esgotado
+    ? `<span class="badge-chip badge-esgotado modal-badge">Esgotado</span>`
+    : (item.badge ? `<span class="badge-chip modal-badge">${item.badge}</span>` : "");
   media.innerHTML = `
-    ${item.badge ? `<span class="badge-chip modal-badge">${item.badge}</span>` : ""}
+    ${badgeHtml}
     <div class="modal-image-wrapper">
       <img src="${src}" alt="${item.nome}" width="800" height="800">
     </div>`;
@@ -137,7 +145,7 @@ function renderBody(item) {
             <button class="variant-opt${v.uid === currentUid ? " is-active" : ""}" role="radio"
               aria-checked="${v.uid === currentUid}" data-action="variant" data-uid="${v.uid}">
               <span class="variant-opt-main">
-                <span class="variant-opt-title">${v.tamanho}</span>
+                <span class="variant-opt-title">${v.tamanho}${v.esgotado ? " (Esgotado)" : ""}</span>
                 <span class="variant-opt-sub">${v.peso} · ${formatCurrency(v.preco)}</span>
               </span>
               <span class="variant-opt-price">${formatCurrency(v.preco)}</span>
@@ -157,9 +165,14 @@ function renderBody(item) {
     </div>
 
     <div class="modal-actions">
-      <button type="button" class="btn btn-accent btn-block" data-action="modal-add">${icons.cart} Adicionar ao carrinho</button>
-      <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, mensagemProduto(item))}"
-        target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Pedir pelo WhatsApp</a>
+      ${item.esgotado
+        ? `<button type="button" class="btn btn-disabled btn-block" disabled aria-disabled="true">Produto esgotado</button>
+           <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, `Olá! Gostaria de saber quando o produto ${item.nome}${item.tamanho && item.tamanho !== 'Único' ? ' (' + item.tamanho + ')' : ''} voltará ao estoque.`)}"
+             target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Avisar quando chegar</a>`
+        : `<button type="button" class="btn btn-accent btn-block" data-action="modal-add">${icons.cart} Adicionar ao carrinho</button>
+           <a class="btn btn-wa-solid btn-block" href="${waLink(getStore().meta.whatsapp, mensagemProduto(item))}"
+             target="_blank" rel="noopener" data-action="wa-direct">${icons.what} Pedir pelo WhatsApp</a>`
+      }
     </div>`;
 }
 

@@ -55,9 +55,12 @@ export function getTotal() {
 }
 
 export function addItem(uid, qtd = 1) {
+  const item = getItem(uid);
+  if (item && item.esgotado) return false;
   if (!items[uid]) items[uid] = 0;
   items[uid] += qtd;
   save();
+  return true;
 }
 
 export function setQtd(uid, qtd) {

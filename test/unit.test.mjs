@@ -76,4 +76,10 @@ const padraoItem = store.itens.find((i) => i.id === "OV01" && i.tamanho === "Pad
 check("mini vela tem imagem própria diferente da vela padrão", miniItem.imagem !== padraoItem.imagem && miniItem.imagem.includes("-mini"));
 check("mini vela e padrão têm uids distintos", miniItem.uid === "OV01-mini" && padraoItem.uid === "OV01-padrao");
 
+const acessorioItem = store.itens.find((i) => i.categoriaId === "acessorios");
+const aromatizadorItem = store.itens.find((i) => i.categoriaId === "aromatizadores");
+check("acessorios classificados como esgotado", acessorioItem.esgotado === true && acessorioItem.badge === "Esgotado");
+check("aromatizadores classificados como esgotado", aromatizadorItem.esgotado === true && aromatizadorItem.badge === "Esgotado");
+check("velas aromaticas continuam disponiveis", miniItem.esgotado === false);
+
 console.log(`\n${pass} checks passed.`);
