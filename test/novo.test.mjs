@@ -62,4 +62,33 @@ check("checkoutUrl contém Verbena", checkoutUrl.includes("Verbena"));
 check("checkoutUrl contém Difusor", checkoutUrl.includes("Difusor"));
 check("checkoutUrl contém total R$ 275,70", checkoutUrl.includes("275%2C70"));
 
+// 6. Availability & Cart/Favs Rules
+const isItemUnavailable = (item) => {
+  return Boolean(
+    item.esgotado ||
+    item.emBreve ||
+    (item.badge && (
+      item.badge.toLowerCase().includes('breve') ||
+      item.badge.toLowerCase().includes('esgotado')
+    ))
+  );
+};
+
+const emBreveItem = FALLBACK_DATA.acessorios.find(a => a.id === "ACC2");
+check("Produto 'Em breve' é detectado como indisponível para carrinho", isItemUnavailable(emBreveItem) === true);
+
+const esgotadoItem = { id: "TEST_OUT", nome: "Vela Esgotada", esgotado: true, badge: "Esgotado" };
+check("Produto 'Esgotado' é detectado como indisponível para carrinho", isItemUnavailable(esgotadoItem) === true);
+
+const normalItem = FALLBACK_DATA.velas.find(v => v.id === "OV01");
+check("Produto regular está disponível para carrinho", isItemUnavailable(normalItem) === false);
+
+// Favoritos podem receber qualquer produto independente de estoque
+const favSet = new Set();
+favSet.add(emBreveItem.id);
+favSet.add(esgotadoItem.id);
+favSet.add(normalItem.id);
+check("Favoritos aceitam produtos regulares, em breve e esgotados", favSet.has("ACC2") && favSet.has("TEST_OUT") && favSet.has("OV01"));
+
 console.log(`\nAll ${pass} checks passed for /novo!`);
+

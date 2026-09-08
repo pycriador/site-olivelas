@@ -527,6 +527,7 @@ function normalizeCategoryProducts(catProducts, categoryKey) {
       hexCor: p.corExclusiva || '#B79C6B',
       codigo: p.id,
       badge: p.badge || '',
+      esgotado: Boolean(p.esgotado || (p.badge && p.badge.toLowerCase().includes('esgotado'))),
       emBreve: Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve'))),
       nota: p.descricao ? p.descricao.split('.')[0] + '.' : '',
       descricao: p.descricao || '',

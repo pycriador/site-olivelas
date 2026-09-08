@@ -98,6 +98,11 @@ class CartManager {
 
   addItem(item) {
     if (!item || !item.uid) return;
+
+    if (item.esgotado || item.emBreve || (item.badge && (item.badge.toLowerCase().includes('breve') || item.badge.toLowerCase().includes('esgotado')))) {
+      showToast(`"${item.nome}" não está disponível para compra no momento.`);
+      return;
+    }
     
     if (this.items[item.uid]) {
       this.items[item.uid].quantidade += item.quantidade || 1;

@@ -133,21 +133,35 @@ class FavoritesManager {
       return;
     }
 
-    const allCandles = FALLBACK_DATA.velas || [];
-    const allComp = FALLBACK_DATA.complementos || [];
-    const allItems = [...allCandles, ...allComp];
-
+    const allItems = window.__olivelasApp?.data?.produtos || FALLBACK_DATA.produtos || [...(FALLBACK_DATA.velas || []), ...(FALLBACK_DATA.complementos || [])];
     const favItems = allItems.filter((i) => this.favs.has(i.id));
 
     container.innerHTML = favItems.map((item) => {
-      const isCandle = !!item.tamanhos;
-      const defaultVar = isCandle ? item.tamanhos[1] : item;
-      const priceFormatted = formatCurrency(defaultVar.preco);
+      const isCandle = !!(item.tamanhos && item.tamanhos.length > 0);
+      const defaultIndex = isCandle && item.tamanhos.length > 1 ? 1 : 0;
+      const defaultVar = isCandle ? (item.tamanhos[defaultIndex] || item.tamanhos[0]) : item;
+      const priceFormatted = defaultVar.preco ? formatCurrency(defaultVar.preco) : '';
+      const isEsgotado = Boolean(item.esgotado || (item.badge && item.badge.toLowerCase().includes('esgotado')));
+      const isEmBreve = Boolean(item.emBreve || (item.badge && item.badge.toLowerCase().includes('breve')));
+      const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(item.nome)}%20estiver%20dispon%C3%ADvel.`;
+
+      let actionHtml = '';
+      if (isEmBreve) {
+        actionHtml = `<a href="${notifyWaUrl}" target="_blank" rel="noopener" class="btn btn-sm btn--gold" style="padding: 6px 10px; font-size: 9.5px; text-decoration:none;">Avise-me</a>`;
+      } else if (isEsgotado) {
+        actionHtml = `<span class="btn btn-sm btn--ghost btn-disabled" style="padding: 6px 10px; font-size: 9.5px; opacity:0.6;">Esgotado</span>`;
+      } else {
+        actionHtml = `
+          <button type="button" class="btn btn-sm btn--gold" data-action="fav-add-cart" data-id="${item.id}" style="padding: 6px 12px; font-size: 9.5px;">
+            + Carrinho
+          </button>
+        `;
+      }
 
       return `
         <div class="cart-item" data-id="${item.id}">
           <div class="cart-item-img">
-            <img src="${item.imagem}" alt="${item.nome}" loading="lazy">
+            <img src="${defaultVar.imagem || item.imagem}" alt="${item.nome}" loading="lazy">
           </div>
           <div class="cart-item-info">
             <h4>${item.nome}</h4>
@@ -158,9 +172,7 @@ class FavoritesManager {
             <button class="cart-item-remove" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="Remover">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
-            <button type="button" class="btn btn-sm btn--gold" data-action="fav-add-cart" data-id="${item.id}" style="padding: 6px 12px; font-size: 9.5px;">
-              + Carrinho
-            </button>
+            ${actionHtml}
           </div>
         </div>
       `;
@@ -168,14 +180,19 @@ class FavoritesManager {
   }
 
   addFavoriteToCart(id) {
-    const allCandles = FALLBACK_DATA.velas || [];
-    const allComp = FALLBACK_DATA.complementos || [];
-    const item = [...allCandles, ...allComp].find((i) => i.id === id);
+    const allItems = window.__olivelasApp?.data?.produtos || FALLBACK_DATA.produtos || [...(FALLBACK_DATA.velas || []), ...(FALLBACK_DATA.complementos || [])];
+    const item = allItems.find((i) => i.id === id);
 
     if (!item) return;
 
-    if (item.tamanhos) {
-      const padrao = item.tamanhos[1] || item.tamanhos[0];
+    if (item.esgotado || item.emBreve || (item.badge && (item.badge.toLowerCase().includes('breve') || item.badge.toLowerCase().includes('esgotado')))) {
+      showToast(`"${item.nome}" não está disponível para compra no momento.`);
+      return;
+    }
+
+    if (item.tamanhos && item.tamanhos.length > 0) {
+      const defaultIndex = item.tamanhos.length > 1 ? 1 : 0;
+      const padrao = item.tamanhos[defaultIndex] || item.tamanhos[0];
       cart.addItem({
         uid: padrao.uid,
         id: item.id,
@@ -183,12 +200,12 @@ class FavoritesManager {
         tipo: padrao.tipo,
         peso: padrao.peso,
         preco: padrao.preco,
-        imagem: padrao.imagem,
+        imagem: padrao.imagem || item.imagem,
         quantidade: 1
       });
     } else {
       cart.addItem({
-        uid: item.uid,
+        uid: item.uid || `${item.id}-padrao`,
         id: item.id,
         nome: item.nome,
         tipo: 'Padrão',

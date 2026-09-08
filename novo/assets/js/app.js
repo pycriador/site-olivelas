@@ -205,7 +205,9 @@ class App {
       imagem: item.imagem
     };
     const isEmBreve = Boolean(item.emBreve || (item.badge && item.badge.toLowerCase().includes('breve')));
+    const isEsgotado = Boolean(item.esgotado || (item.badge && item.badge.toLowerCase().includes('esgotado')));
     const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(item.nome)}%20estiver%20dispon%C3%ADvel.`;
+    const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(item.nome)}.`;
     const priceDisplay = v.preco ? formatCurrency(v.preco) : '';
 
     return `
@@ -231,11 +233,15 @@ class App {
             <a class="btn btn-sm btn--gold btn-block" href="${notifyWaUrl}" target="_blank" rel="noopener" style="text-align:center;">
               Avise-me
             </a>
+          ` : (isEsgotado ? `
+            <a class="btn btn-sm btn--gold btn-block" href="${esgotadoWaUrl}" target="_blank" rel="noopener" style="text-align:center;">
+              Consultar Reposição
+            </a>
           ` : `
             <button type="button" class="btn btn-sm btn--gold btn-block" data-action="card-add-cart" data-id="${item.id}">
               + Carrinho
             </button>
-          `}
+          `)}
         </div>
       </article>
     `;
@@ -385,6 +391,11 @@ class App {
     const candle = allProducts.find((c) => c.id === id);
     if (!candle) return;
 
+    if (candle.esgotado || candle.emBreve || (candle.badge && (candle.badge.toLowerCase().includes('breve') || candle.badge.toLowerCase().includes('esgotado')))) {
+      showToast(`"${candle.nome}" não está disponível para compra no momento.`);
+      return;
+    }
+
     const defaultIndex = candle.tamanhos && candle.tamanhos.length > 1 ? 1 : 0;
     const variantIndex = this.selectedVariants.get(id) ?? defaultIndex;
     const v = (candle.tamanhos && candle.tamanhos[variantIndex]) || (candle.tamanhos && candle.tamanhos[0]) || {
@@ -481,7 +492,9 @@ class App {
       };
       const waUrl = buildDirectItemUrl(c.nome, `Tamanho ${activeVariant.tipo} ${activeVariant.peso}`.trim());
       const isEmBreve = Boolean(c.emBreve || (c.badge && c.badge.toLowerCase().includes('breve')));
+      const isEsgotado = Boolean(c.esgotado || (c.badge && c.badge.toLowerCase().includes('esgotado')));
       const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(c.nome)}%20estiver%20dispon%C3%ADvel.`;
+      const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(c.nome)}.`;
 
       return `
         <article class="scent-card" data-card-id="${c.id}" style="--sc: ${c.cor};">
@@ -514,11 +527,15 @@ class App {
                 <a class="btn btn-sm btn--gold" href="${notifyWaUrl}" target="_blank" rel="noopener" style="flex:1; text-align:center;">
                   Avise-me
                 </a>
+              ` : (isEsgotado ? `
+                <a class="btn btn-sm btn--gold" href="${esgotadoWaUrl}" target="_blank" rel="noopener" style="flex:1; text-align:center;">
+                  Consultar Reposição
+                </a>
               ` : `
                 <button type="button" class="btn btn-sm btn--gold" data-action="card-add-cart" data-id="${c.id}" style="flex:1;">
                   + Carrinho
                 </button>
-              `}
+              `)}
               <button type="button" class="btn-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${c.id}" data-name="${c.nome}" aria-label="Favoritar">
                 <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
               </button>
@@ -526,9 +543,11 @@ class App {
 
             ${isEmBreve ? `
               <a class="order-wa" href="${notifyWaUrl}" target="_blank" rel="noopener">Consultar previsão</a>
+            ` : (isEsgotado ? `
+              <a class="order-wa" href="${esgotadoWaUrl}" target="_blank" rel="noopener">Consultar reposição</a>
             ` : `
               <a class="order-wa" href="${waUrl}" target="_blank" rel="noopener">Pedir no WhatsApp</a>
-            `}
+            `)}
           </div>
         </article>
       `;

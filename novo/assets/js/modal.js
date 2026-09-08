@@ -110,6 +110,20 @@ class ProductModal {
   addToCart() {
     if (!this.currentProduct) return;
 
+    const isUnavailable = Boolean(
+      this.currentProduct.esgotado ||
+      this.currentProduct.emBreve ||
+      (this.currentProduct.badge && (
+        this.currentProduct.badge.toLowerCase().includes('breve') ||
+        this.currentProduct.badge.toLowerCase().includes('esgotado')
+      ))
+    );
+
+    if (isUnavailable) {
+      showToast(`"${this.currentProduct.nome}" não está disponível para compra no momento.`);
+      return;
+    }
+
     if (this.selectedVariant) {
       cart.addItem({
         uid: this.selectedVariant.uid,
@@ -144,14 +158,18 @@ class ProductModal {
     const v = this.selectedVariant || p;
     const img = v.imagem || p.imagem;
     const priceFormatted = formatCurrency(v.preco);
+    const isEsgotado = Boolean(p.esgotado || (p.badge && p.badge.toLowerCase().includes('esgotado')));
     const isEmBreve = Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve')));
     const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(p.nome)}%20estiver%20dispon%C3%ADvel.`;
+    const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(p.nome)}.`;
 
     const waUrl = isEmBreve
       ? notifyWaUrl
-      : (isCandle
-        ? buildDirectItemUrl(p.nome, `Tamanho ${v.tipo} ${v.peso || ''}`.trim())
-        : buildDirectItemUrl(p.nome));
+      : (isEsgotado
+        ? esgotadoWaUrl
+        : (isCandle
+          ? buildDirectItemUrl(p.nome, `Tamanho ${v.tipo} ${v.peso || ''}`.trim())
+          : buildDirectItemUrl(p.nome)));
 
     let variantsHtml = '';
     if (isCandle && p.tamanhos.length > 1) {
@@ -243,11 +261,15 @@ class ProductModal {
               <a href="${notifyWaUrl}" target="_blank" rel="noopener" class="btn btn--gold" style="flex:1; text-align:center;">
                 Avise-me no WhatsApp
               </a>
+            ` : (isEsgotado ? `
+              <a href="${esgotadoWaUrl}" target="_blank" rel="noopener" class="btn btn--gold" style="flex:1; text-align:center;">
+                Consultar Reposição
+              </a>
             ` : `
               <button type="button" class="btn btn--gold" data-action="modal-add-cart" style="flex:1;">
                 Adicionar ao Carrinho
               </button>
-            `}
+            `)}
             <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn--ghost" style="padding-inline:16px;" aria-label="${isEmBreve ? 'Consultar no WhatsApp' : 'Pedir no WhatsApp'}">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.02A9.82 9.82 0 0 0 12.04 2Zm5.83 14.12c-.25.7-1.45 1.33-2 1.38-.51.05-1.16.07-1.87-.12-.43-.11-.99-.32-1.7-.63-3.01-1.3-4.97-4.32-5.12-4.52-.15-.2-1.22-1.62-1.22-3.1 0-1.47.77-2.19 1.05-2.49.27-.3.6-.37.8-.37h.57c.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.03.53-.1.2-.15.32-.29.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03.1.09.19.14.29.19.1.05.23.06.32-.04.1-.11.42-.49.53-.66.11-.17.23-.14.39-.08.15.05.98.46 1.15.55.17.08.28.12.32.2.05.06.05.37-.11.78Z"/></svg>
             </a>
