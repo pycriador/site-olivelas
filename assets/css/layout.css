@@ -431,6 +431,8 @@ section.block {
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 .category-nav-pills {
@@ -438,6 +440,7 @@ section.block {
   flex-wrap: wrap;
   gap: 6px 22px;
   align-items: center;
+  max-width: 100%;
 }
 
 .cat-pill {
@@ -473,15 +476,19 @@ section.block {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .catalog-search-wrap {
   position: relative;
-  min-width: 250px;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
 }
 
 .catalog-search-input {
   width: 100%;
+  max-width: 100%;
   padding: 9px 36px 9px 14px;
   font-family: var(--sans);
   font-size: 13px;
@@ -519,6 +526,7 @@ section.block {
   text-transform: uppercase;
   color: var(--text-soft);
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .catalog-page-size .page-size-label {
@@ -534,6 +542,7 @@ section.block {
   padding: 3px;
   border-radius: 20px;
   border: 1px solid var(--border-subtle);
+  max-width: 100%;
 }
 
 .size-pill {
@@ -568,9 +577,11 @@ section.block {
 
 .grid-scents {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 28px;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .catalog-note {
