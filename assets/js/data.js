@@ -343,9 +343,9 @@ export const FALLBACK_DATA = {
       badge: "Eventos",
       nota: "Lote de 50 mini velas artesanais de 30 g para casamentos e festas.",
       descricao: "Lote de 50 mini velas artesanais de 30 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
-      imagem: "../assets/images/products/alfazema-mini.webp",
+      imagem: "../assets/images/products/morango-champanhe-mini.webp",
       tamanhos: [
-        { tipo: "Kit", peso: "50x 30 g", queima: "≈ 1000 h total", preco: 1690.0, imagem: "../assets/images/products/alfazema-mini.webp", uid: "KIT03-kit" }
+        { tipo: "Kit", peso: "50x 30 g", queima: "≈ 1000 h total", preco: 1690.0, imagem: "../assets/images/products/morango-champanhe-mini.webp", uid: "KIT03-kit" }
       ]
     }
   ],

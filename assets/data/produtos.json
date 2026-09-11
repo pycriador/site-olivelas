@@ -599,8 +599,8 @@
           "icone": "wave",
           "badge": "Eventos",
           "descricao": "Lote de 50 mini velas artesanais de 30 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
-          "imagem": "assets/images/products/alfazema-mini.webp",
-          "imagemThumb": "assets/images/products/alfazema-mini-thumb.webp",
+          "imagem": "assets/images/products/morango-champanhe-mini.webp",
+          "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp",
           "tamanhos": [
             {
               "tipo": "Kit",
@@ -610,8 +610,8 @@
               "preco": 1690.0,
               "queima": "1000 h total",
               "medidas": "5 × 5 × 4 cm cada",
-              "imagem": "assets/images/products/alfazema-mini.webp",
-              "imagemThumb": "assets/images/products/alfazema-mini-thumb.webp"
+              "imagem": "assets/images/products/morango-champanhe-mini.webp",
+              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp"
             }
           ]
         }
