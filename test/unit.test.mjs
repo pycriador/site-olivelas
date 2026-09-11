@@ -38,7 +38,7 @@ const difusor = FALLBACK_DATA.aromatizadores.find(d => d.id === "ARO1");
 check("Difusor de varetas tem status Em breve", difusor.emBreve === true || difusor.badge === "Em breve");
 
 // 2. Formatters
-check("formatCurrency BRL", formatCurrency(92.9).replace(/[\u202f\u00a0]/g, " ") === "R$ 92,90");
+check("formatCurrency BRL", formatCurrency(69.9).replace(/[\u202f\u00a0]/g, " ") === "R$ 69,90");
 check("slugify remove acentos", slugify("Orquídea Negra") === "orquidea-negra");
 check("normalizeStr trata acentos e caixa", normalizeStr("Mamãe & Bebê") === "mamae & bebe");
 
@@ -55,14 +55,14 @@ check("directUrl contém nome da vela", directUrl.includes("Verbena"));
 check("directUrl contém tamanho", directUrl.includes("130%20g"));
 
 const sampleCart = [
-  { nome: "Verbena", tipo: "Padrão", peso: "130 g", preco: 92.9, quantidade: 2 },
+  { nome: "Verbena", tipo: "Padrão", peso: "130 g", preco: 69.9, quantidade: 2 },
   { nome: "Difusor de Varetas Lavanda", tipo: "Padrão", peso: "", preco: 89.9, quantidade: 1 }
 ];
-const checkoutUrl = buildCartCheckoutUrl(sampleCart, "R$ 275,70");
+const checkoutUrl = buildCartCheckoutUrl(sampleCart, "R$ 229,70");
 check("checkoutUrl contém Olivelas", checkoutUrl.includes("OLIVELAS"));
 check("checkoutUrl contém Verbena", checkoutUrl.includes("Verbena"));
 check("checkoutUrl contém Difusor", checkoutUrl.includes("Difusor"));
-check("checkoutUrl contém total R$ 275,70", checkoutUrl.includes("275%2C70"));
+check("checkoutUrl contém total R$ 229,70", checkoutUrl.includes("229%2C70"));
 
 // 5. Availability & Cart/Favs Rules
 const isItemUnavailable = (item) => {

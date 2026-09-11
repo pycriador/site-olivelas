@@ -136,8 +136,8 @@ export const FALLBACK_DATA = {
       descricao: "Notas frescas e verdes que remetem a jardins ensolarados, com equilíbrio perfeito entre cítricos suaves e folhas frescas de verbena.",
       imagem: "../assets/images/products/verbena.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/verbena-mini.webp", uid: "OV01-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/verbena.webp", uid: "OV01-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/verbena-mini.webp", uid: "OV01-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/verbena.webp", uid: "OV01-padrao" }
       ]
     },
     {
@@ -155,8 +155,8 @@ export const FALLBACK_DATA = {
       descricao: "Frescor aquático revigorante que evoca brisa marinha e amplitude. Florais delicados sobre um fundo leve, limpo e sofisticado.",
       imagem: "../assets/images/products/blue-ocean.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 44.9, imagem: "../assets/images/products/blue-ocean-mini.webp", uid: "OV02-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 95.9, imagem: "../assets/images/products/blue-ocean.webp", uid: "OV02-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/blue-ocean-mini.webp", uid: "OV02-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/blue-ocean.webp", uid: "OV02-padrao" }
       ]
     },
     {
@@ -174,8 +174,8 @@ export const FALLBACK_DATA = {
       descricao: "Doçura frutada com um toque sofisticado e festivo. Morango maduro, efervescência de champanhe e um final delicadamente adocicado.",
       imagem: "../assets/images/products/morango-champanhe.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/morango-champanhe-mini.webp", uid: "OV03-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 93.9, imagem: "../assets/images/products/morango-champanhe.webp", uid: "OV03-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/morango-champanhe-mini.webp", uid: "OV03-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/morango-champanhe.webp", uid: "OV03-padrao" }
       ]
     },
     {
@@ -193,8 +193,8 @@ export const FALLBACK_DATA = {
       descricao: "Composição envolvente de madeiras nobres, especiarias orientais e resinas ricas. Cria um clima acolhedor, introspectivo e de pura sofisticação.",
       imagem: "../assets/images/products/mistica.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 48.9, imagem: "../assets/images/products/mistica-mini.webp", uid: "OV04-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 98.9, imagem: "../assets/images/products/mistica.webp", uid: "OV04-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/mistica-mini.webp", uid: "OV04-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/mistica.webp", uid: "OV04-padrao" }
       ]
     },
     {
@@ -212,8 +212,8 @@ export const FALLBACK_DATA = {
       descricao: "Fragrância intensa e magnética. Notas florais ricas de orquídea negra combinadas com acordes orientais aveludados e calorosos.",
       imagem: "../assets/images/products/orquidea-negra.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 46.9, imagem: "../assets/images/products/orquidea-negra-mini.webp", uid: "OV05-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 99.9, imagem: "../assets/images/products/orquidea-negra.webp", uid: "OV05-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/orquidea-negra-mini.webp", uid: "OV05-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/orquidea-negra.webp", uid: "OV05-padrao" }
       ]
     },
     {
@@ -231,8 +231,8 @@ export const FALLBACK_DATA = {
       descricao: "Aconchego e ternura em forma de perfume. Toque aveludado de algodão, lavanda suave e notas de fundo confortáveis e carinhosas.",
       imagem: "../assets/images/products/mamae-bebe.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 41.9, imagem: "../assets/images/products/mamae-bebe-mini.webp", uid: "OV06-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 89.9, imagem: "../assets/images/products/mamae-bebe.webp", uid: "OV06-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/mamae-bebe-mini.webp", uid: "OV06-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/mamae-bebe.webp", uid: "OV06-padrao" }
       ]
     },
     {
@@ -250,8 +250,8 @@ export const FALLBACK_DATA = {
       descricao: "Calor e energia acolhedora. O equilíbrio clássico entre a intensidade aromática do cravo e a doçura picante da canela em pau.",
       imagem: "../assets/images/products/cravo-canela.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/cravo-canela-mini.webp", uid: "OV07-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 91.9, imagem: "../assets/images/products/cravo-canela.webp", uid: "OV07-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/cravo-canela-mini.webp", uid: "OV07-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/cravo-canela.webp", uid: "OV07-padrao" }
       ]
     },
     {
@@ -269,8 +269,8 @@ export const FALLBACK_DATA = {
       descricao: "Clássica e calmante, a lavanda francesa purifica a mente e cria um ambiente de serenidade profunda.",
       imagem: "../assets/images/products/lavanda.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 43.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "OV08-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 94.9, imagem: "../assets/images/products/lavanda.webp", uid: "OV08-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "OV08-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/lavanda.webp", uid: "OV08-padrao" }
       ]
     },
     {
@@ -288,8 +288,8 @@ export const FALLBACK_DATA = {
       descricao: "Fragrância leve e fresca que promove harmonia e clareza, perfeita para salas de estar e varandas.",
       imagem: "../assets/images/products/alfazema.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/alfazema-mini.webp", uid: "OV09-mini" },
-        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/alfazema.webp", uid: "OV09-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 12.9, imagem: "../assets/images/products/alfazema-mini.webp", uid: "OV09-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 69.9, imagem: "../assets/images/products/alfazema.webp", uid: "OV09-padrao" }
       ]
     }
   ],
