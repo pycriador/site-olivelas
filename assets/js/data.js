@@ -44,7 +44,8 @@ export const FALLBACK_DATA = {
     usarImagemFullNoModal: true,
     modoExibicaoModal: "contain",
     modoExibicaoCards: "cover",
-    proporcaoCards: "1/1"
+    proporcaoCards: "1/1",
+    alturaMaximaModal: 380
   },
   colecaoConfig: {
     eyebrow: "A coleção",
