@@ -213,6 +213,7 @@ class App {
     const priceDisplay = v.preco ? formatCurrency(v.preco) : '';
     const midiaConfig = this.data.midiaConfig || {};
     const cardFit = midiaConfig.modoExibicaoCards || 'cover';
+    const imgAlt = `Vela ${item.nome} — ${item.familia || 'Coleção Olivelas'}`;
 
     return `
       <article class="home-product-card" style="--product-accent: ${item.cor || 'var(--gold)'};" data-card-id="${item.id}" aria-label="${item.nome}">
