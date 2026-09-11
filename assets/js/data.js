@@ -43,7 +43,7 @@ export const FALLBACK_DATA = {
   colecaoConfig: {
     eyebrow: "A coleção",
     titulo: "Nossos aromas, seus rituais",
-    subtitulo: "Cada fragrância vem em dois tamanhos: Mini de 40 g, para experimentar, e Padrão de 230 g, em copo de vidro.",
+    subtitulo: "Cada fragrância vem em dois tamanhos: Mini de 30 g, para experimentar, e Padrão de 130 g, em copo de vidro.",
     notaCatalogo: "Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.",
     fineprint: "Preços válidos para pedidos combinados diretamente com o ateliê",
     colecoesDisponiveis: [
@@ -84,7 +84,7 @@ export const FALLBACK_DATA = {
     eyebrow: "O ateliê",
     titulo: "Feita à mão, em pequenos lotes",
     descricao: "A Olivelas nasce em São Paulo, com produção artesanal cuidadosa. Cada vela é derramada à mão, em pequenos lotes, com cera 100% vegetal, pavio de algodão puro e essências de alta performance que preenchem o ambiente com sutileza e requinte.",
-    especificacoes: "230 g · copo de vidro com tampa dourada · cera vegetal · pavio de algodão",
+    especificacoes: "130 g · copo de vidro com tampa dourada · cera vegetal · pavio de algodão",
     tagline: "A Olivelas transforma ambientes em momentos especiais através de aromas que acolhem e inspiram.",
     imagensAleatorias: [
       "../assets/images/products/verbena.webp",
@@ -105,7 +105,7 @@ export const FALLBACK_DATA = {
     linhas: [
       {
         titulo: "Velas da coleção",
-        descricao: "Nossos aromas autorais em versões Mini (40 g) ou Padrão (230 g com tampa dourada)."
+        descricao: "Nossos aromas autorais em versões Mini (30 g) ou Padrão (130 g com tampa dourada)."
       },
       {
         titulo: "Lembrancinhas de eventos",
@@ -136,8 +136,8 @@ export const FALLBACK_DATA = {
       descricao: "Notas frescas e verdes que remetem a jardins ensolarados, com equilíbrio perfeito entre cítricos suaves e folhas frescas de verbena.",
       imagem: "../assets/images/products/verbena.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/verbena-mini.webp", uid: "OV01-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/verbena.webp", uid: "OV01-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/verbena-mini.webp", uid: "OV01-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/verbena.webp", uid: "OV01-padrao" }
       ]
     },
     {
@@ -155,8 +155,8 @@ export const FALLBACK_DATA = {
       descricao: "Frescor aquático revigorante que evoca brisa marinha e amplitude. Florais delicados sobre um fundo leve, limpo e sofisticado.",
       imagem: "../assets/images/products/blue-ocean.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 44.9, imagem: "../assets/images/products/blue-ocean-mini.webp", uid: "OV02-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 95.9, imagem: "../assets/images/products/blue-ocean.webp", uid: "OV02-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 44.9, imagem: "../assets/images/products/blue-ocean-mini.webp", uid: "OV02-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 95.9, imagem: "../assets/images/products/blue-ocean.webp", uid: "OV02-padrao" }
       ]
     },
     {
@@ -174,8 +174,8 @@ export const FALLBACK_DATA = {
       descricao: "Doçura frutada com um toque sofisticado e festivo. Morango maduro, efervescência de champanhe e um final delicadamente adocicado.",
       imagem: "../assets/images/products/morango-champanhe.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/morango-champanhe-mini.webp", uid: "OV03-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 93.9, imagem: "../assets/images/products/morango-champanhe.webp", uid: "OV03-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/morango-champanhe-mini.webp", uid: "OV03-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 93.9, imagem: "../assets/images/products/morango-champanhe.webp", uid: "OV03-padrao" }
       ]
     },
     {
@@ -193,8 +193,8 @@ export const FALLBACK_DATA = {
       descricao: "Composição envolvente de madeiras nobres, especiarias orientais e resinas ricas. Cria um clima acolhedor, introspectivo e de pura sofisticação.",
       imagem: "../assets/images/products/mistica.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 48.9, imagem: "../assets/images/products/mistica-mini.webp", uid: "OV04-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 98.9, imagem: "../assets/images/products/mistica.webp", uid: "OV04-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 48.9, imagem: "../assets/images/products/mistica-mini.webp", uid: "OV04-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 98.9, imagem: "../assets/images/products/mistica.webp", uid: "OV04-padrao" }
       ]
     },
     {
@@ -212,8 +212,8 @@ export const FALLBACK_DATA = {
       descricao: "Fragrância intensa e magnética. Notas florais ricas de orquídea negra combinadas com acordes orientais aveludados e calorosos.",
       imagem: "../assets/images/products/orquidea-negra.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 46.9, imagem: "../assets/images/products/orquidea-negra-mini.webp", uid: "OV05-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 99.9, imagem: "../assets/images/products/orquidea-negra.webp", uid: "OV05-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 46.9, imagem: "../assets/images/products/orquidea-negra-mini.webp", uid: "OV05-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 99.9, imagem: "../assets/images/products/orquidea-negra.webp", uid: "OV05-padrao" }
       ]
     },
     {
@@ -231,8 +231,8 @@ export const FALLBACK_DATA = {
       descricao: "Aconchego e ternura em forma de perfume. Toque aveludado de algodão, lavanda suave e notas de fundo confortáveis e carinhosas.",
       imagem: "../assets/images/products/mamae-bebe.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 41.9, imagem: "../assets/images/products/mamae-bebe-mini.webp", uid: "OV06-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 89.9, imagem: "../assets/images/products/mamae-bebe.webp", uid: "OV06-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 41.9, imagem: "../assets/images/products/mamae-bebe-mini.webp", uid: "OV06-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 89.9, imagem: "../assets/images/products/mamae-bebe.webp", uid: "OV06-padrao" }
       ]
     },
     {
@@ -250,8 +250,8 @@ export const FALLBACK_DATA = {
       descricao: "Calor e energia acolhedora. O equilíbrio clássico entre a intensidade aromática do cravo e a doçura picante da canela em pau.",
       imagem: "../assets/images/products/cravo-canela.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/cravo-canela-mini.webp", uid: "OV07-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 91.9, imagem: "../assets/images/products/cravo-canela.webp", uid: "OV07-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/cravo-canela-mini.webp", uid: "OV07-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 91.9, imagem: "../assets/images/products/cravo-canela.webp", uid: "OV07-padrao" }
       ]
     },
     {
@@ -269,8 +269,8 @@ export const FALLBACK_DATA = {
       descricao: "Clássica e calmante, a lavanda francesa purifica a mente e cria um ambiente de serenidade profunda.",
       imagem: "../assets/images/products/lavanda.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 43.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "OV08-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 94.9, imagem: "../assets/images/products/lavanda.webp", uid: "OV08-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 43.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "OV08-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 94.9, imagem: "../assets/images/products/lavanda.webp", uid: "OV08-padrao" }
       ]
     },
     {
@@ -288,8 +288,8 @@ export const FALLBACK_DATA = {
       descricao: "Fragrância leve e fresca que promove harmonia e clareza, perfeita para salas de estar e varandas.",
       imagem: "../assets/images/products/alfazema.webp",
       tamanhos: [
-        { tipo: "Mini", peso: "40 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/alfazema-mini.webp", uid: "OV09-mini" },
-        { tipo: "Padrão", peso: "230 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/alfazema.webp", uid: "OV09-padrao" }
+        { tipo: "Mini", peso: "30 g", queima: "≈ 20 h", preco: 42.9, imagem: "../assets/images/products/alfazema-mini.webp", uid: "OV09-mini" },
+        { tipo: "Padrão", peso: "130 g", queima: "≈ 50 h", preco: 92.9, imagem: "../assets/images/products/alfazema.webp", uid: "OV09-padrao" }
       ]
     }
   ],
@@ -300,16 +300,16 @@ export const FALLBACK_DATA = {
       slug: "kit-3-mini-velas",
       categoria: "kits",
       tags: ["mais-vendidos", "novidades"],
-      familia: "Trio Degustação · 3x 40 g",
+      familia: "Trio Degustação · 3x 30 g",
       cor: "var(--lavanda)",
       hexCor: "#8A7F9D",
       codigo: "KIT01",
       badge: "Presenteável",
-      nota: "Seleção com 3 fragrâncias de 40 g em caixa rígida para presente.",
-      descricao: "Seleção com 3 fragrâncias autorais de 40 g em caixa rígida para presente. Ideal para experimentar diferentes rituais olfativos.",
+      nota: "Seleção com 3 fragrâncias de 30 g em caixa rígida para presente.",
+      descricao: "Seleção com 3 fragrâncias autorais de 30 g em caixa rígida para presente. Ideal para experimentar diferentes rituais olfativos.",
       imagem: "../assets/images/products/lavanda-mini.webp",
       tamanhos: [
-        { tipo: "Kit", peso: "3x 40 g", queima: "≈ 60 h total", preco: 119.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "KIT01-kit" }
+        { tipo: "Kit", peso: "3x 30 g", queima: "≈ 60 h total", preco: 119.9, imagem: "../assets/images/products/lavanda-mini.webp", uid: "KIT01-kit" }
       ]
     },
     {
@@ -318,16 +318,16 @@ export const FALLBACK_DATA = {
       slug: "kit-10-mini-velas",
       categoria: "kits",
       tags: ["novidades"],
-      familia: "Lembrancinhas · 10x 40 g",
+      familia: "Lembrancinhas · 10x 30 g",
       cor: "var(--verbena)",
       hexCor: "#8EA487",
       codigo: "KIT02",
       badge: "Lembrancinhas",
-      nota: "Conjunto de 10 mini velas artesanais de 40 g para presentear ou eventos.",
-      descricao: "Conjunto de 10 mini velas artesanais de 40 g para presentear convidados especiais, padrinhos ou celebrações íntimas.",
+      nota: "Conjunto de 10 mini velas artesanais de 30 g para presentear ou eventos.",
+      descricao: "Conjunto de 10 mini velas artesanais de 30 g para presentear convidados especiais, padrinhos ou celebrações íntimas.",
       imagem: "../assets/images/products/verbena-mini.webp",
       tamanhos: [
-        { tipo: "Kit", peso: "10x 40 g", queima: "≈ 200 h total", preco: 369.0, imagem: "../assets/images/products/verbena-mini.webp", uid: "KIT02-kit" }
+        { tipo: "Kit", peso: "10x 30 g", queima: "≈ 200 h total", preco: 369.0, imagem: "../assets/images/products/verbena-mini.webp", uid: "KIT02-kit" }
       ]
     },
     {
@@ -336,16 +336,16 @@ export const FALLBACK_DATA = {
       slug: "kit-50-mini-velas",
       categoria: "kits",
       tags: ["novidades"],
-      familia: "Eventos & Casamentos · 50x 40 g",
+      familia: "Eventos & Casamentos · 50x 30 g",
       cor: "var(--blue-ocean)",
       hexCor: "#6E8797",
       codigo: "KIT03",
       badge: "Eventos",
-      nota: "Lote de 50 mini velas artesanais de 40 g para casamentos e festas.",
-      descricao: "Lote de 50 mini velas artesanais de 40 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
+      nota: "Lote de 50 mini velas artesanais de 30 g para casamentos e festas.",
+      descricao: "Lote de 50 mini velas artesanais de 30 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
       imagem: "../assets/images/products/alfazema-mini.webp",
       tamanhos: [
-        { tipo: "Kit", peso: "50x 40 g", queima: "≈ 1000 h total", preco: 1690.0, imagem: "../assets/images/products/alfazema-mini.webp", uid: "KIT03-kit" }
+        { tipo: "Kit", peso: "50x 30 g", queima: "≈ 1000 h total", preco: 1690.0, imagem: "../assets/images/products/alfazema-mini.webp", uid: "KIT03-kit" }
       ]
     }
   ],

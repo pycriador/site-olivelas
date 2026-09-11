@@ -49,7 +49,7 @@ Itens indisponíveis exibem botão desabilitado na interface, enquanto o recurso
   ```
 
 ### Regra de Independência entre Variantes:
-Ao clicar no coração de favorito em `OV01-mini` (Verbena Mini 40g), apenas o identificador `OV01-mini` é inserido no `Set`. A variante `OV01-padrao` (Verbena Padrão 230g) permanece desmarcada, respeitando a intenção exata do cliente.
+Ao clicar no coração de favorito em `OV01-mini` (Verbena Mini 30g), apenas o identificador `OV01-mini` é inserido no `Set`. A variante `OV01-padrao` (Verbena Padrão 130g) permanece desmarcada, respeitando a intenção exata do cliente.
 
 ---
 

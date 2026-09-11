@@ -26,7 +26,8 @@ graph LR
 
 ### Equações de Mapeamento:
 1. **Posição Angular $	heta$**:
-   $$	heta = rcsin\left(rac{x - w/2}{w/2} \cdot \sin(	heta_{max})ight), \quad 	heta_{max} = rac{\pi}{6} pprox 30^\circ$$
+   $$	heta = rcsin\left(rac{x - w/2}{w/2} \cdot \sin(	heta_{max})
+ight), \quad 	heta_{max} = rac{\pi}{6} pprox 30^\circ$$
 2. **Atenuação de Luz Lateral (Shading)**:
    $$I(	heta) = 0.94 + 0.08 \cdot \cos(	heta)$$
 

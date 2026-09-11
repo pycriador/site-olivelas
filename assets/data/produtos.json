@@ -37,17 +37,47 @@
   "colecaoConfig": {
     "eyebrow": "A coleção",
     "titulo": "Nossos aromas, seus rituais",
-    "subtitulo": "Cada fragrância vem em dois tamanhos: Mini de 40 g, para experimentar, e Padrão de 230 g, em copo de vidro.",
+    "subtitulo": "Cada fragrância vem em dois tamanhos: Mini de 30 g, para experimentar, e Padrão de 130 g, em copo de vidro.",
     "notaCatalogo": "Todas as velas acompanham instruções de primeiro uso para máxima durabilidade e difusão.",
     "fineprint": "Preços válidos para pedidos combinados diretamente com o ateliê",
     "colecoesDisponiveis": [
-      { "id": "todos", "nome": "Todos os produtos", "filtro": "todos" },
-      { "id": "velas", "nome": "Velas Aromáticas", "filtro": "velas" },
-      { "id": "kits", "nome": "Kits", "filtro": "kits" },
-      { "id": "aromatizadores", "nome": "Aromatizadores", "filtro": "aromatizadores" },
-      { "id": "acessorios", "nome": "Acessórios", "filtro": "acessorios" }
+      {
+        "id": "todos",
+        "nome": "Todos os produtos",
+        "filtro": "todos"
+      },
+      {
+        "id": "velas",
+        "nome": "Velas Aromáticas",
+        "filtro": "velas"
+      },
+      {
+        "id": "kits",
+        "nome": "Kits",
+        "filtro": "kits"
+      },
+      {
+        "id": "aromatizadores",
+        "nome": "Aromatizadores",
+        "filtro": "aromatizadores"
+      },
+      {
+        "id": "acessorios",
+        "nome": "Acessórios",
+        "filtro": "acessorios"
+      }
     ],
-    "velasAtivas": ["OV01", "OV02", "OV03", "OV04", "OV05", "OV06", "OV07", "OV08", "OV09"]
+    "velasAtivas": [
+      "OV01",
+      "OV02",
+      "OV03",
+      "OV04",
+      "OV05",
+      "OV06",
+      "OV07",
+      "OV08",
+      "OV09"
+    ]
   },
   "complementosConfig": {
     "eyebrow": "Para completar o ambiente",
@@ -58,7 +88,7 @@
     "eyebrow": "O ateliê",
     "titulo": "Feita à mão, em pequenos lotes",
     "descricao": "A Olivelas nasce em São Paulo, com produção artesanal cuidadosa. Cada vela é derramada à mão, em pequenos lotes, com cera 100% vegetal, pavio de algodão puro e essências de alta performance que preenchem o ambiente com sutileza e requinte.",
-    "especificacoes": "230 g · copo de vidro · cera vegetal · pavio de algodão",
+    "especificacoes": "130 g · copo de vidro · cera vegetal · pavio de algodão",
     "tagline": "A Olivelas transforma ambientes em momentos especiais através de aromas que acolhem e inspiram.",
     "imagensAleatorias": [
       "assets/images/products/verbena.webp",
@@ -79,7 +109,7 @@
     "linhas": [
       {
         "titulo": "Velas da coleção",
-        "descricao": "Nossos aromas autorais em versões Mini (40 g) ou Padrão (230 g em copo de vidro)."
+        "descricao": "Nossos aromas autorais em versões Mini (30 g) ou Padrão (130 g em copo de vidro)."
       },
       {
         "titulo": "Lembrancinhas de eventos",
@@ -146,7 +176,9 @@
           "id": "OV01",
           "nome": "Verbena",
           "slug": "verbena",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Frutal Verde",
           "corExclusiva": "#8EA487",
           "icone": "leaf",
@@ -158,7 +190,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
@@ -169,7 +201,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
@@ -183,7 +215,9 @@
           "id": "OV02",
           "nome": "Blue Ocean",
           "slug": "blue-ocean",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Floral Frutal",
           "corExclusiva": "#6E8797",
           "icone": "wave",
@@ -195,7 +229,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 44.9,
               "queima": "20 h",
@@ -206,7 +240,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 95.9,
               "queima": "50 h",
@@ -220,7 +254,9 @@
           "id": "OV03",
           "nome": "Morango & Champanhe",
           "slug": "morango-champanhe",
-          "tags": ["novidades"],
+          "tags": [
+            "novidades"
+          ],
           "familiaOlfativa": "Frutal Gourmand",
           "corExclusiva": "#C49A90",
           "icone": "sparkle",
@@ -232,7 +268,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
@@ -243,7 +279,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
@@ -257,7 +293,9 @@
           "id": "OV04",
           "nome": "Mística",
           "slug": "mistica",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Oriental Ambarada",
           "corExclusiva": "#525C67",
           "icone": "star",
@@ -269,7 +307,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
@@ -280,7 +318,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
@@ -294,7 +332,9 @@
           "id": "OV05",
           "nome": "Lavanda",
           "slug": "lavanda",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Herbal Floral",
           "corExclusiva": "#8A7F9D",
           "icone": "lavender",
@@ -306,7 +346,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 39.9,
               "queima": "20 h",
@@ -317,7 +357,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 88.9,
               "queima": "50 h",
@@ -331,7 +371,9 @@
           "id": "OV06",
           "nome": "Orquídea Negra",
           "slug": "orquidea-negra",
-          "tags": ["novidades"],
+          "tags": [
+            "novidades"
+          ],
           "familiaOlfativa": "Floral Oriental",
           "corExclusiva": "#5B3645",
           "icone": "flower",
@@ -343,7 +385,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 44.9,
               "queima": "20 h",
@@ -354,7 +396,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 95.9,
               "queima": "50 h",
@@ -368,7 +410,9 @@
           "id": "OV07",
           "nome": "Mamãe & Bebê",
           "slug": "mamae-bebe",
-          "tags": ["novidades"],
+          "tags": [
+            "novidades"
+          ],
           "familiaOlfativa": "Floral Conforto",
           "corExclusiva": "#BFC2BC",
           "icone": "heart",
@@ -380,7 +424,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
@@ -391,7 +435,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
@@ -405,7 +449,9 @@
           "id": "OV08",
           "nome": "Cravo & Canela",
           "slug": "cravo-canela",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Especiarias Quentes",
           "corExclusiva": "#A96F4E",
           "icone": "spice",
@@ -417,7 +463,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 42.9,
               "queima": "20 h",
@@ -428,7 +474,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 92.9,
               "queima": "50 h",
@@ -442,7 +488,9 @@
           "id": "OV09",
           "nome": "Alfazema",
           "slug": "alfazema",
-          "tags": ["mais-vendidos"],
+          "tags": [
+            "mais-vendidos"
+          ],
           "familiaOlfativa": "Herbal Fresco",
           "corExclusiva": "#8FA2A6",
           "icone": "lavender",
@@ -454,7 +502,7 @@
             {
               "tipo": "Mini",
               "recipiente": "Potinho de vidro",
-              "peso": "40 g",
+              "peso": "30 g",
               "quantidade": 1,
               "preco": 39.9,
               "queima": "20 h",
@@ -465,7 +513,7 @@
             {
               "tipo": "Padrão",
               "recipiente": "Copo de vidro",
-              "peso": "230 g",
+              "peso": "130 g",
               "quantidade": 1,
               "preco": 88.9,
               "queima": "50 h",
@@ -486,19 +534,22 @@
           "id": "KIT01",
           "nome": "Kit 3 Mini Velas",
           "slug": "kit-3-mini-velas",
-          "tags": ["mais-vendidos", "novidades"],
-          "familiaOlfativa": "Seleção Especial · 3x 40 g",
+          "tags": [
+            "mais-vendidos",
+            "novidades"
+          ],
+          "familiaOlfativa": "Seleção Especial · 3x 30 g",
           "corExclusiva": "#B79C6B",
           "icone": "sparkle",
           "badge": "Destaque",
-          "descricao": "Trio exclusivo com 3 mini velas artesanais de 40 g em potinho de vidro com aromas à sua escolha.",
+          "descricao": "Trio exclusivo com 3 mini velas artesanais de 30 g em potinho de vidro com aromas à sua escolha.",
           "imagem": "assets/images/products/lavanda-mini.webp",
           "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp",
           "tamanhos": [
             {
               "tipo": "Kit",
               "recipiente": "3x Potinho de vidro",
-              "peso": "3x 40 g",
+              "peso": "3x 30 g",
               "quantidade": 3,
               "preco": 119.9,
               "queima": "60 h total",
@@ -512,19 +563,21 @@
           "id": "KIT02",
           "nome": "Kit 10 Mini Velas",
           "slug": "kit-10-mini-velas",
-          "tags": ["novidades"],
-          "familiaOlfativa": "Lembrancinhas & Presentes · 10x 40 g",
+          "tags": [
+            "novidades"
+          ],
+          "familiaOlfativa": "Lembrancinhas & Presentes · 10x 30 g",
           "corExclusiva": "#8EA487",
           "icone": "leaf",
           "badge": "Mais vendido",
-          "descricao": "Conjunto com 10 mini velas artesanais de 40 g. Ideal para lembrancinhas de batizados, maternidade ou presentes.",
+          "descricao": "Conjunto com 10 mini velas artesanais de 30 g. Ideal para lembrancinhas de batizados, maternidade ou presentes.",
           "imagem": "assets/images/products/verbena-mini.webp",
           "imagemThumb": "assets/images/products/verbena-mini-thumb.webp",
           "tamanhos": [
             {
               "tipo": "Kit",
               "recipiente": "10x Potinho de vidro",
-              "peso": "10x 40 g",
+              "peso": "10x 30 g",
               "quantidade": 10,
               "preco": 379.9,
               "queima": "200 h total",
@@ -538,19 +591,21 @@
           "id": "KIT03",
           "nome": "Kit 50 Mini Velas",
           "slug": "kit-50-mini-velas",
-          "tags": ["novidades"],
-          "familiaOlfativa": "Eventos & Casamentos · 50x 40 g",
+          "tags": [
+            "novidades"
+          ],
+          "familiaOlfativa": "Eventos & Casamentos · 50x 30 g",
           "corExclusiva": "#6E8797",
           "icone": "wave",
           "badge": "Eventos",
-          "descricao": "Lote de 50 mini velas artesanais de 40 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
+          "descricao": "Lote de 50 mini velas artesanais de 30 g para casamentos, festas e celebrações corporativas com rótulo personalizado.",
           "imagem": "assets/images/products/alfazema-mini.webp",
           "imagemThumb": "assets/images/products/alfazema-mini-thumb.webp",
           "tamanhos": [
             {
               "tipo": "Kit",
               "recipiente": "50x Potinho de vidro",
-              "peso": "50x 40 g",
+              "peso": "50x 30 g",
               "quantidade": 50,
               "preco": 1690.0,
               "queima": "1000 h total",
@@ -571,7 +626,9 @@
           "id": "ARO1",
           "nome": "Difusor de Varetas — Alfazema",
           "slug": "difusor-alfazema",
-          "tags": ["rituais"],
+          "tags": [
+            "rituais"
+          ],
           "familiaOlfativa": "Herbal Fresco · 100 ml",
           "corExclusiva": "#8FA2A6",
           "icone": "lavender",
@@ -598,7 +655,9 @@
           "id": "ARO2",
           "nome": "Difusor de Varetas — Lavanda",
           "slug": "difusor-lavanda",
-          "tags": ["rituais"],
+          "tags": [
+            "rituais"
+          ],
           "familiaOlfativa": "Herbal Floral · 100 ml",
           "corExclusiva": "#8A7F9D",
           "icone": "lavender",
@@ -625,7 +684,9 @@
           "id": "ARO3",
           "nome": "Sachê Aromático Para Gavetas",
           "slug": "sache-guarda-roupa",
-          "tags": ["rituais"],
+          "tags": [
+            "rituais"
+          ],
           "familiaOlfativa": "Floral Amadeirado",
           "corExclusiva": "#BFC2BC",
           "icone": "leaf",
@@ -659,7 +720,9 @@
           "id": "ACC2",
           "nome": "Cortador de Pavio Dourado",
           "slug": "cortador-pavio",
-          "tags": ["rituais"],
+          "tags": [
+            "rituais"
+          ],
           "familiaOlfativa": "Cuidados da Vela",
           "corExclusiva": "#B79C6B",
           "icone": "sparkle",
@@ -686,7 +749,9 @@
           "id": "ACC1",
           "nome": "Fósforos Longos Decorativos",
           "slug": "kit-fosforos",
-          "tags": ["rituais"],
+          "tags": [
+            "rituais"
+          ],
           "familiaOlfativa": "Ritual & Decoração",
           "corExclusiva": "#A96F4E",
           "icone": "spice",

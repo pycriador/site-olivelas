@@ -14,8 +14,8 @@ Cada produto em `produtos.json` pode conter $N$ tamanhos. A função `normalize(
 
 ```mermaid
 flowchart TD
-    P[Produto Pai: OV01 - Verbena] --> T1[Tamanho: Mini 40g]
-    P --> T2[Tamanho: Padrão 230g]
+    P[Produto Pai: OV01 - Verbena] --> T1[Tamanho: Mini 30g]
+    P --> T2[Tamanho: Padrão 130g]
     
     T1 -->|Normalização| U1[Item Plano: uid = 'OV01-mini'<br/>Foto: verbena-mini.webp<br/>Preço: R$ 42,90]
     T2 -->|Normalização| U2[Item Plano: uid = 'OV01-padrao'<br/>Foto: verbena.webp<br/>Preço: R$ 92,90]

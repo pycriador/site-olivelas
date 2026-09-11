@@ -26,7 +26,7 @@ sequenceDiagram
     Modal->>Modal: openModal('OV01-mini')
     Modal->>DOM: addClass('is-open') & addClass('is-locked')
     
-    Note over Modal: Usuário troca para tamanho Padrão 230g
+    Note over Modal: Usuário troca para tamanho Padrão 130g
     Modal->>Modal: openModal('OV01-padrao')
     Modal->>URL: history.replaceState('#produto-OV01-padrao')
     

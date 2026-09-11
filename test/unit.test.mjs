@@ -49,13 +49,13 @@ check("Verbena Mini tem imagem própria", verbena.tamanhos[0].imagem.includes("-
 check("Verbena Mini e Padrão têm uids distintos", verbena.tamanhos[0].uid === "OV01-mini" && verbena.tamanhos[1].uid === "OV01-padrao");
 
 // 4. WhatsApp Messages
-const directUrl = buildDirectItemUrl("Verbena", "Tamanho Padrão 230 g");
+const directUrl = buildDirectItemUrl("Verbena", "Tamanho Padrão 130 g");
 check("directUrl contém wa.me", directUrl.includes("https://wa.me/5511963820374?text="));
 check("directUrl contém nome da vela", directUrl.includes("Verbena"));
-check("directUrl contém tamanho", directUrl.includes("230%20g"));
+check("directUrl contém tamanho", directUrl.includes("130%20g"));
 
 const sampleCart = [
-  { nome: "Verbena", tipo: "Padrão", peso: "230 g", preco: 92.9, quantidade: 2 },
+  { nome: "Verbena", tipo: "Padrão", peso: "130 g", preco: 92.9, quantidade: 2 },
   { nome: "Difusor de Varetas Lavanda", tipo: "Padrão", peso: "", preco: 89.9, quantidade: 1 }
 ];
 const checkoutUrl = buildCartCheckoutUrl(sampleCart, "R$ 275,70");

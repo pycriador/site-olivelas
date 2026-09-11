@@ -25,7 +25,7 @@ O **OLIVELAS** é um catálogo digital headless de alto padrão estético para v
 |   2. NORMALIZAÇÃO HIERÁRQUICA -> REGISTROS PLANOS COM CHAVE PRIMÁRIA `uid`                         |
 |      - Hierarquia JSON: Categorias -> Produtos (OV01) -> Tamanhos (Mini, Padrão)                   |
 |      - Modelo em Memória: Lista plana de variantes onde a chave primária única é o `uid`:          |
-|        Ex: "OV01-mini" (Mini 40g) vs "OV01-padrao" (Padrão 230g)                                   |
+|        Ex: "OV01-mini" (Mini 30g) vs "OV01-padrao" (Padrão 130g)                                   |
 |      - Cada `uid` tem sua própria foto, peso, preço, status de estoque e favorito independente.    |
 |                                                                                                    |
 |   3. DESACOPLAMENTO TOTAL VIA MICRO EVENTBUS (Pub/Sub)                                             |

@@ -126,7 +126,7 @@ Seções editoriais temáticas renderizadas na página inicial:
     {
       "tipo": "Mini",
       "recipiente": "Potinho de vidro",
-      "peso": "40 g",
+      "peso": "30 g",
       "quantidade": 1,
       "preco": 42.9,
       "queima": "20 h",
@@ -138,7 +138,7 @@ Seções editoriais temáticas renderizadas na página inicial:
     {
       "tipo": "Padrão",
       "recipiente": "Copo de vidro com tampa dourada",
-      "peso": "230 g",
+      "peso": "130 g",
       "quantidade": 1,
       "preco": 92.9,
       "queima": "50 h",
