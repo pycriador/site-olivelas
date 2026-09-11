@@ -42,10 +42,9 @@ export const FALLBACK_DATA = {
   ],
   midiaConfig: {
     usarImagemFullNoModal: true,
-    modoExibicaoModal: "contain",
+    modoExibicaoModal: "cover",
     modoExibicaoCards: "cover",
-    proporcaoCards: "1/1",
-    alturaMaximaModal: 380
+    proporcaoCards: "1/1"
   },
   colecaoConfig: {
     eyebrow: "A coleção",

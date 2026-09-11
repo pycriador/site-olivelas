@@ -244,7 +244,7 @@ class ProductModal {
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
       <div class="modal-gallery">
-        <img src="${img}" alt="${modalImgAlt}" loading="lazy" width="480" height="480" style="object-fit: ${modalFit};${midiaConfig.alturaMaximaModal ? ` max-height: ${midiaConfig.alturaMaximaModal}px;` : ''}">
+        <img src="${img}" alt="${modalImgAlt}" loading="lazy" width="480" height="480" style="object-fit: ${modalFit};">
       </div>
       <div class="modal-info">
         <div>
