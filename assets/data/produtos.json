@@ -196,7 +196,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/verbena-mini.webp",
-              "imagemThumb": "assets/images/products/verbena-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/verbena-mini-thumb.webp",
+              "imagemFull": "assets/images/products/verbena-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -207,9 +208,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/verbena.webp",
-              "imagemThumb": "assets/images/products/verbena-thumb.webp"
+              "imagemThumb": "assets/images/products/verbena-thumb.webp",
+              "imagemFull": "assets/images/products/verbena-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/verbena-full.webp"
         },
         {
           "id": "OV02",
@@ -235,7 +238,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/blue-ocean-mini.webp",
-              "imagemThumb": "assets/images/products/blue-ocean-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/blue-ocean-mini-thumb.webp",
+              "imagemFull": "assets/images/products/blue-ocean-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -246,9 +250,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/blue-ocean.webp",
-              "imagemThumb": "assets/images/products/blue-ocean-thumb.webp"
+              "imagemThumb": "assets/images/products/blue-ocean-thumb.webp",
+              "imagemFull": "assets/images/products/blue-ocean-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/blue-ocean-full.webp"
         },
         {
           "id": "OV03",
@@ -274,7 +280,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/morango-champanhe-mini.webp",
-              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp",
+              "imagemFull": "assets/images/products/morango-champanhe-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -285,9 +292,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/morango-champanhe.webp",
-              "imagemThumb": "assets/images/products/morango-champanhe-thumb.webp"
+              "imagemThumb": "assets/images/products/morango-champanhe-thumb.webp",
+              "imagemFull": "assets/images/products/morango-champanhe-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/morango-champanhe-full.webp"
         },
         {
           "id": "OV04",
@@ -313,7 +322,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/mistica-mini.webp",
-              "imagemThumb": "assets/images/products/mistica-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/mistica-mini-thumb.webp",
+              "imagemFull": "assets/images/products/mistica-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -324,9 +334,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/mistica.webp",
-              "imagemThumb": "assets/images/products/mistica-thumb.webp"
+              "imagemThumb": "assets/images/products/mistica-thumb.webp",
+              "imagemFull": "assets/images/products/mistica-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/mistica-full.webp"
         },
         {
           "id": "OV05",
@@ -352,7 +364,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/lavanda-mini.webp",
-              "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp",
+              "imagemFull": "assets/images/products/lavanda-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -363,9 +376,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/lavanda.webp",
-              "imagemThumb": "assets/images/products/lavanda-thumb.webp"
+              "imagemThumb": "assets/images/products/lavanda-thumb.webp",
+              "imagemFull": "assets/images/products/lavanda-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/lavanda-full.webp"
         },
         {
           "id": "OV06",
@@ -391,7 +406,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/orquidea-negra-mini.webp",
-              "imagemThumb": "assets/images/products/orquidea-negra-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/orquidea-negra-mini-thumb.webp",
+              "imagemFull": "assets/images/products/orquidea-negra-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -402,9 +418,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/orquidea-negra.webp",
-              "imagemThumb": "assets/images/products/orquidea-negra-thumb.webp"
+              "imagemThumb": "assets/images/products/orquidea-negra-thumb.webp",
+              "imagemFull": "assets/images/products/orquidea-negra-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/orquidea-negra-full.webp"
         },
         {
           "id": "OV07",
@@ -430,7 +448,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/mamae-bebe-mini.webp",
-              "imagemThumb": "assets/images/products/mamae-bebe-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/mamae-bebe-mini-thumb.webp",
+              "imagemFull": "assets/images/products/mamae-bebe-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -441,9 +460,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/mamae-bebe.webp",
-              "imagemThumb": "assets/images/products/mamae-bebe-thumb.webp"
+              "imagemThumb": "assets/images/products/mamae-bebe-thumb.webp",
+              "imagemFull": "assets/images/products/mamae-bebe-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/mamae-bebe-full.webp"
         },
         {
           "id": "OV08",
@@ -469,7 +490,8 @@
               "queima": "20 h",
               "medidas": "5 × 5 × 4 cm",
               "imagem": "assets/images/products/cravo-canela-mini.webp",
-              "imagemThumb": "assets/images/products/cravo-canela-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/cravo-canela-mini-thumb.webp",
+              "imagemFull": "assets/images/products/cravo-canela-mini-full.webp"
             },
             {
               "tipo": "Padrão",
@@ -480,9 +502,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/cravo-canela.webp",
-              "imagemThumb": "assets/images/products/cravo-canela-thumb.webp"
+              "imagemThumb": "assets/images/products/cravo-canela-thumb.webp",
+              "imagemFull": "assets/images/products/cravo-canela-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/cravo-canela-full.webp"
         },
         {
           "id": "OV09",
@@ -519,9 +543,11 @@
               "queima": "50 h",
               "medidas": "8 × 8 × 9 cm",
               "imagem": "assets/images/products/alfazema.webp",
-              "imagemThumb": "assets/images/products/alfazema-thumb.webp"
+              "imagemThumb": "assets/images/products/alfazema-thumb.webp",
+              "imagemFull": "assets/images/products/alfazema-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/alfazema-full.webp"
         }
       ]
     },
@@ -555,9 +581,11 @@
               "queima": "60 h total",
               "medidas": "5 × 5 × 4 cm cada",
               "imagem": "assets/images/products/lavanda-mini.webp",
-              "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/lavanda-mini-thumb.webp",
+              "imagemFull": "assets/images/products/lavanda-mini-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/lavanda-mini-full.webp"
         },
         {
           "id": "KIT02",
@@ -583,9 +611,11 @@
               "queima": "200 h total",
               "medidas": "5 × 5 × 4 cm cada",
               "imagem": "assets/images/products/verbena-mini.webp",
-              "imagemThumb": "assets/images/products/verbena-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/verbena-mini-thumb.webp",
+              "imagemFull": "assets/images/products/verbena-mini-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/verbena-mini-full.webp"
         },
         {
           "id": "KIT03",
@@ -611,9 +641,11 @@
               "queima": "1000 h total",
               "medidas": "5 × 5 × 4 cm cada",
               "imagem": "assets/images/products/morango-champanhe-mini.webp",
-              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp"
+              "imagemThumb": "assets/images/products/morango-champanhe-mini-thumb.webp",
+              "imagemFull": "assets/images/products/morango-champanhe-mini-full.webp"
             }
-          ]
+          ],
+          "imagemFull": "assets/images/products/morango-champanhe-mini-full.webp"
         }
       ]
     },

@@ -156,7 +156,7 @@ class ProductModal {
     const p = this.currentProduct;
     const isCandle = !!(p.tamanhos && p.tamanhos.length > 0);
     const v = this.selectedVariant || p;
-    const img = v.imagem || p.imagem;
+    const img = v.imagemFull || v.imagem || p.imagemFull || p.imagem;
     const priceFormatted = formatCurrency(v.preco);
     const isEsgotado = Boolean(p.esgotado || (p.badge && p.badge.toLowerCase().includes('esgotado')));
     const isEmBreve = Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve')));
