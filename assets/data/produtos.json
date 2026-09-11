@@ -808,5 +808,11 @@
         }
       ]
     }
-  ]
+  ],
+  "midiaConfig": {
+    "usarImagemFullNoModal": true,
+    "modoExibicaoModal": "contain",
+    "modoExibicaoCards": "cover",
+    "proporcaoCards": "1/1"
+  }
 }

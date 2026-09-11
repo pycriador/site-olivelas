@@ -90,6 +90,13 @@ Seções editoriais temáticas renderizadas na página inicial:
 - `description` (*string*): Descrição do conceito da seleção.
 - `tag` (*string*): Tag de correspondência para filtrar os produtos vinculados.
 
+### Bloco `midiaConfig`
+Configurações dinâmicas de exibição de mídia:
+- `usarImagemFullNoModal` (*boolean*): Se `true`, o modal de detalhes renderiza a arte completa sem cortes (`imagemFull`). Se `false`, utiliza a imagem padrão (`imagem`).
+- `modoExibicaoModal` (*string*): Modo CSS `object-fit` da foto dentro do modal (`"contain"` ou `"cover"`).
+- `modoExibicaoCards` (*string*): Modo CSS `object-fit` da foto nos cards do catálogo e home (`"cover"` ou `"contain"`).
+- `proporcaoCards` (*string*): Proporção geométrica dos cards (`"1/1"`).
+
 ### Bloco `categorias[].produtos[]`
 - `id` (*string*): Identificador curto do aroma/produto (ex: `"OV01"`, `"ARO1"`, `"ACC1"`, `"KIT01"`).
 - `slug` (*string*): Identificador amigável em kebab-case usado para resolução de ícones e rotas (ex: `"verbena"`, `"blue-ocean"`).
@@ -97,12 +104,14 @@ Seções editoriais temáticas renderizadas na página inicial:
 - `emBreve` (*boolean*, opcional): Flag que define lançamentos futuros ("Em breve").
 - `badge` (*string*, opcional): Rótulo destacado (`"Mais vendido"`, `"Novo"`, `"Premium"`, `"Em breve"`, `"Esgotado"`).
 - `tags` (*array de strings*, opcional): Tags temáticas para seções de destaque (ex: `["mais-vendidos"]`, `["novidades"]`, `["rituais"]`).
+- `imagem` / `imagemThumb` (*string*): Foto quadrada otimizada para listagens e miniatura.
+- `imagemFull` (*string*, opcional): Foto de arte completa vertical em alta resolução sem cortes para visualização no modal.
 - `tamanhos` (*array*): Lista de variantes físicas do produto.
 
 ### Bloco `tamanhos[]` (Variantes)
 - `tipo` (*string*): Nome da variante (ex: `"Mini"`, `"Padrão"`, `"Único"`, `"10 unidades"`).
-- `preco` (*number*): Valor numérico em formato decimal (ex: `42.9`, `369.0`).
-- `imagem` / `imagemThumb` (*string*): Caminhos para as fotos específicas daquela variante (ex: `assets/images/products/verbena-mini.webp`).
+- `preco` (*number*): Valor numérico em formato decimal (ex: `12.9`, `69.9`, `369.0`).
+- `imagem` / `imagemThumb` / `imagemFull` (*string*): Caminhos para as fotos específicas daquela variante.
 - `esgotado` / `emBreve` (*boolean*, opcional): Permite definir status individualizado por variante.
 
 ---

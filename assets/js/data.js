@@ -40,6 +40,12 @@ export const FALLBACK_DATA = {
       descricao: "Produção artesanal com queima ecológica"
     }
   ],
+  midiaConfig: {
+    usarImagemFullNoModal: true,
+    modoExibicaoModal: "contain",
+    modoExibicaoCards: "cover",
+    proporcaoCards: "1/1"
+  },
   colecaoConfig: {
     eyebrow: "A coleção",
     titulo: "Nossos aromas, seus rituais",

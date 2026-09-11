@@ -211,13 +211,14 @@ class App {
     const notifyWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20ser%20avisado(a)%20quando%20o%20${encodeURIComponent(item.nome)}%20estiver%20dispon%C3%ADvel.`;
     const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(item.nome)}.`;
     const priceDisplay = v.preco ? formatCurrency(v.preco) : '';
-    const imgAlt = `Vela artesanal ${item.nome} — ${item.familia || item.categoria}`;
+    const midiaConfig = this.data.midiaConfig || {};
+    const cardFit = midiaConfig.modoExibicaoCards || 'cover';
 
     return `
       <article class="home-product-card" style="--product-accent: ${item.cor || 'var(--gold)'};" data-card-id="${item.id}" aria-label="${item.nome}">
         <div class="home-product-media" data-action="open-modal" data-id="${item.id}" title="Ver detalhes de ${item.nome}">
           ${item.badge ? `<span class="badge-chip">${item.badge}</span>` : ''}
-          <img src="${v.imagem || item.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300">
+          <img src="${v.imagem || item.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300" style="object-fit:${cardFit};">
           <button type="button" class="card-fav ${isFav ? 'is-fav' : ''}" data-action="toggle-fav" data-id="${item.id}" data-name="${item.nome}" aria-label="${isFav ? 'Remover ' + item.nome + ' dos favoritos' : 'Adicionar ' + item.nome + ' aos favoritos'}" aria-pressed="${isFav}">
             <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="${isFav ? 'currentColor' : 'none'}" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </button>
@@ -548,6 +549,8 @@ class App {
       const esgotadoWaUrl = `https://wa.me/5511963820374?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20previs%C3%A3o%20de%20reposi%C3%A7%C3%A3o%20do%20produto%20${encodeURIComponent(c.nome)}.`;
 
       const imgAlt = `Vela ${c.nome} — ${c.familia || 'Coleção Olivelas'}`;
+      const midiaConfig = this.data.midiaConfig || {};
+      const cardFit = midiaConfig.modoExibicaoCards || 'cover';
 
       return `
         <article class="scent-card" data-card-id="${c.id}" style="--sc: ${c.cor};" aria-label="${c.nome}">
@@ -557,7 +560,7 @@ class App {
           </div>
           <div class="body">
             <div class="thumb-wrap" data-action="open-modal" data-id="${c.id}" title="Clique para ver detalhes de ${c.nome}" role="button" tabindex="0" aria-label="Ver detalhes de ${c.nome}">
-              <img src="${activeVariant.imagem || c.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300">
+              <img src="${activeVariant.imagem || c.imagem}" alt="${imgAlt}" loading="lazy" width="300" height="300" style="object-fit:${cardFit};">
             </div>
             <p class="fam">${c.familia}</p>
             <div class="code"><span>${c.codigo || c.id}</span></div>

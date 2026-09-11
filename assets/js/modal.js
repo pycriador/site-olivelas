@@ -153,10 +153,14 @@ class ProductModal {
     const card = $('#product-modal-content');
     if (!card || !this.currentProduct) return;
 
+    const midiaConfig = window.__olivelasApp?.data?.midiaConfig || FALLBACK_DATA.midiaConfig || {};
+    const useFull = midiaConfig.usarImagemFullNoModal !== false;
+    const modalFit = midiaConfig.modoExibicaoModal || 'contain';
+
     const p = this.currentProduct;
     const isCandle = !!(p.tamanhos && p.tamanhos.length > 0);
     const v = this.selectedVariant || p;
-    const img = v.imagemFull || v.imagem || p.imagemFull || p.imagem;
+    const img = (useFull ? (v.imagemFull || p.imagemFull) : null) || v.imagem || p.imagem;
     const priceFormatted = formatCurrency(v.preco);
     const isEsgotado = Boolean(p.esgotado || (p.badge && p.badge.toLowerCase().includes('esgotado')));
     const isEmBreve = Boolean(p.emBreve || (p.badge && p.badge.toLowerCase().includes('breve')));
@@ -240,7 +244,7 @@ class ProductModal {
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
       <div class="modal-gallery">
-        <img src="${img}" alt="${modalImgAlt}" loading="lazy" width="480" height="480">
+        <img src="${img}" alt="${modalImgAlt}" loading="lazy" width="480" height="480" style="object-fit: ${modalFit};">
       </div>
       <div class="modal-info">
         <div>
